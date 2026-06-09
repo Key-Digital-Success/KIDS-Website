@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@theme {
+  /* Registering custom design tokens under the new v4 CSS standard */
+  --color-brand-blue: #2563EB;
+  --color-brand-purple: #7C3AED;
+  --color-brand-charcoal: #0B0F19;
+  --color-brand-card-dark: #1E293B;
+  
+  /* Registering custom keyframe animations */
+  --animate-blob: blob 7s infinite;
+
+  @keyframes blob {
+    0% { transform: translate(0px, 0px) scale(1); }
+    33% { transform: translate(30px, -50px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+    100% { transform: translate(0px, 0px) scale(1); }
+  }
+}
+
+/* Base style rules using native v4 utility directives */
+@layer base {
+  body {
+    transition-property: color, background-color;
+    transition-duration: 300ms;
+    background-color: #ffffff;
+    color: #0f172a;
+    font-family: sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .dark body {
+    background-color: var(--color-brand-charcoal);
+    color: #f1f5f9;
+  }
+}
+
+/* Custom UI Layout Utilities */
+.glass-card {
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+}
+
+.dark .glass-card {
+  background-color: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(51, 65, 85, 0.5);
+  box-shadow: none;
+}
+
+.glow-gradient {
+  background: radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.15), rgba(124, 58, 237, 0.05), transparent 50%);
+}
