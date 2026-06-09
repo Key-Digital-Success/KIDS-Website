@@ -7,9 +7,9 @@ export function ThemeProviderWrapper({ children }: { children: React.ReactNode }
   return (
     <NextThemesProvider 
       attribute="class" 
-      defaultTheme="dark" 
-      enableSystem={true}
-      disableTransitionOnChange={false} // Allows smooth CSS transitions on toggle
+      defaultTheme="dark"     /* Forces system default initialization straight to dark mode */
+      enableSystem={false}    /* Turning off system overrides prevents light system bars from flashing on load */
+      disableTransitionOnChange={false}
     >
       {children}
     </NextThemesProvider>

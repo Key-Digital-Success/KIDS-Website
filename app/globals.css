@@ -1,11 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-  /* High-Contrast Professional SaaS Design Tokens */
-  --color-brand-blue: #1D4ED8;       /* Refined to an ultra-crisp slate blue for light theme accessibility */
-  --color-brand-purple: #6D28D9;     /* Deep premium royal purple for accessible contrast */
-  --color-brand-charcoal: #030712;   /* Deep midnight cosmic charcoal for dark mode base */
-  --color-brand-card-dark: #1F2937;  /* High-fidelity graphite card backing for dark mode */
+  --color-brand-blue: #2563EB;
+  --color-brand-purple: #7C3AED;
+  --color-brand-charcoal: #0B0F19;
+  --color-brand-card-dark: #1E293B;
   
   --animate-blob: blob 7s infinite;
 
@@ -17,52 +16,28 @@
   }
 }
 
-/* Base Body Design System Typography & Alignment Resets */
 @layer base {
   body {
-    /* Soft off-white canvas prevents screen glare while ensuring balanced modern aesthetics */
-    @apply bg-[#F4F7FA] text-slate-900 dark:bg-brand-charcoal dark:text-slate-100 transition-colors duration-500 ease-in-out antialiased;
-  }
-  
-  /* Hardened Text Contrast Matrix (Fixes all contrast drops across components) */
-  h1, h2, h3, h4 {
-    @apply text-[#0F172A] dark:text-white font-extrabold tracking-tight transition-colors duration-500;
-  }
-  
-  p {
-    @apply text-slate-700 dark:text-slate-300 font-medium transition-colors duration-500;
-  }
-  
-  a, button {
-    @apply transition-all duration-300 ease-in-out;
+    @apply transition-colors duration-500 bg-white text-slate-900 dark:bg-brand-charcoal dark:text-slate-100 antialiased;
   }
 }
 
-/* 🏢 PREMIUM BALANCED GLASSMORPHISM LIGHT CARDS */
+/* Stable Working Glassmorphism Cards */
 .glass-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(241, 245, 249, 0.9) 100%);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  /* Bounding border matches the slate text density, generating absolute visual hierarchy */
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  box-shadow: 
-    0 4px 6px -1px rgba(15, 23, 42, 0.02), 
-    0 10px 25px -5px rgba(15, 23, 42, 0.04);
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* 🌌 HIGH-CONTRAST GRAPHITE DARK CARDS */
 .dark .glass-card {
-  background: linear-gradient(135deg, rgba(31, 41, 55, 0.75) 0%, rgba(17, 24, 39, 0.65) 100%);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(75, 85, 99, 0.45);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  background-color: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(51, 65, 85, 0.5);
+  box-shadow: none;
 }
 
-/* Soft ambient backdrop lighting glow fields */
 .glow-gradient {
-  background: radial-gradient(circle at 50% 50%, rgba(29, 78, 216, 0.06), rgba(109, 40, 217, 0.02), transparent 60%);
-}
-.dark .glow-gradient {
-  background: radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.14), rgba(124, 58, 237, 0.04), transparent 60%);
+  background: radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.15), rgba(124, 58, 237, 0.05), transparent 50%);
 }
