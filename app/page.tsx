@@ -3,6 +3,7 @@
 import HeroSection from "@/components/HeroSection";
 import TimelineRoadmap from "@/components/TimelineRoadmap";
 import { motion, Variants } from "framer-motion";
+import { FaWhatsapp } from "react-icons/fa";
 import { 
   CheckCircle2, 
   MessageCircle, 
@@ -466,43 +467,44 @@ export default function HomePage() {
         `}</style>
       </section>
 
-      {/* ── CONVERSION BOTTOM ANCHOR (WITH EXTENDED VECTORS) ── */}
-      <section className="py-20 max-w-5xl mx-auto px-4 mb-16 relative overflow-hidden">
-        {/* 30% Saturated Floating Vectors under final enrollment card layout */}
-        <motion.div custom={{ y: [0, -20, 0], x: [0, 20, 0], duration: 7 }} variants={floatAnimation} initial="initial" animate="animate" className="absolute top-4 left-0 text-brand-blue/30 dark:text-brand-blue/20 pointer-events-none hidden lg:block">
-          <Check className="w-16 h-16 stroke-[2]" />
-        </motion.div>
-        <motion.div custom={{ y: [0, 25, 0], x: [0, -25, 0], rotate: [0, 45, 0], duration: 9 }} variants={floatAnimation} initial="initial" animate="animate" className="absolute bottom-4 right-0 text-brand-purple/30 dark:text-brand-purple/20 pointer-events-none hidden lg:block">
-          <Zap className="w-14 h-14 stroke-[1.5]" />
-        </motion.div>
-        <motion.div custom={{ y: [0, -15, 0], x: [0, -15, 0], duration: 8 }} variants={floatAnimation} initial="initial" animate="animate" className="absolute top-1/2 right-[15%] text-slate-400/25 dark:text-slate-600/10 pointer-events-none hidden xl:block">
-          <Award className="w-20 h-20 stroke-[1.2]" />
-        </motion.div>
+     {/* ── CONVERSION BOTTOM ANCHOR (WITH EXTENDED VECTORS) ── */}
+<section className="py-20 max-w-5xl mx-auto px-4 mb-16 relative overflow-hidden">
+  {/* 30% Saturated Floating Vectors under final enrollment card layout */}
+  <motion.div custom={{ y: [0, -20, 0], x: [0, 20, 0], duration: 7 }} variants={floatAnimation} initial="initial" animate="animate" className="absolute top-4 left-0 text-brand-blue/30 dark:text-brand-blue/20 pointer-events-none hidden lg:block">
+    <Check className="w-16 h-16 stroke-[2]" />
+  </motion.div>
+  <motion.div custom={{ y: [0, 25, 0], x: [0, -25, 0], rotate: [0, 45, 0], duration: 9 }} variants={floatAnimation} initial="initial" animate="animate" className="absolute bottom-4 right-0 text-brand-purple/30 dark:text-brand-purple/20 pointer-events-none hidden lg:block">
+    <Zap className="w-14 h-14 stroke-[1.5]" />
+  </motion.div>
+  <motion.div custom={{ y: [0, -15, 0], x: [0, -15, 0], duration: 8 }} variants={floatAnimation} initial="initial" animate="animate" className="absolute top-1/2 right-[15%] text-slate-400/25 dark:text-slate-600/10 pointer-events-none hidden xl:block">
+    <Award className="w-20 h-20 stroke-[1.2]" />
+  </motion.div>
 
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="bg-gradient-to-br from-brand-blue via-brand-purple to-brand-blue bg-[size:150%_auto] p-10 md:p-16 rounded-[2.5rem] text-white text-center shadow-2xl relative overflow-hidden group z-10"
-        >
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.15),transparent_50%)]" />
-          <h2 className="text-3xl md:text-5xl font-black mb-4 relative z-10 tracking-tight text-white">Accelerate Your Enrollment Pathway</h2>
-          <p className="text-slate-100 max-w-2xl mx-auto mb-10 text-base relative z-10 leading-relaxed font-medium text-justify" style={{ textJustify: "inter-word" }}>
-            Skip complex multi-layer registration forms. Directly interact with admissions support workflows securely inside WhatsApp.
-          </p>
-          <motion.a
-            whileHover={{ scale: 1.05, boxShadow: "0 20px 30px rgba(0,0,0,0.15)" }}
-            whileTap={{ scale: 0.95 }}
-            href="https://wa.me/94771234567"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2.5 px-10 py-5 bg-white text-brand-blue font-extrabold rounded-2xl shadow-xl transition-shadow relative z-10 cursor-pointer"
-          >
-            <MessageCircle className="w-5 h-5 fill-current" /> Chat via WhatsApp Now
-          </motion.a>
-        </motion.div>
-      </section>
+  <motion.div 
+    initial={{ opacity: 0, scale: 0.95 }}
+    whileInView={{ opacity: 1, scale: 1 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.6 }}
+    className="bg-gradient-to-br from-brand-blue via-brand-purple to-brand-blue bg-[size:150%_auto] p-10 md:p-16 rounded-[2.5rem] text-white text-center shadow-2xl relative overflow-hidden group z-10"
+  >
+    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.15),transparent_50%)]" />
+    <h2 className="text-3xl md:text-5xl font-black mb-4 relative z-10 tracking-tight text-white">Accelerate Your Enrollment Pathway</h2>
+    <p className="text-slate-100 max-w-2xl mx-auto mb-10 text-base relative z-10 leading-relaxed font-medium text-justify" style={{ textJustify: "inter-word" }}>
+      Skip complex multi-layer registration forms. Directly interact with admissions support workflows securely inside WhatsApp.
+    </p>
+    <motion.a
+      whileHover={{ scale: 1.05, boxShadow: "0 20px 30px rgba(0,0,0,0.15)" }}
+      whileTap={{ scale: 0.95 }}
+      href="https://wa.me/94771234567"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center gap-3 px-10 py-5 bg-white text-brand-blue font-extrabold rounded-2xl shadow-xl transition-shadow relative z-10 cursor-pointer"
+    >
+      <FaWhatsapp className="w-6 h-6 text-[#25D366]" /> 
+      <span>Chat via WhatsApp Now</span>
+    </motion.a>
+  </motion.div>
+</section>
     </>
   );
 }

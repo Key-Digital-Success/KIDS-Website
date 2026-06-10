@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import ThemeToggle from "./ThemeToggle";
 import { Menu, X, ArrowUpRight, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -86,8 +85,7 @@ export default function Navbar() {
               ))}
             </div>
 
-            <div className="flex items-center space-x-4 border-l border-slate-200 dark:border-slate-800 pl-6">
-              <ThemeToggle />
+            <div className="flex items-center border-l border-slate-200 dark:border-slate-800 pl-6">
               <motion.a
                 whileHover={{ scale: 1.03, boxShadow: "0 10px 25px -5px rgba(29,78,216,0.35)" }}
                 whileTap={{ scale: 0.98 }}
@@ -102,8 +100,7 @@ export default function Navbar() {
           </div>
 
           {/* Mobile Hamburg Trigger Toggle Control */}
-          <div className="flex items-center space-x-4 md:hidden">
-            <ThemeToggle />
+          <div className="flex items-center md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="p-2.5 rounded-xl text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 active:scale-95 transition-transform"
