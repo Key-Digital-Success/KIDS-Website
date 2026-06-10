@@ -96,7 +96,7 @@ export default function ProgramsPage() {
               <motion.a
                 whileHover={{ scale: 1.02, backgroundColor: "#1e40af", color: "#ffffff" }}
                 whileTap={{ scale: 0.98 }}
-                href={`https://wa.me/94771234567?text=M365%20Info%3A%20${encodeURIComponent(course.title)}`}
+                href={`https://wa.me/94710525968?text=M365%20Info%3A%20${encodeURIComponent(course.title)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full text-center py-4 bg-brand-blue text-white text-sm font-extrabold rounded-2xl transition-all block shadow-md shadow-brand-blue/10"
@@ -183,7 +183,7 @@ export default function ProgramsPage() {
             <motion.a 
               whileHover={{ scale: 1.02, backgroundColor: "#046648" }}
               whileTap={{ scale: 0.98 }}
-              href="https://wa.me/94771234567?text=Cambridge%20YLE%20Admissions"
+              href="https://wa.me/94710525968?text=Cambridge%20YLE%20Admissions"
               target="_blank"
               rel="noopener noreferrer"
               className="w-full text-center py-4 bg-emerald-600 text-white text-sm font-extrabold rounded-2xl shadow-lg shadow-emerald-600/10 transition-all cursor-pointer"
@@ -225,7 +225,7 @@ export default function ProgramsPage() {
             <motion.a 
               whileHover={{ scale: 1.02, backgroundColor: "#5b21b6" }}
               whileTap={{ scale: 0.98 }}
-              href="https://wa.me/94771234567?text=Cambridge%20Assessments%20Admissions"
+              href="https://wa.me/94710525968?text=Cambridge%20Assessments%20Admissions"
               target="_blank"
               rel="noopener noreferrer"
               className="w-full text-center py-4 bg-brand-purple text-white text-sm font-extrabold rounded-2xl shadow-lg shadow-brand-purple/10 transition-all cursor-pointer"

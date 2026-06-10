@@ -495,7 +495,7 @@ export default function HomePage() {
     <motion.a
       whileHover={{ scale: 1.05, boxShadow: "0 20px 30px rgba(0,0,0,0.15)" }}
       whileTap={{ scale: 0.95 }}
-      href="https://wa.me/94771234567"
+      href="https://wa.me/94710525968"
       target="_blank"
       rel="noopener noreferrer"
       className="inline-flex items-center gap-3 px-10 py-5 bg-white text-brand-blue font-extrabold rounded-2xl shadow-xl transition-shadow relative z-10 cursor-pointer"

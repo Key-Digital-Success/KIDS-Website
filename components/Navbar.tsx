@@ -89,7 +89,7 @@ export default function Navbar() {
               <motion.a
                 whileHover={{ scale: 1.03, boxShadow: "0 10px 25px -5px rgba(29,78,216,0.35)" }}
                 whileTap={{ scale: 0.98 }}
-                href="https://wa.me/94771234567"
+                href="https://wa.me/94710525968"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 px-5 py-2.5 text-sm font-extrabold text-white bg-gradient-to-r from-brand-blue to-brand-purple rounded-xl transition-shadow shadow-md"
@@ -136,7 +136,7 @@ export default function Navbar() {
                 {link.name}
               </Link>
             ))}
-            <a href="https://wa.me/94771234567" target="_blank" rel="noopener noreferrer" className="block text-center w-full mt-4 px-5 py-3.5 font-black text-white bg-brand-blue rounded-xl shadow-lg">
+            <a href="https://wa.me/94710525968" target="_blank" rel="noopener noreferrer" className="block text-center w-full mt-4 px-5 py-3.5 font-black text-white bg-brand-blue rounded-xl shadow-lg">
               Enroll via WhatsApp
             </a>
           </motion.div>
