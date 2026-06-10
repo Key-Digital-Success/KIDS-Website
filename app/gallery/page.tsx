@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { X, Expand } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
+// Modern high-contrast source image tokens with absolute heights
 const galleryData = [
   { id: 1, category: "Classroom", title: "Modern Computing Lab Layout", url: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80" },
   { id: 2, category: "Students", title: "Interactive Project Lab Group", url: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" },
@@ -18,72 +19,93 @@ const categories = ["All", "Classroom", "Students", "Certificates", "Events"];
 export default function GalleryPage() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  // Prevent client/server state hydration issues on load
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const filteredImages = activeCategory === "All" 
     ? galleryData 
     : galleryData.filter(img => img.category === activeCategory);
 
+  if (!mounted) {
+    return <div className="min-h-screen bg-transparent" />;
+  }
+
   return (
-    <div className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[75vh]">
+    <div className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[85vh]">
+      
+      {/* Page Title Header */}
       <div className="text-center max-w-2xl mx-auto mb-12">
-        <h1 className="text-4xl md:text-5xl font-black tracking-tight">KIDS Campus Gallery</h1>
-        <p className="mt-3 text-sm md:text-base text-slate-500 dark:text-slate-400">Visual highlights of cloud labs, enterprise seminars, and student milestones.</p>
+        <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-3">
+          KIDS Campus Gallery
+        </h1>
+        <p className="text-sm md:text-base font-medium">
+          Visual highlights of cloud labs, enterprise seminars, and student milestones.
+        </p>
       </div>
 
-      {/* Category Tab Selector Pipeline with Layout Animations */}
+      {/* Category Tab Selectors */}
       <div className="flex flex-wrap items-center justify-center gap-2.5 mb-14">
         {categories.map((cat) => (
           <button
             key={cat}
             onClick={() => setActiveCategory(cat)}
-            className={`px-5 py-2.5 text-xs font-bold rounded-xl relative transition-all duration-300 border ${
+            className={`px-5 py-2.5 text-xs font-bold rounded-xl border transition-all duration-300 cursor-pointer ${
               activeCategory === cat 
-                ? "border-brand-blue text-white bg-brand-blue shadow-md shadow-brand-blue/20" 
+                ? "border-brand-blue bg-brand-blue text-white shadow-lg shadow-brand-blue/20" 
                 : "border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
             }`}
           >
-            <span className="relative z-10">{cat}</span>
+            {cat}
           </button>
         ))}
       </div>
 
-      {/* Grid Container Component */}
-      <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      {/* Grid Canvas Layout Framework */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 auto-rows-max">
         <AnimatePresence mode="popLayout">
           {filteredImages.map((item) => (
             <motion.div 
               layout
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
+              exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               key={item.id} 
               onClick={() => setLightboxImage(item.url)}
-              className="group glass-card rounded-3xl overflow-hidden border border-slate-200/60 dark:border-slate-800/80 cursor-pointer relative shadow-lg hover:border-brand-blue/30 transition-all bg-white dark:bg-brand-card-dark/20"
+              className="group glass-card rounded-3xl overflow-hidden border border-slate-200/60 dark:border-slate-800/80 cursor-pointer relative shadow-lg bg-white dark:bg-brand-card-dark/20 flex flex-col w-full"
             >
-              <div className="aspect-video w-full relative bg-slate-100 dark:bg-slate-900 overflow-hidden">
+              <div className="aspect-video w-full relative bg-slate-100 dark:bg-slate-900 overflow-hidden shrink-0">
                 <img 
                   src={item.url} 
                   alt={item.title}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-brand-charcoal/50 opacity-0 group-hover:opacity-100 backdrop-blur-xs transition-opacity duration-300 flex items-center justify-center">
-                  <motion.div initial={{ scale: 0.8 }} whileHover={{ scale: 1.1 }} className="p-3.5 bg-white/20 backdrop-blur-md rounded-full text-white shadow-xl">
-                    <Expand className="w-5 h-5" />
-                  </motion.div>
+                <div className="absolute inset-0 bg-brand-charcoal/40 opacity-0 group-hover:opacity-100 backdrop-blur-xs transition-opacity duration-300 flex items-center justify-center">
+                  <div className="p-3 bg-white/25 backdrop-blur-md rounded-full text-white shadow-xl">
+                    <Expand className="w-4 h-4" />
+                  </div>
                 </div>
               </div>
-              <div className="p-5 border-t border-slate-100/50 dark:border-slate-800/40">
-                <span className="text-[10px] font-black text-brand-purple uppercase tracking-widest">{item.category}</span>
-                <h3 className="text-sm font-bold text-slate-800 dark:text-slate-200 mt-0.5 truncate">{item.title}</h3>
+              
+              <div className="p-5 flex-grow flex flex-col justify-center border-t border-slate-100/50 dark:border-slate-800/40">
+                <span className="text-[10px] font-black text-brand-purple uppercase tracking-widest">
+                  {item.category}
+                </span>
+                <h3 className="text-sm font-bold mt-1 truncate">
+                  {item.title}
+                </h3>
               </div>
             </motion.div>
           ))}
         </AnimatePresence>
-      </motion.div>
+      </div>
 
-      {/* Lightbox Preview Modal Module Component with Scale + Fade In */}
+      {/* Lightbox Modal Box */}
       <AnimatePresence>
         {lightboxImage && (
           <motion.div 
@@ -91,7 +113,7 @@ export default function GalleryPage() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setLightboxImage(null)}
-            className="fixed inset-0 bg-brand-charcoal/90 backdrop-blur-xl z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 bg-brand-charcoal/90 backdrop-blur-md z-50 flex items-center justify-center p-4 cursor-zoom-out"
           >
             <button 
               onClick={() => setLightboxImage(null)}
@@ -104,7 +126,7 @@ export default function GalleryPage() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
               transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="max-w-4xl max-h-[80vh] overflow-hidden rounded-3xl shadow-2xl border border-white/10" 
+              className="max-w-4xl max-h-[80vh] overflow-hidden rounded-3xl shadow-2xl border border-white/10 select-none" 
               onClick={(e) => e.stopPropagation()}
             >
               <img src={lightboxImage} alt="Expanded snapshot display" className="w-full h-auto max-h-[80vh] object-contain" />
