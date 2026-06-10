@@ -9,9 +9,9 @@ export default function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  // Eliminate hydration discrepancies by mounting cleanly on the client side
+  // Defer mounting to guarantee clean theme selection on client load
   useEffect(() => setMounted(true), []);
-  if (!mounted) return <div className="w-10 h-10 rounded-xl bg-slate-100/50 dark:bg-slate-800/50" />;
+  if (!mounted) return <div className="w-10 h-10 rounded-xl bg-slate-200/20 animate-pulse" />;
 
   const isDark = resolvedTheme === "dark";
 
@@ -20,8 +20,8 @@ export default function ThemeToggle() {
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 transition-colors border border-slate-200/40 dark:border-slate-700/30 focus:outline-none relative overflow-hidden"
-      aria-label="Toggle Theme Schema"
+      className="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 transition-colors border border-slate-200/40 dark:border-slate-700/30 focus:outline-none relative overflow-hidden cursor-pointer"
+      aria-label="Toggle Website Color Theme"
     >
       <motion.div
         key={isDark ? "dark" : "light"}

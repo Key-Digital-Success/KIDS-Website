@@ -20,8 +20,8 @@ const STAGES: Stage[] = [
     stage: "Stage 01",
     title: "Introduction to Microsoft 365 Certification",
     duration: "60 Hours",
-    description: "Learn essential Microsoft 365 workplace skills including Word, Excel, PowerPoint, Outlook, Teams, OneDrive, and SharePoint. The stage concludes with a practical mini-project to demonstrate real-world productivity skills.",
-    highlights: ["essential Microsoft 365", "Word", "Excel", "PowerPoint", "Outlook", "Teams", "OneDrive", "SharePoint", "mini-project", "real-world productivity skills"],
+    description: "Learn core Microsoft 365 skills like Word, Excel, PowerPoint, Outlook, Teams, OneDrive, and SharePoint. Wrap it up with a hands-on mini project built for real-world productivity.",
+    highlights: ["core Microsoft 365 skills", "Word", "Excel", "PowerPoint", "Outlook", "Teams", "OneDrive", "SharePoint", "hands-on mini project", "real-world productivity"],
     color: "from-blue-500 to-cyan-500",
     glow: "rgba(37, 99, 235, 0.15)"
   },
@@ -30,8 +30,8 @@ const STAGES: Stage[] = [
     stage: "Stage 02",
     title: "Advanced Microsoft 365 Certification",
     duration: "80 Hours",
-    description: "Master advanced Excel, workflow automation, productivity tools, and Microsoft 365 business solutions. Students also gain practical knowledge in MFA, DLP, and modern security awareness practices.",
-    highlights: ["advanced Excel", "workflow automation", "productivity tools", "Microsoft 365 business solutions", "MFA", "DLP", "modern security awareness practices"],
+    description: "Upgrade your skills with advanced Excel, automation, and Microsoft 365 tools. Also learn MFA, DLP, and modern security basics used in real workplaces.",
+    highlights: ["advanced Excel", "automation", "Microsoft 365 tools", "MFA", "DLP", "modern security basics", "real workplaces"],
     color: "from-indigo-500 to-purple-500",
     glow: "rgba(124, 58, 237, 0.15)"
   },
@@ -40,8 +40,8 @@ const STAGES: Stage[] = [
     stage: "Stage 03",
     title: "Microsoft 365 Fundamentals (MS-900)",
     duration: "1 Day Prep",
-    description: "Prepare for the globally recognized MS-900 certification covering Microsoft 365 cloud concepts, services, security, compliance, and licensing fundamentals.",
-    highlights: ["globally recognized MS-900 certification", "Microsoft 365 cloud concepts", "services", "security", "compliance", "licensing fundamentals"],
+    description: "Fast-track prep for MS-900 covering cloud basics, Microsoft 365 services, security, compliance, and licensing essentials.",
+    highlights: ["Fast-track prep for MS-900", "cloud basics", "Microsoft 365 services", "security", "compliance", "licensing essentials"],
     color: "from-purple-500 to-pink-500",
     glow: "rgba(219, 39, 119, 0.15)"
   },
@@ -50,15 +50,14 @@ const STAGES: Stage[] = [
     stage: "Stage 04",
     title: "Microsoft 365 Administrator (MS-102)",
     duration: "4 Days Bootcamp",
-    description: "Build enterprise-level Microsoft 365 administration skills including identity management, tenant operations, and cloud security. This stage prepares learners for Microsoft 365 Administrator career roles.",
-    highlights: ["enterprise-level Microsoft 365 administration skills", "identity management", "tenant operations", "cloud security", "Microsoft 365 Administrator career roles"],
+    description: "Hands-on admin training for Microsoft 365 including identity management, tenant setup, and cloud security—built for real enterprise roles.",
+    highlights: ["Hands-on admin training", "Microsoft 365", "identity management", "tenant setup", "cloud security", "real enterprise roles"],
     color: "from-pink-500 to-rose-500",
     glow: "rgba(244, 63, 94, 0.15)"
   }
 ];
 
 export default function TimelineRoadmap() {
-  // Parsing engine using sorted lengths to highlight exact phrases first
   const renderHighlightedText = (text: string, highlights: string[]) => {
     if (!highlights.length) return text;
 
@@ -74,7 +73,6 @@ export default function TimelineRoadmap() {
         return (
           <strong 
             key={index} 
-            // Cards are dark now, so text remains white across both dark/light viewports
             className="font-bold text-white"
           >
             {part}
@@ -86,67 +84,72 @@ export default function TimelineRoadmap() {
   };
 
   return (
-    <section className="py-16 relative overflow-hidden bg-slate-50 dark:bg-transparent">
+    <section className="py-20 relative overflow-hidden bg-slate-50 dark:bg-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Heading */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
           <div>
-            <span className="text-[10px] font-bold uppercase tracking-widest text-brand-blue bg-brand-blue/10 px-2.5 py-1 rounded-full border border-brand-blue/20">
+            <span className="text-xs font-normal uppercase tracking-widest text-brand-blue bg-brand-blue/10 px-3 py-1.5 rounded-full border border-brand-blue/20">
               Career Pipeline
             </span>
-            <h2 className="text-2xl md:text-4xl font-black tracking-tight mt-2 text-slate-900 dark:text-white">
+            <h2 className="text-3xl md:text-5xl font-black tracking-tight mt-3 text-slate-900 dark:text-white">
               Microsoft 365 Professional Pathway
             </h2>
           </div>
-          <p className="text-xs md:text-sm font-medium text-slate-500 dark:text-slate-400 max-w-md md:text-right">
+          <p 
+            className="text-base font-medium text-slate-600 dark:text-slate-400 max-w-lg md:text-right text-justify"
+            style={{ textJustify: "inter-word" }}
+          >
             The clean, high-impact pipeline designed to transition students directly into industry-ready cloud administrators.
           </p>
         </div>
 
-        {/* Horizontal Container for Desktop / Condensed Grid for Mobile */}
+        {/* 4-Stage Grid Area */}
         <div className="relative">
-          {/* Subtle connecting background line on desktop */}
-          <div className="absolute top-[26px] left-0 right-0 h-[2px] bg-linear-to-r from-blue-500 via-purple-500 to-rose-500 opacity-20 hidden md:block" />
+          <div className="absolute top-[28px] left-4 right-4 h-[2px] bg-gradient-to-r from-blue-500 via-purple-500 to-rose-500 opacity-20 hidden md:block" />
 
-          <div className="flex flex-col md:flex-row gap-6 overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-slate-200 dark:scrollbar-thumb-slate-800 snap-x">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
             {STAGES.map((item, idx) => {
               const Icon = item.icon;
               return (
                 <motion.div 
                   key={idx}
-                  initial={{ opacity: 0, y: 15 }}
+                  initial={{ opacity: 0, y: 25 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: idx * 0.05 }}
-                  className="w-full md:w-[280px] shrink-0 snap-start"
+                  transition={{ duration: 0.6, delay: idx * 0.1 }}
+                  className="w-full flex flex-col justify-between"
                 >
-                  {/* Icon Node Indicator */}
-                  <div className="hidden md:flex items-center justify-center w-12 h-12 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 relative z-20 mb-4 shadow-xs mx-auto">
+                  {/* Icon Indicator */}
+                  <div className="hidden md:flex items-center justify-center w-12 h-12 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 relative z-20 mb-6 shadow-sm mx-auto transition-transform">
                     <Icon className="w-5 h-5 text-slate-700 dark:text-slate-300" />
                   </div>
 
-                  {/* Gradient Card Body: Always Dark slate in light theme, adapts dynamically in dark theme */}
+                  {/* Premium Dark Card Matrix */}
                   <div 
-                    className="p-5 rounded-2xl relative group min-h-[260px] flex flex-col justify-between border border-slate-800 bg-gradient-to-br from-slate-900 to-slate-950 dark:from-slate-900/90 dark:to-slate-950/90 backdrop-blur-md"
+                    className="p-6 rounded-[2rem] relative group min-h-[300px] flex flex-col justify-between border border-slate-800 bg-gradient-to-br from-slate-900 to-slate-950 dark:from-slate-900/90 dark:to-slate-950/90 backdrop-blur-md transition-transform duration-300 hover:-translate-y-1"
                     style={{ boxShadow: `0 20px 40px -15px ${item.glow}` }}
                   >
                     <div>
-                      <div className="flex items-center justify-between gap-2 mb-3">
-                        <span className={`text-[9px] font-black px-2 py-0.5 rounded bg-linear-to-r ${item.color} text-white uppercase tracking-wider`}>
+                      <div className="flex items-center justify-between gap-2 mb-4">
+                        <span className={`text-[10px] font-black px-2.5 py-1 rounded bg-gradient-to-r ${item.color} text-white uppercase tracking-wider`}>
                           {item.stage}
                         </span>
-                        <div className="flex items-center gap-1 text-[10px] font-bold text-slate-400">
-                          <Clock className="w-3 h-3" />
+                        <div className="flex items-center gap-1.5 text-xs font-bold text-slate-400">
+                          <Clock className="w-3.5 h-3.5" />
                           {item.duration}
                         </div>
                       </div>
 
-                      <h3 className="text-base font-bold leading-tight mb-3 text-white">
+                      <h3 className="text-lg font-bold leading-snug mb-3 text-white">
                         {item.title}
                       </h3>
                       
-                      <p className="text-xs font-medium leading-relaxed">
+                      <p 
+                        className="text-sm font-medium leading-relaxed text-slate-300 text-justify"
+                        style={{ textJustify: "inter-word" }}
+                      >
                         {renderHighlightedText(item.description, item.highlights)}
                       </p>
                     </div>
