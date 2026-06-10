@@ -7,8 +7,8 @@ export function ThemeProviderWrapper({ children }: { children: React.ReactNode }
   return (
     <NextThemesProvider 
       attribute="class" 
-      defaultTheme="dark"     /* Forces system default initialization straight to dark mode */
-      enableSystem={false}    /* Turning off system overrides prevents light system bars from flashing on load */
+      defaultTheme="dark"     /* Forces dark mode on first load */
+      enableSystem={false}    /* Disables system sync to ensure your default stays firm */
       disableTransitionOnChange={false}
     >
       {children}
