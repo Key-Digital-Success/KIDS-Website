@@ -22,7 +22,9 @@ import {
   Laptop,
   Briefcase,
   Layers3,
-  Award
+  Award,
+  TrendingUp,
+  Flame
 } from "lucide-react";
 
 const staticTestimonials = [
@@ -82,15 +84,15 @@ export default function HomePage() {
         </motion.div>
 
         <div className="text-center md:text-left mb-10 relative z-10">
-          <span className="text-xs font-normal uppercase tracking-widest text-brand-blue bg-brand-blue/10 px-3 py-1.5 rounded-full border border-brand-blue/20">
-            Institutional Value
+          <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-brand-blue bg-brand-blue/10 px-3 py-1.5 rounded-full border border-brand-blue/20">
+            <Award className="w-3.5 h-3.5" /> Institutional Value
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-3 tracking-tight text-white">
             Why Choose KIDS?
           </h2>
         </div>
 
-        {/* 🛠️ Tablet Fix: Responsive grids scaling flawlessly from 1 to 2, then to 3, then 4 layout spaces */}
+        {/* Responsive Grid */}
         <motion.div 
           variants={containerVariants}
           initial="hidden"
@@ -261,7 +263,9 @@ export default function HomePage() {
                 💼
               </div>
               <div>
-                <div className="text-xs font-black text-cyan-400 uppercase tracking-widest mb-0.5">Career Outcome</div>
+                <div className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-cyan-400 mb-1">
+                  <TrendingUp className="w-3.5 h-3.5" /> Career Pipeline
+                </div>
                 <h4 className="text-xl font-black text-white tracking-tight">Microsoft 365 Administrator</h4>
               </div>
             </div>
@@ -286,8 +290,8 @@ export default function HomePage() {
         </motion.div>
 
         <div className="text-center md:text-left mb-10 relative z-10">
-          <span className="text-xs font-normal uppercase tracking-widest text-brand-blue bg-brand-blue/10 px-3 py-1.5 rounded-full border border-brand-blue/20">
-            Programs Ecosystem
+          <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-brand-blue bg-brand-blue/10 px-3 py-1.5 rounded-full border border-brand-blue/20">
+            <Globe className="w-3.5 h-3.5" /> Programs Ecosystem
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-3 tracking-tight text-white">
             Cambridge English Pathway
@@ -361,7 +365,7 @@ export default function HomePage() {
             </div>
           </motion.div>
 
-          {/* Column B Card: Cambridge Assessments (Fixed lightbg/darkbg mismatch setup) */}
+          {/* Column B Card: Cambridge Assessments */}
           <motion.div
             variants={itemVariants}
             whileHover={{ y: -6 }}
@@ -401,15 +405,15 @@ export default function HomePage() {
         <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-gradient-to-br from-brand-blue/5 to-purple-500/5 rounded-full blur-3xl pointer-events-none" />
         
         <div className="text-center md:text-left mb-10 relative z-10">
-          <span className="text-xs font-normal uppercase tracking-widest text-brand-blue bg-brand-blue/10 px-3 py-1.5 rounded-full border border-brand-blue/20">
-            Core Architecture
+          <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-brand-blue bg-brand-blue/10 px-3 py-1.5 rounded-full border border-brand-blue/20">
+            <Layers className="w-3.5 h-3.5" /> Core Architecture
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-3 tracking-tight text-white">
             Our Training Methodology
           </h2>
         </div>
 
-        {/* 🛠️ Tablet Fix: Handled 3 column layout safely on md viewports with balanced layout profiles */}
+        {/* Content Layout Grid */}
         <motion.div 
           variants={containerVariants}
           initial="hidden"
@@ -467,9 +471,8 @@ export default function HomePage() {
             <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
             
             <div className="flex-1 relative z-10">
-              <h3 className="text-xs font-black uppercase tracking-widest text-cyan-400 mb-4 flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-cyan-400 inline-block animate-pulse shadow-sm shadow-cyan-400" />
-                Parent Confidence Node
+              <h3 className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-cyan-400 mb-4">
+                <ShieldCheck className="w-3.5 h-3.5" /> Parent Confidence Node
               </h3>
               <div className="relative pl-6 border-l-2 border-cyan-500/40 py-1">
                 <Quote className="w-4 h-4 text-cyan-400 absolute left-0 top-0 -translate-x-1/2 -mt-1 bg-slate-900 p-0.5 rounded-full" />
@@ -492,13 +495,12 @@ export default function HomePage() {
       <section className="py-12 md:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-gradient-to-tr from-brand-blue/5 via-brand-purple/5 to-transparent rounded-full blur-3xl pointer-events-none opacity-40" />
 
-        {/* 🛠️ Tablet Fix: Changed structure to vertical layout on screens smaller than 1024px (`lg`) instead of messy single columns on `md` */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 relative z-10 items-start">
           
           {/* Header text container block */}
           <div className="lg:col-span-4 lg:sticky lg:top-24 text-center lg:text-left">
-            <span className="text-xs font-bold tracking-widest text-brand-purple uppercase bg-brand-purple/10 px-3 py-1.5 rounded-full">
-              Ecosystem Reviews
+            <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-brand-purple bg-brand-purple/10 px-3 py-1.5 rounded-full">
+              <MessageSquare className="w-3.5 h-3.5" /> Ecosystem Reviews
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-4 mb-4 tracking-tight leading-tight text-white">
               What our students say.
@@ -518,7 +520,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Testimonial container layout blocks (Grid shifts to dual column on sm/md and maintains full layout alignment code profiles) */}
+          {/* Testimonial grid setup */}
           <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6 items-start">
             {/* Testimonial Card 1 */}
             <motion.div

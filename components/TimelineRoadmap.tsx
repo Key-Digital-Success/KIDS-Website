@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Layers, Network, Terminal, Award, Clock, LucideIcon } from "lucide-react";
+import { Layers, Network, Terminal, Award, Clock, LucideIcon, TrendingUp } from "lucide-react";
 
 interface Stage {
   icon: LucideIcon;
@@ -90,8 +90,8 @@ export default function TimelineRoadmap() {
         {/* Section Heading */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
           <div>
-            <span className="text-xs font-normal uppercase tracking-widest text-brand-blue bg-brand-blue/10 px-3 py-1.5 rounded-full border border-brand-blue/20">
-              Career Pipeline
+            <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-brand-blue bg-brand-blue/10 px-3 py-1.5 rounded-full border border-brand-blue/20">
+              <TrendingUp className="w-3.5 h-3.5" /> Career Pipeline
             </span>
             <h2 className="text-3xl md:text-5xl font-black tracking-tight mt-3 text-slate-900 dark:text-white">
               Microsoft 365 Professional Pathway
