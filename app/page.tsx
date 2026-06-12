@@ -14,17 +14,11 @@ import {
   GraduationCap, 
   Quote,
   Terminal,
-  Cpu,
-  Globe,
-  Layers,
-  HelpCircle,
-  MessageSquare,
   Laptop,
   Briefcase,
   Layers3,
-  Award,
-  TrendingUp,
-  Flame
+  Cpu,
+  Award
 } from "lucide-react";
 
 const staticTestimonials = [
@@ -67,25 +61,26 @@ const floatAnimation: Variants = {
 
 export default function HomePage() {
   return (
-    <div className="bg-[#0B0F19] text-slate-100 min-h-screen font-sans antialiased overflow-x-hidden">
+    /* Global backdrop configured to pure rich black */
+    <div className="bg-black text-slate-200 min-h-screen font-sans antialiased overflow-x-hidden">
       <HeroSection />
 
       {/* 🌟 2. Why Choose KIDS? Section */}
       <section className="py-12 md:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        {/* Ambient Glow Layer */}
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-gradient-to-tr from-brand-blue/10 to-brand-purple/5 rounded-full blur-3xl pointer-events-none" />
+        {/* Ambient Glow Layer - Enhanced for pure black contrast */}
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-gradient-to-tr from-amber-500/10 to-blue-600/10 rounded-full blur-3xl pointer-events-none" />
         
         {/* Floating Vectors */}
-        <motion.div custom={{ y: [0, -20, 0], x: [0, 15, 0], duration: 7 }} variants={floatAnimation} initial="initial" animate="animate" className="absolute top-16 right-[12%] text-brand-blue/20 pointer-events-none hidden lg:block">
+        <motion.div custom={{ y: [0, -20, 0], x: [0, 15, 0], duration: 7 }} variants={floatAnimation} initial="initial" animate="animate" className="absolute top-16 right-[12%] text-amber-500/20 pointer-events-none hidden lg:block">
           <Sparkles className="w-16 h-16 stroke-[1.5]" />
         </motion.div>
-        <motion.div custom={{ y: [0, 25, 0], x: [0, -20, 0], duration: 9 }} variants={floatAnimation} initial="initial" animate="animate" className="absolute bottom-20 left-[6%] text-brand-purple/20 pointer-events-none hidden lg:block">
+        <motion.div custom={{ y: [0, 25, 0], x: [0, -20, 0], duration: 9 }} variants={floatAnimation} initial="initial" animate="animate" className="absolute bottom-20 left-[6%] text-blue-400/20 pointer-events-none hidden lg:block">
           <Layers3 className="w-16 h-16 stroke-[1.2]" />
         </motion.div>
 
         <div className="text-center md:text-left mb-10 relative z-10">
-          <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-brand-blue bg-brand-blue/10 px-3 py-1.5 rounded-full border border-brand-blue/20">
-            <Award className="w-3.5 h-3.5" /> Institutional Value
+          <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-amber-400 bg-amber-400/10 px-3 py-1.5 rounded-full border border-amber-400/20">
+            Institutional Value
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-3 tracking-tight text-white">
             Why Choose KIDS?
@@ -104,12 +99,12 @@ export default function HomePage() {
           <motion.div 
             variants={itemVariants}
             whileHover={{ y: -6 }}
-            className="group relative rounded-[2rem] p-6 sm:p-8 border border-brand-blue/30 transition-all duration-300 overflow-hidden bg-slate-900 shadow-xl flex flex-col justify-between"
+            className="group relative rounded-[2rem] p-6 sm:p-8 border border-blue-500/20 transition-all duration-300 overflow-hidden bg-[#0A1428] shadow-xl flex flex-col justify-between"
           >
-            <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-blue-500 via-cyan-500 to-indigo-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+            <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-blue-500 via-amber-400 to-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
             <div>
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 border border-slate-700 shadow-xs flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
+                <div className="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-900/50 shadow-xs flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
                   <Cpu className="w-5 h-5" />
                 </div>
                 <h3 className="text-xl font-black text-white">Industry Aligned</h3>
@@ -135,27 +130,27 @@ export default function HomePage() {
           <motion.div 
             variants={itemVariants}
             whileHover={{ y: -6 }}
-            className="group relative rounded-[2rem] p-6 sm:p-8 border border-brand-purple/30 transition-all duration-300 overflow-hidden bg-slate-900 shadow-xl flex flex-col justify-between"
+            className="group relative rounded-[2rem] p-6 sm:p-8 border border-amber-500/20 transition-all duration-300 overflow-hidden bg-[#0A1428] shadow-xl flex flex-col justify-between"
           >
-            <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-purple-500 via-indigo-500 to-pink-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+            <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-amber-400 via-amber-500 to-blue-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
             <div>
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 border border-slate-700 shadow-xs flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
+                <div className="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-900/30 shadow-xs flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
                   <Award className="w-5 h-5" />
                 </div>
                 <h3 className="text-xl font-black text-white">Global Pathways</h3>
               </div>
               <ul className="space-y-3">
                 <li className="flex items-start gap-2 text-sm font-semibold text-slate-300">
-                  <span className="w-1.5 h-1.5 rounded-full bg-purple-400 mt-2 shrink-0 shadow-xs shadow-purple-500/50" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 shrink-0 shadow-xs shadow-amber-500/50" />
                   Official Microsoft tracks
                 </li>
                 <li className="flex items-start gap-2 text-sm font-semibold text-slate-300">
-                  <span className="w-1.5 h-1.5 rounded-full bg-purple-400 mt-2 shrink-0 shadow-xs shadow-purple-500/50" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 shrink-0 shadow-xs shadow-amber-500/50" />
                   Cambridge English framework
                 </li>
                 <li className="flex items-start gap-2 text-sm font-semibold text-slate-300">
-                  <span className="w-1.5 h-1.5 rounded-full bg-purple-400 mt-2 shrink-0 shadow-xs shadow-purple-500/50" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 shrink-0 shadow-xs shadow-amber-500/50" />
                   Worldwide career validity
                 </li>
               </ul>
@@ -166,12 +161,12 @@ export default function HomePage() {
           <motion.div 
             variants={itemVariants}
             whileHover={{ y: -6 }}
-            className="group relative rounded-[2rem] p-6 sm:p-8 border border-brand-blue/30 transition-all duration-300 overflow-hidden bg-slate-900 shadow-xl flex flex-col justify-between"
+            className="group relative rounded-[2rem] p-6 sm:p-8 border border-blue-500/20 transition-all duration-300 overflow-hidden bg-[#0A1428] shadow-xl flex flex-col justify-between"
           >
-            <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-blue-500 via-indigo-500 to-cyan-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+            <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-blue-500 via-cyan-500 to-amber-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
             <div>
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 border border-slate-700 shadow-xs flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
+                <div className="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-900/50 shadow-xs flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
                   <Laptop className="w-5 h-5" />
                 </div>
                 <h3 className="text-xl font-black text-white">Practical Focus</h3>
@@ -197,27 +192,27 @@ export default function HomePage() {
           <motion.div 
             variants={itemVariants}
             whileHover={{ y: -6 }}
-            className="group relative rounded-[2rem] p-6 sm:p-8 border border-brand-purple/30 transition-all duration-300 overflow-hidden bg-slate-900 shadow-xl flex flex-col justify-between sm:col-span-2 md:col-span-3 lg:col-span-1"
+            className="group relative rounded-[2rem] p-6 sm:p-8 border border-amber-500/20 transition-all duration-300 overflow-hidden bg-[#0A1428] shadow-xl flex flex-col justify-between sm:col-span-2 md:col-span-3 lg:col-span-1"
           >
-            <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+            <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-amber-400 via-orange-500 to-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
             <div>
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 border border-slate-700 shadow-xs flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
+                <div className="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-900/30 shadow-xs flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
                   <Briefcase className="w-5 h-5" />
                 </div>
                 <h3 className="text-xl font-black text-white">Career Blueprint</h3>
               </div>
               <ul className="space-y-3 grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-3 sm:space-y-0 lg:space-y-3">
                 <li className="flex items-start gap-2 text-sm font-semibold text-slate-300">
-                  <span className="w-1.5 h-1.5 rounded-full bg-purple-400 mt-2 shrink-0 shadow-xs shadow-purple-500/50" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 shrink-0 shadow-xs shadow-amber-500/50" />
                   Seamless corporate transition
                 </li>
                 <li className="flex items-start gap-2 text-sm font-semibold text-slate-300">
-                  <span className="w-1.5 h-1.5 rounded-full bg-purple-400 mt-2 shrink-0 shadow-xs shadow-purple-500/50" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 shrink-0 shadow-xs shadow-amber-500/50" />
                   Workplace readiness focus
                 </li>
                 <li className="flex items-start gap-2 text-sm font-semibold text-slate-300">
-                  <span className="w-1.5 h-1.5 rounded-full bg-purple-400 mt-2 shrink-0 shadow-xs shadow-purple-500/50" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 shrink-0 shadow-xs shadow-amber-500/50" />
                   Higher education scaling
                 </li>
               </ul>
@@ -228,12 +223,12 @@ export default function HomePage() {
 
       {/* ── TIMELINE CONTAINER LINK ── */}
       <div className="relative overflow-hidden bg-transparent rounded-[3rem]">
-        <div className="absolute top-1/3 left-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none animate-pulse" />
+        <div className="absolute top-1/3 left-10 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl pointer-events-none animate-pulse" />
         
-        <motion.div custom={{ y: [0, -25, 0], x: [0, 20, 0], duration: 8 }} variants={floatAnimation} initial="initial" animate="animate" className="absolute top-12 left-[6%] text-brand-blue/20 pointer-events-none hidden lg:block">
+        <motion.div custom={{ y: [0, -25, 0], x: [0, 20, 0], duration: 8 }} variants={floatAnimation} initial="initial" animate="animate" className="absolute top-12 left-[6%] text-blue-400/20 pointer-events-none hidden lg:block">
           <Terminal className="w-14 h-14 stroke-[1.5]" />
         </motion.div>
-        <motion.div custom={{ y: [0, 30, 0], x: [0, -15, 0], duration: 10 }} variants={floatAnimation} initial="initial" animate="animate" className="absolute bottom-8 right-[8%] text-brand-purple/20 pointer-events-none hidden lg:block">
+        <motion.div custom={{ y: [0, 30, 0], x: [0, -15, 0], duration: 10 }} variants={floatAnimation} initial="initial" animate="animate" className="absolute bottom-8 right-[8%] text-amber-500/10 pointer-events-none hidden lg:block">
           <Laptop className="w-16 h-16 stroke-[1.2]" />
         </motion.div>
 
@@ -256,22 +251,20 @@ export default function HomePage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="relative rounded-2xl p-6 bg-gradient-to-r from-brand-blue/20 via-brand-purple/20 to-brand-blue/5 border border-brand-purple/30 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left"
+            className="relative rounded-2xl p-6 bg-gradient-to-r from-blue-950/30 via-amber-950/10 to-transparent border border-amber-500/20 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left"
           >
             <div className="flex flex-col sm:flex-row items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-brand-blue/20 border border-brand-blue/30 flex items-center justify-center shrink-0 text-2xl">
+              <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shrink-0 text-xl text-amber-400 font-bold">
                 💼
               </div>
               <div>
-                <div className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-cyan-400 mb-1">
-                  <TrendingUp className="w-3.5 h-3.5" /> Career Pipeline
-                </div>
+                <div className="text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-amber-400 mb-1">Career Pipeline</div>
                 <h4 className="text-xl font-black text-white tracking-tight">Microsoft 365 Administrator</h4>
               </div>
             </div>
-            <div className="flex items-center gap-2 text-xs font-black text-slate-300 uppercase tracking-widest bg-slate-900/60 border border-slate-800 px-4 py-2.5 rounded-xl shrink-0">
+            <div className="flex items-center gap-2 text-xs font-black text-slate-300 uppercase tracking-widest bg-black border border-blue-900/60 px-4 py-2.5 rounded-xl shrink-0">
               <span>Verified Endpoint Matrix</span>
-              <CheckCircle2 className="w-4 h-4 text-cyan-400 animate-pulse" />
+              <CheckCircle2 className="w-4 h-4 text-amber-400 animate-pulse" />
             </div>
           </motion.div>
         </div>
@@ -279,19 +272,19 @@ export default function HomePage() {
 
       {/* 🇬🇧 3. Programs Ecosystem */}
       <section className="py-12 md:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-transparent rounded-[3rem]">
-        <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-gradient-to-tr from-brand-purple/20 to-transparent rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-4 left-1/3 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl pointer-events-none animate-pulse" />
+        <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-gradient-to-tr from-amber-500/5 to-transparent rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-4 left-1/3 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl pointer-events-none animate-pulse" />
 
-        <motion.div custom={{ y: [0, -30, 0], x: [0, 20, 0], rotate: [0, 15, 0], duration: 9 }} variants={floatAnimation} initial="initial" animate="animate" className="absolute top-16 right-[12%] text-brand-purple/20 pointer-events-none hidden lg:block">
+        <motion.div custom={{ y: [0, -30, 0], x: [0, 20, 0], rotate: [0, 15, 0], duration: 9 }} variants={floatAnimation} initial="initial" animate="animate" className="absolute top-16 right-[12%] text-amber-500/20 pointer-events-none hidden lg:block">
           <GraduationCap className="w-20 h-20 stroke-[1.5]" />
         </motion.div>
-        <motion.div custom={{ y: [0, 25, 0], x: [0, -20, 0], rotate: [0, -10, 0], duration: 11 }} variants={floatAnimation} initial="initial" animate="animate" className="absolute bottom-20 left-[6%] text-brand-blue/20 pointer-events-none hidden lg:block">
+        <motion.div custom={{ y: [0, 25, 0], x: [0, -20, 0], rotate: [0, -10, 0], duration: 11 }} variants={floatAnimation} initial="initial" animate="animate" className="absolute bottom-20 left-[6%] text-blue-400/20 pointer-events-none hidden lg:block">
           <BookOpen className="w-24 h-24 stroke-[1.2]" />
         </motion.div>
 
         <div className="text-center md:text-left mb-10 relative z-10">
-          <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-brand-blue bg-brand-blue/10 px-3 py-1.5 rounded-full border border-brand-blue/20">
-            <Globe className="w-3.5 h-3.5" /> Programs Ecosystem
+          <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-blue-400 bg-blue-500/10 px-3 py-1.5 rounded-full border border-blue-500/20">
+            Programs Ecosystem
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-3 tracking-tight text-white">
             Cambridge English Pathway
@@ -309,11 +302,11 @@ export default function HomePage() {
           <motion.div
             variants={itemVariants}
             whileHover={{ y: -4 }}
-            className="md:col-span-2 group relative rounded-[2rem] p-6 sm:p-8 md:p-10 border border-brand-purple/30 transition-all duration-300 overflow-hidden bg-slate-900 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-6"
+            className="md:col-span-2 group relative rounded-[2rem] p-6 sm:p-8 md:p-10 border border-amber-500/20 transition-all duration-300 overflow-hidden bg-[#0A1428] shadow-xl flex flex-col sm:flex-row items-center justify-between gap-6"
           >
-            <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-brand-purple via-blue-500 to-brand-purple" />
+            <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-blue-600 via-amber-400 to-blue-600" />
             <div className="flex flex-col sm:flex-row items-center gap-6 text-center sm:text-left relative z-10">
-              <div className="w-16 h-16 rounded-2xl bg-slate-800 shadow-inner border border-slate-700 flex items-center justify-center text-4xl shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+              <div className="w-16 h-16 rounded-2xl bg-black shadow-inner border border-blue-900/60 flex items-center justify-center text-4xl shrink-0 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
                 🇬🇧
               </div>
               <div>
@@ -326,7 +319,7 @@ export default function HomePage() {
               </div>
             </div>
             <div className="shrink-0 relative z-10 w-full sm:w-auto text-center">
-              <span className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-purple-500 text-white text-xs font-black tracking-wider uppercase shadow-md shadow-purple-500/20 w-full sm:w-auto">
+              <span className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-amber-500 text-black text-xs font-black tracking-wider uppercase shadow-md shadow-amber-500/20 w-full sm:w-auto">
                 CEFR Aligned Matrix <Sparkles className="w-3.5 h-3.5 animate-pulse" />
               </span>
             </div>
@@ -336,12 +329,12 @@ export default function HomePage() {
           <motion.div
             variants={itemVariants}
             whileHover={{ y: -6 }}
-            className="group relative rounded-[2rem] p-6 sm:p-8 border border-brand-blue/30 transition-all duration-300 overflow-hidden bg-slate-900 shadow-xl flex flex-col justify-between min-h-fit"
+            className="group relative rounded-[2rem] p-6 sm:p-8 border border-blue-500/20 transition-all duration-300 overflow-hidden bg-[#0A1428] shadow-xl flex flex-col justify-between min-h-fit"
           >
             <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-blue-500 to-cyan-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
             <div>
               <div className="flex items-center gap-4 mb-6 sm:mb-8">
-                <div className="p-3 rounded-xl bg-blue-500/10 text-blue-400 border border-slate-700 shadow-xs group-hover:scale-110 transition-transform">
+                <div className="p-3 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-900/40 group-hover:scale-110 transition-transform">
                   <BookOpen className="w-5 h-5" />
                 </div>
                 <h3 className="text-xl sm:text-2xl font-black text-white">Young Learners English (YLE)</h3>
@@ -356,7 +349,7 @@ export default function HomePage() {
                     <span className="w-2 h-2 rounded-full bg-blue-400 mt-2 shrink-0 group-hover/item:scale-150 transition-transform duration-300 shadow-xs shadow-blue-500/50" />
                     <div className="text-base">
                       <span className="font-black text-slate-100">{item.title}</span>
-                      <span className="text-blue-500 mx-2 font-bold">•</span>
+                      <span className="text-amber-400 mx-2 font-bold">•</span>
                       <span className="text-slate-300 font-semibold">{item.desc}</span>
                     </div>
                   </li>
@@ -369,12 +362,12 @@ export default function HomePage() {
           <motion.div
             variants={itemVariants}
             whileHover={{ y: -6 }}
-            className="group relative rounded-[2rem] p-6 sm:p-8 border border-brand-purple/30 transition-all duration-300 overflow-hidden bg-slate-900 shadow-xl flex flex-col justify-between min-h-fit"
+            className="group relative rounded-[2rem] p-6 sm:p-8 border border-amber-500/20 transition-all duration-300 overflow-hidden bg-[#0A1428] shadow-xl flex flex-col justify-between min-h-fit"
           >
-            <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-purple-500 to-indigo-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+            <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-amber-400 to-amber-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
             <div>
               <div className="flex items-center gap-4 mb-6 sm:mb-8">
-                <div className="p-3 rounded-xl bg-purple-500/10 text-purple-400 border border-slate-700 shadow-xs group-hover:scale-110 transition-transform">
+                <div className="p-3 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-900/40 group-hover:scale-110 transition-transform">
                   <GraduationCap className="w-5 h-5" />
                 </div>
                 <h3 className="text-xl sm:text-2xl font-black text-white">Cambridge Assessments</h3>
@@ -386,10 +379,10 @@ export default function HomePage() {
                   { title: "FCE", desc: "First Certificate/Upper" }
                 ].map((item, idx) => (
                   <li key={idx} className="flex items-start gap-4 group/item">
-                    <span className="w-2 h-2 rounded-full bg-purple-400 mt-2 shrink-0 group-hover/item:scale-150 transition-transform duration-300 shadow-xs shadow-purple-500/50" />
+                    <span className="w-2 h-2 rounded-full bg-amber-400 mt-2 shrink-0 group-hover/item:scale-150 transition-transform duration-300 shadow-xs shadow-amber-500/50" />
                     <div className="text-base">
                       <span className="font-black text-slate-100">{item.title}</span>
-                      <span className="text-purple-500 mx-2 font-bold">•</span>
+                      <span className="text-blue-400 mx-2 font-bold">•</span>
                       <span className="text-slate-300 font-semibold">{item.desc}</span>
                     </div>
                   </li>
@@ -402,11 +395,11 @@ export default function HomePage() {
 
       {/* 🍱 4. Core Architecture */}
       <section className="py-12 md:py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-gradient-to-br from-brand-blue/5 to-purple-500/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-gradient-to-br from-blue-500/5 to-amber-500/5 rounded-full blur-3xl pointer-events-none" />
         
         <div className="text-center md:text-left mb-10 relative z-10">
-          <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-brand-blue bg-brand-blue/10 px-3 py-1.5 rounded-full border border-brand-blue/20">
-            <Layers className="w-3.5 h-3.5" /> Core Architecture
+          <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-amber-400 bg-amber-400/10 px-3 py-1.5 rounded-full border border-amber-400/20">
+            Core Architecture
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-3 tracking-tight text-white">
             Our Training Methodology
@@ -425,11 +418,11 @@ export default function HomePage() {
           <motion.div 
             variants={itemVariants}
             whileHover={{ y: -6 }}
-            className="md:col-span-2 group relative rounded-[2rem] p-6 sm:p-8 border border-slate-800/80 transition-all duration-300 overflow-hidden bg-slate-900 shadow-xl flex flex-col justify-between"
+            className="md:col-span-2 group relative rounded-[2rem] p-6 sm:p-8 border border-blue-900/30 transition-all duration-300 overflow-hidden bg-[#0A1428] shadow-xl flex flex-col justify-between"
           >
-            <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+            <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-blue-500 via-blue-600 to-amber-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
             <div>
-              <div className="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-400 mb-6 group-hover:scale-110 transition-transform border border-transparent">
+              <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 mb-6 group-hover:scale-110 transition-transform border border-transparent">
                 <CheckCircle2 className="w-6 h-6" />
               </div>
               <h3 className="text-xl sm:text-2xl font-black mb-4 text-white">
@@ -445,11 +438,11 @@ export default function HomePage() {
           <motion.div 
             variants={itemVariants}
             whileHover={{ y: -6 }}
-            className="group relative rounded-[2rem] p-6 sm:p-8 border border-slate-800/80 transition-all duration-300 overflow-hidden bg-slate-900 shadow-xl flex flex-col justify-between gap-6"
+            className="group relative rounded-[2rem] p-6 sm:p-8 border border-blue-900/30 transition-all duration-300 overflow-hidden bg-[#0A1428] shadow-xl flex flex-col justify-between gap-6"
           >
-            <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-purple-500 to-pink-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+            <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-amber-400 to-amber-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
             <div>
-              <div className="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center text-purple-400 mb-6 group-hover:scale-110 transition-transform border border-transparent">
+              <div className="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400 mb-6 group-hover:scale-110 transition-transform border border-transparent">
                 <ShieldCheck className="w-6 h-6" />
               </div>
               <h3 className="text-xl sm:text-2xl font-black mb-4 text-white">Instructor-Led Matrix</h3>
@@ -457,7 +450,7 @@ export default function HomePage() {
                 Led by veteran corporate trainers, we focus on hands-on, outcome-driven learning that turns concepts into real-world skills through practical workshops.
               </p>
             </div>
-            <div className="pt-4 border-t border-slate-800 font-bold text-xs text-indigo-400 uppercase tracking-wider">
+            <div className="pt-4 border-t border-blue-900/40 font-bold text-xs text-amber-400 uppercase tracking-wider">
               100% Verified Response Matrix
             </div>
           </motion.div>
@@ -466,16 +459,17 @@ export default function HomePage() {
           <motion.div 
             variants={itemVariants}
             whileHover={{ y: -6 }}
-            className="md:col-span-3 group relative rounded-[2rem] p-6 sm:p-8 border border-brand-purple/40 transition-all duration-300 overflow-hidden bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6"
+            className="md:col-span-3 group relative rounded-[2rem] p-6 sm:p-8 border border-amber-500/20 transition-all duration-300 overflow-hidden bg-gradient-to-br from-[#0A1428] via-[#0D1B33] to-[#0A1428] text-white shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6"
           >
-            <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+            <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-blue-400 via-blue-600 to-amber-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
             
             <div className="flex-1 relative z-10">
-              <h3 className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-cyan-400 mb-4">
-                <ShieldCheck className="w-3.5 h-3.5" /> Parent Confidence Node
+              <h3 className="text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-amber-400 mb-4 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-amber-400 inline-block animate-pulse shadow-sm shadow-amber-400" />
+                Parent Confidence Node
               </h3>
-              <div className="relative pl-6 border-l-2 border-cyan-500/40 py-1">
-                <Quote className="w-4 h-4 text-cyan-400 absolute left-0 top-0 -translate-x-1/2 -mt-1 bg-slate-900 p-0.5 rounded-full" />
+              <div className="relative pl-6 border-l-2 border-amber-500/40 py-1">
+                <Quote className="w-4 h-4 text-amber-400 absolute left-0 top-0 -translate-x-1/2 -mt-1 bg-[#0A1428] p-0.5 rounded-full" />
                 <p className="text-base sm:text-lg md:text-xl text-slate-100 font-semibold italic leading-relaxed">
                   "We build both technical expertise and professional confidence, ensuring school leavers transition seamlessly into corporate ecosystems."
                 </p>
@@ -483,7 +477,7 @@ export default function HomePage() {
             </div>
             
             <div className="shrink-0 w-full sm:w-auto relative z-10 text-center sm:text-right">
-              <span className="w-full sm:w-auto text-center px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-xs font-black uppercase tracking-wider shadow-md shadow-cyan-500/20 inline-block">
+              <span className="w-full sm:w-auto text-center px-6 py-3.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 text-black text-xs font-black uppercase tracking-wider shadow-md shadow-amber-500/20 inline-block">
                 Instant Access Matrix
               </span>
             </div>
@@ -493,14 +487,14 @@ export default function HomePage() {
 
       {/* ⭐ Asymmetrical Student Perspectives Section */}
       <section className="py-12 md:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-gradient-to-tr from-brand-blue/5 via-brand-purple/5 to-transparent rounded-full blur-3xl pointer-events-none opacity-40" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-gradient-to-tr from-blue-500/5 via-amber-500/5 to-transparent rounded-full blur-3xl pointer-events-none opacity-40" />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 relative z-10 items-start">
           
           {/* Header text container block */}
           <div className="lg:col-span-4 lg:sticky lg:top-24 text-center lg:text-left">
-            <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-brand-purple bg-brand-purple/10 px-3 py-1.5 rounded-full">
-              <MessageSquare className="w-3.5 h-3.5" /> Ecosystem Reviews
+            <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-amber-400 bg-amber-400/10 px-3 py-1.5 rounded-full">
+              Ecosystem Reviews
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-4 mb-4 tracking-tight leading-tight text-white">
               What our students say.
@@ -511,7 +505,7 @@ export default function HomePage() {
             <div className="flex items-center justify-center lg:justify-start gap-4 mt-6">
               <div className="flex -space-x-3">
                 {[...Array(3)].map((_, i) => (
-                  <div key={i} className="w-9 h-9 rounded-full border-2 border-[#0B0F19] bg-slate-700 flex items-center justify-center text-[10px] font-black">
+                  <div key={i} className="w-9 h-9 rounded-full border-2 border-black bg-blue-950 flex items-center justify-center text-[10px] font-black text-amber-400">
                     {String.fromCharCode(65 + i)}
                   </div>
                 ))}
@@ -524,7 +518,7 @@ export default function HomePage() {
           <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6 items-start">
             {/* Testimonial Card 1 */}
             <motion.div
-              className="sm:col-span-2 relative overflow-hidden bg-[#1E293B]/40 border border-slate-800 p-6 sm:p-8 md:p-10 rounded-[2.5rem] transition-all duration-300"
+              className="sm:col-span-2 relative overflow-hidden bg-[#0A1428]/80 border border-blue-900/30 p-6 sm:p-8 md:p-10 rounded-[2.5rem] transition-all duration-300"
             >
               <div className="flex gap-1 mb-4 text-amber-400 relative z-10">
                 {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
@@ -532,18 +526,18 @@ export default function HomePage() {
               <p className="text-base sm:text-lg text-slate-200 font-medium italic mb-6 sm:mb-8 leading-relaxed relative z-10">
                 "{staticTestimonials[0].feedback}"
               </p>
-              <div className="flex items-center justify-between pt-6 border-t border-slate-800/60 relative z-10">
+              <div className="flex items-center justify-between pt-6 border-t border-blue-900/30 relative z-10">
                 <div>
                   <h4 className="font-black text-base text-slate-100">{staticTestimonials[0].name}</h4>
-                  <p className="text-xs font-bold text-brand-blue uppercase tracking-wider mt-0.5">{staticTestimonials[0].track}</p>
+                  <p className="text-xs font-bold text-blue-400 uppercase tracking-wider mt-0.5">{staticTestimonials[0].track}</p>
                 </div>
-                <MessageCircle className="w-5 h-5 text-brand-blue/50" />
+                <MessageCircle className="w-5 h-5 text-blue-400/50" />
               </div>
             </motion.div>
 
             {/* Testimonial Card 2 */}
             <motion.div
-              className="relative overflow-hidden bg-[#1E293B]/40 border border-slate-800 p-6 sm:p-8 rounded-[2.5rem] flex flex-col justify-between min-h-[220px] sm:min-h-[260px] transition-all duration-300"
+              className="relative overflow-hidden bg-[#0A1428]/80 border border-blue-900/30 p-6 sm:p-8 rounded-[2.5rem] flex flex-col justify-between min-h-[220px] sm:min-h-[260px] transition-all duration-300"
             >
               <div className="relative z-10">
                 <div className="flex gap-0.5 mb-4 text-amber-400">
@@ -553,15 +547,15 @@ export default function HomePage() {
                   "{staticTestimonials[1].feedback}"
                 </p>
               </div>
-              <div className="pt-4 border-t border-slate-800/60 relative z-10">
+              <div className="pt-4 border-t border-blue-900/30 relative z-10">
                 <h4 className="font-extrabold text-sm text-slate-100">{staticTestimonials[1].name}</h4>
-                <p className="text-[11px] font-bold text-brand-purple uppercase tracking-wider mt-0.5">{staticTestimonials[1].track}</p>
+                <p className="text-[11px] font-bold text-amber-400 uppercase tracking-wider mt-0.5">{staticTestimonials[1].track}</p>
               </div>
             </motion.div>
 
             {/* Testimonial Card 3 */}
             <motion.div
-              className="relative overflow-hidden bg-[#1E293B]/40 border border-slate-800 p-6 sm:p-8 rounded-[2.5rem] flex flex-col justify-between min-h-[220px] sm:min-h-[260px] transition-all duration-300"
+              className="relative overflow-hidden bg-[#0A1428]/80 border border-blue-900/30 p-6 sm:p-8 rounded-[2.5rem] flex flex-col justify-between min-h-[220px] sm:min-h-[260px] transition-all duration-300"
             >
               <div className="relative z-10">
                 <div className="flex gap-0.5 mb-4 text-amber-400">
@@ -571,9 +565,9 @@ export default function HomePage() {
                   "{staticTestimonials[2].feedback}"
                 </p>
               </div>
-              <div className="pt-4 border-t border-slate-800/60 relative z-10">
+              <div className="pt-4 border-t border-blue-900/30 relative z-10">
                 <h4 className="font-extrabold text-sm text-slate-100">{staticTestimonials[2].name}</h4>
-                <p className="text-[11px] font-bold text-emerald-400 uppercase tracking-wider mt-0.5">{staticTestimonials[2].track}</p>
+                <p className="text-[11px] font-bold text-blue-400 uppercase tracking-wider mt-0.5">{staticTestimonials[2].track}</p>
               </div>
             </motion.div>
           </div>
@@ -582,8 +576,8 @@ export default function HomePage() {
 
       {/* ── CONVERSION BOTTOM ANCHOR ── */}
       <section className="py-12 md:py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden" id="enrollment-hub">
-        <div className="absolute inset-0 z-0 bg-[#0B0F19]">
-          <div className="absolute inset-0 opacity-[0.15]" 
+        <div className="absolute inset-0 z-0 bg-black">
+          <div className="absolute inset-0 opacity-[0.04]" 
                style={{ 
                  backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', 
                  backgroundSize: '40px 40px' 
@@ -602,7 +596,7 @@ export default function HomePage() {
           </div>
 
           {/* Form Card */}
-          <div className="bg-[#0B0F19]/60 backdrop-blur-xl border border-white/10 p-6 sm:p-10 md:p-12 rounded-[2.5rem] shadow-2xl">
+          <div className="bg-[#0A1428]/90 backdrop-blur-xl border border-blue-900/40 p-6 sm:p-10 md:p-12 rounded-[2.5rem] shadow-2xl">
             <form 
               id="enrollmentForm"
               onSubmit={(e) => {
@@ -615,24 +609,24 @@ export default function HomePage() {
               className="space-y-6"
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <input name="fullName" placeholder="Full Name" required className="w-full bg-[#161B29] border border-slate-700 p-4 sm:p-5 rounded-2xl text-white focus:ring-2 focus:ring-brand-blue outline-none transition-all text-sm sm:text-base" />
-                <input name="phone" type="tel" placeholder="Phone Number" required className="w-full bg-[#161B29] border border-slate-700 p-4 sm:p-5 rounded-2xl text-white focus:ring-2 focus:ring-brand-blue outline-none transition-all text-sm sm:text-base" />
+                <input name="fullName" placeholder="Full Name" required className="w-full bg-black border border-blue-900/40 p-4 sm:p-5 rounded-2xl text-white focus:ring-2 focus:ring-amber-400 outline-none transition-all text-sm sm:text-base" />
+                <input name="phone" type="tel" placeholder="Phone Number" required className="w-full bg-black border border-blue-900/40 p-4 sm:p-5 rounded-2xl text-white focus:ring-2 focus:ring-amber-400 outline-none transition-all text-sm sm:text-base" />
               </div>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <input name="email" type="email" placeholder="Email Address" required className="w-full bg-[#161B29] border border-slate-700 p-4 sm:p-5 rounded-2xl text-white focus:ring-2 focus:ring-brand-blue outline-none transition-all text-sm sm:text-base" />
-                <input name="occupation" placeholder="School / Occupation" required className="w-full bg-[#161B29] border border-slate-700 p-4 sm:p-5 rounded-2xl text-white focus:ring-2 focus:ring-brand-blue outline-none transition-all text-sm sm:text-base" />
+                <input name="email" type="email" placeholder="Email Address" required className="w-full bg-black border border-blue-900/40 p-4 sm:p-5 rounded-2xl text-white focus:ring-2 focus:ring-amber-400 outline-none transition-all text-sm sm:text-base" />
+                <input name="occupation" placeholder="School / Occupation" required className="w-full bg-black border border-blue-900/40 p-4 sm:p-5 rounded-2xl text-white focus:ring-2 focus:ring-amber-400 outline-none transition-all text-sm sm:text-base" />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <select name="program" required className="w-full bg-[#161B29] border border-slate-700 p-4 sm:p-5 rounded-2xl text-slate-400 focus:ring-2 focus:ring-brand-blue outline-none text-sm sm:text-base">
+                <select name="program" required className="w-full bg-black border border-blue-900/40 p-4 sm:p-5 rounded-2xl text-slate-400 focus:ring-2 focus:ring-amber-400 outline-none text-sm sm:text-base">
                   <option value="">Select Interested Program</option>
                   <option>Microsoft 365 Professional</option>
                   <option>Cambridge YLE Exams</option>
                   <option>Cambridge Assessments</option>
                 </select>
 
-                <select name="class" required className="w-full bg-[#161B29] border border-slate-700 p-4 sm:p-5 rounded-2xl text-slate-400 focus:ring-2 focus:ring-brand-blue outline-none text-sm sm:text-base">
+                <select name="class" required className="w-full bg-black border border-blue-900/40 p-4 sm:p-5 rounded-2xl text-slate-400 focus:ring-2 focus:ring-amber-400 outline-none text-sm sm:text-base">
                   <option value="">Preferred Class</option>
                   <option>Microsoft 365 Professional Certification</option>
                   <option>Starters</option>
@@ -644,7 +638,7 @@ export default function HomePage() {
                 </select>
               </div>
 
-              <textarea name="message" rows={4} placeholder="Additional details or questions..." className="w-full bg-[#161B29] border border-slate-700 p-4 sm:p-5 rounded-2xl text-white focus:ring-2 focus:ring-brand-blue outline-none transition-all text-sm sm:text-base" />
+              <textarea name="message" rows={4} placeholder="Additional details or questions..." className="w-full bg-black border border-blue-900/40 p-4 sm:p-5 rounded-2xl text-white focus:ring-2 focus:ring-amber-400 outline-none transition-all text-sm sm:text-base" />
 
               <button 
                 type="submit" 

@@ -67,20 +67,21 @@ interface Certification {
   badgeColor: string;
 }
 
+/* Badge colors synchronized directly to the Gold accents of the logo */
 const certifications: Certification[] = [
   { 
     code: "MS-900", 
     title: "Microsoft 365 Fundamentals Certification", 
     duration: "1 Day Prep", 
     desc: "Entry-level certification covering foundational cloud concepts, Microsoft 365 services, core security, compliance options, and identity pricing matrices.",
-    badgeColor: "#3b82f6"
+    badgeColor: "#fbbf24"
   },
   { 
     code: "MS-102", 
     title: "Microsoft 365 Administrator Certification", 
     duration: "4 Days Bootcamp", 
     desc: "Associate-level expert certification focused explicitly on enterprise tenant deployment, managing identities, security configurations, and application compliance synchronization.",
-    badgeColor: "#a855f7"
+    badgeColor: "#f59e0b"
   }
 ];
 
@@ -161,16 +162,17 @@ export default function App() {
   };
 
   return (
-    <div className="bg-[#0B0F19] text-slate-100 min-h-screen font-sans antialiased overflow-x-hidden relative">
+    /* Global background customized to pure solid black */
+    <div className="bg-black text-slate-200 min-h-screen font-sans antialiased overflow-x-hidden relative">
       
-      {/* Ambient Glow Layers */}
-      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-gradient-to-tr from-brand-blue/10 to-brand-purple/5 rounded-full blur-3xl pointer-events-none" />
+      {/* Ambient Glow Layers - Modified to echo Gold/Blue brand identities */}
+      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-gradient-to-tr from-amber-500/5 to-blue-600/5 rounded-full blur-3xl pointer-events-none" />
       
       {/* Floating Vectors Matrix */}
-      <motion.div custom={{ y: [0, -20, 0], x: [0, 15, 0], duration: 7 }} variants={floatAnimation} initial="initial" animate="animate" className="absolute top-16 right-[12%] text-brand-blue/20 pointer-events-none hidden lg:block">
+      <motion.div custom={{ y: [0, -20, 0], x: [0, 15, 0], duration: 7 }} variants={floatAnimation} initial="initial" animate="animate" className="absolute top-16 right-[12%] text-amber-500/20 pointer-events-none hidden lg:block">
         <Sparkles className="w-16 h-16 stroke-[1.5]" />
       </motion.div>
-      <motion.div custom={{ y: [0, 25, 0], x: [0, -20, 0], duration: 9 }} variants={floatAnimation} initial="initial" animate="animate" className="absolute top-[45%] left-[6%] text-brand-purple/20 pointer-events-none hidden lg:block">
+      <motion.div custom={{ y: [0, 25, 0], x: [0, -20, 0], duration: 9 }} variants={floatAnimation} initial="initial" animate="animate" className="absolute top-[45%] left-[6%] text-blue-400/20 pointer-events-none hidden lg:block">
         <Terminal className="w-14 h-14 stroke-[1.5]" />
       </motion.div>
 
@@ -180,7 +182,7 @@ export default function App() {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.4 }}
-          className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-brand-blue bg-brand-blue/10 px-3 py-1.5 rounded-full border border-brand-blue/20 mb-6"
+          className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-amber-400 bg-amber-400/10 px-3 py-1.5 rounded-full border border-amber-400/20 mb-6"
         >
           <Award className="w-3.5 h-3.5" /> Educational Programs Ecosystem
         </motion.span>
@@ -192,7 +194,7 @@ export default function App() {
           className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mt-3 tracking-tight text-white max-w-5xl mx-auto leading-tight"
         >
           Certification Pipelines <br className="hidden sm:inline" />
-          <span className="bg-gradient-to-r from-blue-500 via-cyan-500 to-indigo-500 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-blue-500 via-amber-400 to-blue-600 bg-clip-text text-transparent">
             For Modern Milestones
           </span>
         </motion.h1>
@@ -206,13 +208,13 @@ export default function App() {
           Professional cloud alignment and global language frameworks structured to maximize industry utility and placement outcomes.
         </motion.p>
 
-        {/* INTERACTIVE TRACK SWITCHER */}
-        <div className="mt-12 max-w-md mx-auto p-1.5 rounded-2xl bg-slate-900 border border-slate-800 backdrop-blur-md flex relative z-10">
+        {/* INTERACTIVE TRACK SWITCHER - Customized to Brand Tones */}
+        <div className="mt-12 max-w-md mx-auto p-1.5 rounded-2xl bg-[#0A1428] border border-blue-950 backdrop-blur-md flex relative z-10">
           <button
             onClick={() => setActiveTab("m365")}
             className={`flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold tracking-wider transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer relative z-10 ${
               activeTab === "m365" 
-                ? "bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-lg" 
+                ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg" 
                 : "text-slate-400 hover:text-slate-100"
             }`}
           >
@@ -222,7 +224,7 @@ export default function App() {
             onClick={() => setActiveTab("cambridge")}
             className={`flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold tracking-wider transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer relative z-10 ${
               activeTab === "cambridge" 
-                ? "bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow-lg" 
+                ? "bg-gradient-to-r from-blue-600 to-amber-500 text-black font-black" 
                 : "text-slate-400 hover:text-slate-100"
             }`}
           >
@@ -247,11 +249,11 @@ export default function App() {
               <motion.div 
                 variants={itemVariants}
                 whileHover={{ y: -4 }}
-                className="group relative rounded-[2rem] p-6 sm:p-8 border border-brand-blue/30 bg-slate-900 shadow-xl flex flex-col md:flex-row items-center justify-between gap-8 overflow-hidden"
+                className="group relative rounded-[2rem] p-6 sm:p-8 border border-blue-500/20 bg-[#0A1428] shadow-xl flex flex-col md:flex-row items-center justify-between gap-8 overflow-hidden"
               >
-                <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-blue-500 via-cyan-500 to-indigo-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-blue-500 via-amber-400 to-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
                 <div className="space-y-4 max-w-3xl">
-                  <div className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-brand-blue bg-brand-blue/10 px-3 py-1.5 rounded-full border border-brand-blue/20">
+                  <div className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-blue-400 bg-blue-500/10 px-3 py-1.5 rounded-full border border-blue-500/20">
                     <ShieldCheck className="w-3.5 h-3.5" /> Thakral Global Learning (TGL) Partnership
                   </div>
                   <h2 className="text-xl sm:text-2xl font-black tracking-tight text-white uppercase">
@@ -263,10 +265,10 @@ export default function App() {
                 </div>
                 
                 <div className="w-full md:w-auto shrink-0 relative z-10">
-                  <div className="bg-[#0B0F19] p-6 rounded-[1.5rem] border border-slate-800 text-center w-full sm:w-60 shadow-inner">
-                    <div className="text-2xl sm:text-3xl font-black text-cyan-400">140 Hours</div>
+                  <div className="bg-black p-6 rounded-[1.5rem] border border-blue-950/60 text-center w-full sm:w-60 shadow-inner">
+                    <div className="text-2xl sm:text-3xl font-black text-amber-400">140 Hours</div>
                     <div className="text-[10px] uppercase tracking-widest text-slate-500 font-black mt-1">Structured Delivery</div>
-                    <div className="h-px bg-slate-800 my-4" />
+                    <div className="h-px bg-blue-950/60 my-4" />
                     <div className="text-xs sm:text-sm font-semibold text-slate-300">MS-900 & MS-102 Tracks</div>
                   </div>
                 </div>
@@ -275,7 +277,7 @@ export default function App() {
               {/* CURRICULUM PIPELINE STAGES */}
               <div className="space-y-8">
                 <div className="text-center md:text-left">
-                  <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-brand-blue bg-brand-blue/10 px-3 py-1.5 rounded-full border border-brand-blue/20">Modular Architecture</span>
+                  <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-amber-400 bg-amber-400/10 px-3 py-1.5 rounded-full border border-amber-400/20">Modular Architecture</span>
                   <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mt-3 tracking-tight">Academic Learning Pipeline</h2>
                 </div>
 
@@ -285,23 +287,23 @@ export default function App() {
                       key={idx}
                       variants={itemVariants}
                       whileHover={{ y: -6 }}
-                      className="group relative rounded-[2rem] p-6 sm:p-8 border border-brand-blue/30 transition-all duration-300 overflow-hidden bg-slate-900 shadow-xl flex flex-col justify-between"
+                      className="group relative rounded-[2rem] p-6 sm:p-8 border border-blue-500/20 transition-all duration-300 overflow-hidden bg-[#0A1428] shadow-xl flex flex-col justify-between"
                     >
-                      <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-blue-500 via-cyan-500 to-indigo-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                      <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-blue-500 via-amber-400 to-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
                       <div>
                         <div className="flex items-center justify-between mb-6">
-                          <span className="text-xs font-black text-cyan-400 bg-brand-blue/10 px-3 py-1.5 rounded-full border border-brand-blue/20">
+                          <span className="text-xs font-black text-amber-400 bg-amber-400/10 px-3 py-1.5 rounded-full border border-amber-400/20">
                             {course.stage}
                           </span>
-                          <span className="text-xs font-bold text-slate-400 bg-[#0B0F19] px-3 py-1.5 rounded-xl border border-slate-800">
+                          <span className="text-xs font-bold text-slate-400 bg-black px-3 py-1.5 rounded-xl border border-blue-950/60">
                             {course.duration}
                           </span>
                         </div>
                         <div className="flex items-center gap-4 mb-4">
-                          <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 border border-slate-700 shadow-xs flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
+                          <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-950/60 shadow-xs flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
                             <Cpu className="w-5 h-5" />
                           </div>
-                          <h3 className="text-xl font-black text-white group-hover:text-cyan-400 transition-colors duration-200">
+                          <h3 className="text-xl font-black text-white group-hover:text-amber-400 transition-colors duration-200">
                             {course.title}
                           </h3>
                         </div>
@@ -310,7 +312,7 @@ export default function App() {
                           {course.description}
                         </p>
                         
-                        <div className="w-full h-px bg-slate-800/60 mb-6" />
+                        <div className="w-full h-px bg-blue-950/40 mb-6" />
                         <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-slate-400 block mb-3">
                           Pipeline Covered Competencies
                         </span>
@@ -318,7 +320,7 @@ export default function App() {
                           {course.topics.map((topic, index) => (
                             <span 
                               key={index} 
-                              className="text-xs bg-[#0B0F19] text-slate-300 px-3 py-1.5 rounded-xl font-semibold border border-slate-800 hover:border-slate-700 hover:text-white transition-colors cursor-default"
+                              className="text-xs bg-black text-slate-300 px-3 py-1.5 rounded-xl font-semibold border border-blue-950/60 hover:border-blue-900 hover:text-white transition-colors cursor-default"
                             >
                               {topic}
                             </span>
@@ -333,7 +335,7 @@ export default function App() {
               {/* CREDENTIAL MILESTONES */}
               <div className="space-y-8">
                 <div className="text-center md:text-left">
-                  <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-brand-purple bg-brand-purple/10 px-3 py-1.5 rounded-full border border-brand-purple/20">Verification Pathways</span>
+                  <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-amber-400 bg-amber-400/10 px-3 py-1.5 rounded-full border border-amber-400/20">Verification Pathways</span>
                   <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mt-3 tracking-tight">Official Microsoft Certification Milestones</h2>
                 </div>
 
@@ -343,15 +345,15 @@ export default function App() {
                       key={idx}
                       variants={itemVariants}
                       whileHover={{ y: -6 }}
-                      className="group relative rounded-[2rem] p-6 sm:p-8 border border-brand-purple/30 transition-all duration-300 overflow-hidden bg-slate-900 shadow-xl flex flex-col sm:flex-row items-center gap-6"
+                      className="group relative rounded-[2rem] p-6 sm:p-8 border border-blue-500/20 transition-all duration-300 overflow-hidden bg-[#0A1428] shadow-xl flex flex-col sm:flex-row items-center gap-6"
                     >
-                      <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-purple-500 via-indigo-500 to-pink-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                      <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-blue-500 via-amber-400 to-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
                       
-                      <div className="w-24 h-24 shrink-0 relative flex items-center justify-center bg-[#0B0F19] rounded-2xl border border-slate-800 p-2 shadow-inner group-hover:scale-105 transition-transform">
+                      <div className="w-24 h-24 shrink-0 relative flex items-center justify-center bg-black rounded-2xl border border-blue-950/60 p-2 shadow-inner group-hover:scale-105 transition-transform">
                         <svg viewBox="0 0 100 100" className="w-full h-full relative z-10" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <circle cx="50" cy="50" r="45" stroke={cert.badgeColor} strokeWidth="1.5" strokeDasharray="4 4" />
-                          <circle cx="50" cy="50" r="39" fill="#0B0F19" stroke={cert.badgeColor} strokeWidth="2" />
-                          <path d="M38 45 L46 53 L62 37" stroke="#06b6d4" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
+                          <circle cx="50" cy="50" r="39" fill="#000000" stroke={cert.badgeColor} strokeWidth="2" />
+                          <path d="M38 45 L46 53 L62 37" stroke="#fbbf24" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
                           <text x="50" y="70" fill="#ffffff" fontSize="9" fontWeight="bold" textAnchor="middle">{cert.code}</text>
                           <text x="50" y="80" fill={cert.badgeColor} fontSize="5" fontWeight="bold" textAnchor="middle" letterSpacing="0.2">CERTIFIED</text>
                         </svg>
@@ -359,7 +361,7 @@ export default function App() {
 
                       <div className="flex-1 space-y-3 text-center sm:text-left relative z-10">
                         <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-                          <span className="text-[10px] font-black uppercase tracking-widest text-purple-400 bg-purple-500/10 px-2.5 py-0.5 rounded border border-brand-purple/20">
+                          <span className="text-[10px] font-black uppercase tracking-widest text-amber-400 bg-amber-400/10 px-2.5 py-0.5 rounded border border-amber-400/20">
                             {cert.duration}
                           </span>
                           <span className="text-xs font-bold text-slate-500">Official Exams Track</span>
@@ -375,14 +377,14 @@ export default function App() {
               {/* TARGET ALIGNMENT & DEMOGRAPHICS */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Audiences */}
-                <motion.div variants={itemVariants} className="relative rounded-[2rem] p-6 sm:p-8 border border-brand-blue/20 bg-slate-900 shadow-xl">
+                <motion.div variants={itemVariants} className="relative rounded-[2rem] p-6 sm:p-8 border border-blue-500/20 bg-[#0A1428] shadow-xl">
                   <h3 className="text-xl font-black text-white mb-6 flex items-center gap-2">
-                    <HelpCircle className="w-5 h-5 text-cyan-400" /> Ideal Target Demographics
+                    <HelpCircle className="w-5 h-5 text-amber-400" /> Ideal Target Demographics
                   </h3>
                   <div className="space-y-4">
                     {targetDemographics.map((aud, index) => (
-                      <div key={index} className="flex items-start gap-3 p-3 bg-[#0B0F19] rounded-2xl border border-slate-800 hover:border-slate-700 transition-colors">
-                        <span className="w-6 h-6 bg-brand-blue/10 text-cyan-400 rounded-lg text-xs font-black shrink-0 flex items-center justify-center border border-brand-blue/20">0{index + 1}</span>
+                      <div key={index} className="flex items-start gap-3 p-3 bg-black rounded-2xl border border-blue-950/60 hover:border-blue-900 transition-colors">
+                        <span className="w-6 h-6 bg-amber-400/10 text-amber-400 rounded-lg text-xs font-black shrink-0 flex items-center justify-center border border-amber-400/20">0{index + 1}</span>
                         <div>
                           <div className="text-sm font-extrabold text-white">{aud.label}</div>
                           <div className="text-xs font-semibold text-slate-400 mt-0.5">{aud.description}</div>
@@ -393,16 +395,16 @@ export default function App() {
                 </motion.div>
 
                 {/* Alignment */}
-                <motion.div variants={itemVariants} className="relative rounded-[2rem] p-6 sm:p-8 border border-brand-purple/20 bg-slate-900 shadow-xl flex flex-col justify-between">
+                <motion.div variants={itemVariants} className="relative rounded-[2rem] p-6 sm:p-8 border border-blue-500/20 bg-[#0A1428] shadow-xl flex flex-col justify-between">
                   <div>
                     <h3 className="text-xl font-black text-white mb-6 flex items-center gap-2">
-                      <UserCheck className="w-5 h-5 text-purple-400" /> Target Industry Alignment
+                      <UserCheck className="w-5 h-5 text-blue-400" /> Target Industry Alignment
                     </h3>
                     <div className="space-y-3">
                       {careerPaths.map((career, index) => (
-                        <div key={index} className="flex items-center justify-between p-3.5 bg-[#0B0F19] rounded-2xl border border-slate-800 hover:border-slate-700 transition-colors">
+                        <div key={index} className="flex items-center justify-between p-3.5 bg-black rounded-2xl border border-blue-950/60 hover:border-blue-900 transition-colors">
                           <span className="text-sm font-semibold text-slate-200">{career.role}</span>
-                          <span className="text-[10px] font-black uppercase tracking-widest text-cyan-400 bg-brand-blue/10 px-2.5 py-1 rounded-full border border-brand-blue/20">
+                          <span className="text-[10px] font-black uppercase tracking-widest text-amber-400 bg-amber-400/10 px-2.5 py-1 rounded-full border border-amber-400/20">
                             {career.requirement}
                           </span>
                         </div>
@@ -410,7 +412,7 @@ export default function App() {
                     </div>
                   </div>
                   
-                  <div className="mt-8 p-4 bg-[#0B0F19] border border-slate-800 rounded-2xl text-xs font-semibold text-slate-400 leading-relaxed">
+                  <div className="mt-8 p-4 bg-black border border-blue-950/60 rounded-2xl text-xs font-semibold text-slate-400 leading-relaxed">
                     Completing all designated phases directly prepares prospective candidates for advanced technical vetting matching the requirements for a standard <strong>Microsoft 365 Enterprise Administrator</strong> role footprint.
                   </div>
                 </motion.div>
@@ -430,11 +432,11 @@ export default function App() {
               <motion.div 
                 variants={itemVariants}
                 whileHover={{ y: -4 }}
-                className="group relative rounded-[2rem] p-6 sm:p-8 border border-brand-purple/30 bg-slate-900 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden"
+                className="group relative rounded-[2rem] p-6 sm:p-8 border border-amber-500/20 bg-[#0A1428] shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden"
               >
-                <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-purple-500 via-indigo-500 to-pink-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-blue-500 via-amber-400 to-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
                 <div className="space-y-4 max-w-4xl relative z-10">
-                  <div className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-brand-purple bg-brand-purple/10 px-3 py-1.5 rounded-full border border-brand-purple/20">
+                  <div className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-amber-400 bg-amber-400/10 px-3 py-1.5 rounded-full border border-amber-400/20">
                     <Globe className="w-3.5 h-3.5" /> Standardized Linguistic Frameworks
                   </div>
                   <h2 className="text-xl sm:text-2xl font-black tracking-tight text-white uppercase">
@@ -451,13 +453,13 @@ export default function App() {
                 <motion.div 
                   variants={itemVariants}
                   whileHover={{ y: -4 }}
-                  className="group relative rounded-[2rem] p-6 sm:p-8 border border-brand-blue/30 bg-slate-900 shadow-xl flex flex-col justify-between overflow-hidden"
+                  className="group relative rounded-[2rem] p-6 sm:p-8 border border-blue-500/20 bg-[#0A1428] shadow-xl flex flex-col justify-between overflow-hidden"
                 >
-                  <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-blue-500 to-cyan-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                  <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-blue-500 to-amber-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
                   <div>
-                    <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-cyan-400 block mb-2">Ages 6 to 12</span>
+                    <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-amber-400 block mb-2">Ages 6 to 12</span>
                     <div className="flex items-center gap-4 mb-4">
-                      <div className="p-3 rounded-xl bg-blue-500/10 text-blue-400 border border-slate-700 shadow-xs group-hover:scale-110 transition-transform shrink-0">
+                      <div className="p-3 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-950/60 shadow-xs group-hover:scale-110 transition-transform shrink-0">
                         <BookOpen className="w-5 h-5" />
                       </div>
                       <h3 className="text-xl sm:text-2xl font-black text-white">Young Learners English (YLE)</h3>
@@ -476,8 +478,8 @@ export default function App() {
                             onClick={() => setSelectedYleStep(idx)}
                             className={`py-3 px-1 rounded-xl text-xs font-black tracking-wider transition-all duration-300 border cursor-pointer ${
                               selectedYleStep === idx 
-                                ? "bg-blue-500/10 border-blue-400 text-blue-400 shadow-md" 
-                                : "bg-[#0B0F19] border-slate-800 text-slate-400 hover:border-slate-700"
+                                ? "bg-amber-400/10 border-amber-400 text-amber-400 shadow-md" 
+                                : "bg-black border-blue-950/60 text-slate-400 hover:border-blue-900"
                             }`}
                           >
                             {stepName}
@@ -492,10 +494,10 @@ export default function App() {
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -12 }}
                           transition={{ duration: 0.25, ease: "easeInOut" }}
-                          className="bg-[#0B0F19] p-5 rounded-2xl border border-slate-800 shadow-inner"
+                          className="bg-black p-5 rounded-2xl border border-blue-950/60 shadow-inner"
                         >
                           <div className="flex items-center justify-between mb-2">
-                            <span className="text-[10px] font-black tracking-widest uppercase text-cyan-400 bg-brand-blue/10 px-2.5 py-0.5 rounded border border-brand-blue/20">
+                            <span className="text-[10px] font-black tracking-widest uppercase text-amber-400 bg-amber-400/10 px-2.5 py-0.5 rounded border border-amber-400/20">
                               CEFR Step 0{selectedYleStep + 1}
                             </span>
                             <span className="text-[11px] font-bold text-slate-500">Core Primary Track</span>
@@ -530,13 +532,13 @@ export default function App() {
                 <motion.div 
                   variants={itemVariants}
                   whileHover={{ y: -4 }}
-                  className="group relative rounded-[2rem] p-6 sm:p-8 border border-brand-purple/30 bg-slate-900 shadow-xl flex flex-col justify-between overflow-hidden"
+                  className="group relative rounded-[2rem] p-6 sm:p-8 border border-blue-500/20 bg-[#0A1428] shadow-xl flex flex-col justify-between overflow-hidden"
                 >
-                  <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-purple-500 to-indigo-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                  <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-blue-500 to-amber-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
                   <div>
-                    <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-purple-400 block mb-2">Advanced Standardizations</span>
+                    <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-blue-400 block mb-2">Advanced Standardizations</span>
                     <div className="flex items-center gap-4 mb-4">
-                      <div className="p-3 rounded-xl bg-purple-500/10 text-purple-400 border border-slate-700 shadow-xs group-hover:scale-110 transition-transform shrink-0">
+                      <div className="p-3 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-950/60 shadow-xs group-hover:scale-110 transition-transform shrink-0">
                         <GraduationCap className="w-5 h-5" />
                       </div>
                       <h3 className="text-xl sm:text-2xl font-black text-white">Cambridge English Assessments</h3>
@@ -555,8 +557,8 @@ export default function App() {
                             onClick={() => setSelectedMainStep(idx)}
                             className={`py-3 px-1 rounded-xl text-xs font-black tracking-wider transition-all duration-300 border cursor-pointer ${
                               selectedMainStep === idx 
-                                ? "bg-purple-500/10 border-purple-400 text-purple-400 shadow-md" 
-                                : "bg-[#0B0F19] border-slate-800 text-slate-400 hover:border-slate-700"
+                                ? "bg-blue-500/10 border-blue-400 text-blue-400 shadow-md" 
+                                : "bg-black border-blue-950/60 text-slate-400 hover:border-blue-900"
                             }`}
                           >
                             {stepName}
@@ -571,10 +573,10 @@ export default function App() {
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -12 }}
                           transition={{ duration: 0.25, ease: "easeInOut" }}
-                          className="bg-[#0B0F19] p-5 rounded-2xl border border-slate-800 shadow-inner"
+                          className="bg-black p-5 rounded-2xl border border-blue-950/60 shadow-inner"
                         >
                           <div className="flex items-center justify-between mb-2">
-                            <span className="text-[10px] font-black tracking-widest uppercase text-purple-400 bg-brand-purple/10 px-2.5 py-0.5 rounded border border-brand-purple/20">
+                            <span className="text-[10px] font-black tracking-widest uppercase text-amber-400 bg-amber-400/10 px-2.5 py-0.5 rounded border border-amber-400/20">
                               {["CEFR A2 Standard", "CEFR B1 Standard", "CEFR B2 Standard"][selectedMainStep]}
                             </span>
                             <span className="text-[11px] font-bold text-slate-500">Main Suite Node</span>
@@ -599,7 +601,7 @@ export default function App() {
                     href="https://wa.me/94710525968?text=Cambridge%20Assessments%20Admissions"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full text-center py-4 bg-purple-600 hover:bg-purple-500 text-white font-black text-sm rounded-xl transition-all shadow-md block cursor-pointer uppercase tracking-wider"
+                    className="w-full text-center py-4 bg-blue-600 hover:bg-blue-500 text-white font-black text-sm rounded-xl transition-all shadow-md block cursor-pointer uppercase tracking-wider"
                   >
                     Inquire About Assessments
                   </motion.a>
@@ -610,8 +612,8 @@ export default function App() {
         </AnimatePresence>
 
         {/* ECO-GRID BENCHMARKS */}
-        <div className="my-24 py-12 px-6 rounded-[2.5rem] bg-slate-900 border border-brand-blue/10 text-center relative overflow-hidden shadow-2xl">
-          <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-brand-blue bg-brand-blue/10 px-3 py-1.5 rounded-full border border-brand-blue/20">System Benchmarks</span>
+        <div className="my-24 py-12 px-6 rounded-[2.5rem] bg-[#0A1428] border border-blue-500/10 text-center relative overflow-hidden shadow-2xl">
+          <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-amber-400 bg-amber-400/10 px-3 py-1.5 rounded-full border border-amber-400/20">System Benchmarks</span>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mt-3 mb-8 tracking-tight">What Makes This Program Hub Unique?</h2>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left relative z-10">
@@ -621,7 +623,7 @@ export default function App() {
               { icon: "🏆", title: "Target Alignments", desc: "Direct target checkpoints mapped out to land specialized system administrator roles." },
               { icon: "🌍", title: "Worldwide Recognition", desc: "Prepare for globally unified assessments respected by thousands of enterprises." }
             ].map((item, idx) => (
-              <div key={idx} className="p-6 bg-[#0B0F19] rounded-2xl border border-slate-800 shadow-inner hover:border-slate-700 transition-colors duration-300">
+              <div key={idx} className="p-6 bg-black rounded-2xl border border-blue-950/60 shadow-inner hover:border-blue-900 transition-colors duration-300">
                 <span className="text-2xl">{item.icon}</span>
                 <h4 className="text-base font-black text-white mt-3">{item.title}</h4>
                 <p className="text-xs sm:text-sm font-semibold text-slate-400 mt-1.5 leading-relaxed">{item.desc}</p>
@@ -638,9 +640,9 @@ export default function App() {
           className="max-w-5xl mx-auto"
           id="enrollment-hub"
         >
-          <div className="bg-[#0B0F19]/60 backdrop-blur-xl border border-white/10 p-6 sm:p-10 md:p-12 rounded-[2.5rem] shadow-2xl relative overflow-hidden">
+          <div className="bg-[#0A1428]/90 backdrop-blur-xl border border-blue-900/40 p-6 sm:p-10 md:p-12 rounded-[2.5rem] shadow-2xl relative overflow-hidden">
             <div className="text-center mb-10">
-              <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-cyan-400 bg-brand-blue/10 px-3 py-1.5 rounded-full border border-brand-blue/20 mb-3">
+              <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-amber-400 bg-amber-400/10 px-3 py-1.5 rounded-full border border-amber-400/20 mb-3">
                 <Sparkles className="w-3.5 h-3.5" /> Instant Placement Node
               </span>
               <h2 className="text-3xl sm:text-4xl md:text-6xl font-black text-white mb-4 tracking-tight">Secure Your Program Seat</h2>
@@ -655,7 +657,7 @@ export default function App() {
                   type="text" 
                   required 
                   placeholder="Full Name" 
-                  className="w-full bg-[#161B29] border border-slate-700 p-4 sm:p-5 rounded-2xl text-white focus:ring-2 focus:ring-brand-blue outline-none transition-all text-sm sm:text-base font-semibold"
+                  className="w-full bg-black border border-blue-900/40 p-4 sm:p-5 rounded-2xl text-white focus:ring-2 focus:ring-amber-400 outline-none transition-all text-sm sm:text-base font-semibold"
                   value={formData.fullName}
                   onChange={(e: ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, fullName: e.target.value })}
                 />
@@ -663,7 +665,7 @@ export default function App() {
                   type="tel" 
                   required 
                   placeholder="Phone Number" 
-                  className="w-full bg-[#161B29] border border-slate-700 p-4 sm:p-5 rounded-2xl text-white focus:ring-2 focus:ring-brand-blue outline-none transition-all text-sm sm:text-base font-semibold"
+                  className="w-full bg-black border border-blue-900/40 p-4 sm:p-5 rounded-2xl text-white focus:ring-2 focus:ring-amber-400 outline-none transition-all text-sm sm:text-base font-semibold"
                   value={formData.phone}
                   onChange={(e: ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, phone: e.target.value })}
                 />
@@ -674,7 +676,7 @@ export default function App() {
                   type="email" 
                   required 
                   placeholder="Email Address" 
-                  className="w-full bg-[#161B29] border border-slate-700 p-4 sm:p-5 rounded-2xl text-white focus:ring-2 focus:ring-brand-blue outline-none transition-all text-sm sm:text-base font-semibold"
+                  className="w-full bg-black border border-blue-900/40 p-4 sm:p-5 rounded-2xl text-white focus:ring-2 focus:ring-amber-400 outline-none transition-all text-sm sm:text-base font-semibold"
                   value={formData.email}
                   onChange={(e: ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, email: e.target.value })}
                 />
@@ -682,7 +684,7 @@ export default function App() {
                   type="text" 
                   required 
                   placeholder="School / Occupation" 
-                  className="w-full bg-[#161B29] border border-slate-700 p-4 sm:p-5 rounded-2xl text-white focus:ring-2 focus:ring-brand-blue outline-none transition-all text-sm sm:text-base font-semibold"
+                  className="w-full bg-black border border-blue-900/40 p-4 sm:p-5 rounded-2xl text-white focus:ring-2 focus:ring-amber-400 outline-none transition-all text-sm sm:text-base font-semibold"
                   value={formData.occupation}
                   onChange={(e: ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, occupation: e.target.value })}
                 />
@@ -690,7 +692,7 @@ export default function App() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <select 
-                  className="w-full bg-[#161B29] border border-slate-700 p-4 sm:p-5 rounded-2xl text-slate-400 focus:ring-2 focus:ring-brand-blue outline-none text-sm sm:text-base font-semibold cursor-pointer"
+                  className="w-full bg-black border border-blue-900/40 p-4 sm:p-5 rounded-2xl text-slate-400 focus:ring-2 focus:ring-amber-400 outline-none text-sm sm:text-base font-semibold cursor-pointer"
                   value={formData.program}
                   onChange={(e: ChangeEvent<HTMLSelectElement>) => handleProgramSwitch(e.target.value)}
                 >
@@ -700,7 +702,7 @@ export default function App() {
                 </select>
 
                 <select 
-                  className="w-full bg-[#161B29] border border-slate-700 p-4 sm:p-5 rounded-2xl text-slate-400 focus:ring-2 focus:ring-brand-blue outline-none text-sm sm:text-base font-semibold cursor-pointer"
+                  className="w-full bg-black border border-blue-900/40 p-4 sm:p-5 rounded-2xl text-slate-400 focus:ring-2 focus:ring-amber-400 outline-none text-sm sm:text-base font-semibold cursor-pointer"
                   value={formData.classOption}
                   onChange={(e: ChangeEvent<HTMLSelectElement>) => setFormData({ ...formData, classOption: e.target.value })}
                 >
@@ -730,9 +732,10 @@ export default function App() {
               </div>
 
               <textarea 
+                required
                 rows={4} 
                 placeholder="Additional details or questions..." 
-                className="w-full bg-[#161B29] border border-slate-700 p-4 sm:p-5 rounded-2xl text-white focus:ring-2 focus:ring-brand-blue outline-none transition-all text-sm sm:text-base font-semibold"
+                className="w-full bg-black border border-blue-900/40 p-4 sm:p-5 rounded-2xl text-white focus:ring-2 focus:ring-amber-400 outline-none transition-all text-sm sm:text-base font-semibold"
                 value={formData.message}
                 onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setFormData({ ...formData, message: e.target.value })}
               />
@@ -751,7 +754,7 @@ export default function App() {
       </main>
 
       {/* FOOTER */}
-      <footer className="relative z-10 border-t border-slate-900 bg-slate-950/60 py-12 text-center text-xs text-slate-500 max-w-7xl mx-auto px-4 mt-24">
+      <footer className="relative z-10 border-t border-blue-950/60 bg-black/60 py-12 text-center text-xs text-slate-500 max-w-7xl mx-auto px-4 mt-24">
         <p>© 2026 Educational Innovation Ecosystem. Designed for scalable student milestone architectures.</p>
         <p className="mt-2 text-slate-600">Thakral Global Learning (TGL) curricula and exam alignments are globally regulated.</p>
       </footer>
