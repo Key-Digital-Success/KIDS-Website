@@ -4,12 +4,12 @@ import { useState, useEffect } from "react";
 import { X, Expand } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-// Modern high-contrast source image tokens with absolute heights
+// Updated galleryData with all local assets categorized under "Classroom"
 const galleryData = [
-  { id: 1, category: "Classroom", title: "Modern Computing Lab Layout", url: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80" },
-  { id: 2, category: "Students", title: "Interactive Project Lab Group", url: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" },
-  { id: 3, category: "Certificates", title: "Official Microsoft Path Awarding", url: "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&w=800&q=80" },
-  { id: 4, category: "Events", title: "Strategic Digital Excellence Seminar", url: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=800&q=80" },
+  { id: 1, category: "Classroom", title: "Modern Computing Lab Layout", url: "/classroom/classroom (1).jpg" },
+  { id: 2, category: "Classroom", title: "Interactive Project Lab Group", url: "/classroom/classroom (2).jpg" },
+  { id: 3, category: "Classroom", title: "Official Microsoft Path Awarding", url: "/classroom/classroom (3).jpg" },
+  { id: 4, category: "Classroom", title: "Strategic Digital Excellence Seminar", url: "/classroom/classroom (4).jpg" },
   { id: 5, category: "Classroom", title: "Cambridge Language Training Workspace", url: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80" },
   { id: 6, category: "Students", title: "M365 Identity Management Lab Practice", url: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80" },
 ];
@@ -21,7 +21,6 @@ export default function GalleryPage() {
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
 
-  // Prevent client/server state hydration issues on load
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -37,7 +36,6 @@ export default function GalleryPage() {
   return (
     <div className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[85vh]">
       
-      {/* Page Title Header */}
       <div className="text-center max-w-2xl mx-auto mb-12">
         <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-3">
           KIDS Gallery
@@ -47,7 +45,6 @@ export default function GalleryPage() {
         </p>
       </div>
 
-      {/* Category Tab Selectors */}
       <div className="flex flex-wrap items-center justify-center gap-2.5 mb-14">
         {categories.map((cat) => (
           <button
@@ -64,7 +61,6 @@ export default function GalleryPage() {
         ))}
       </div>
 
-      {/* Grid Canvas Layout Framework */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 auto-rows-max">
         <AnimatePresence mode="popLayout">
           {filteredImages.map((item) => (
@@ -105,7 +101,6 @@ export default function GalleryPage() {
         </AnimatePresence>
       </div>
 
-      {/* Lightbox Modal Box */}
       <AnimatePresence>
         {lightboxImage && (
           <motion.div 
