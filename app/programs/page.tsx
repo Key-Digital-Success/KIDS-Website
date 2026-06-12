@@ -1,240 +1,761 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Layers, Terminal, Globe, ShieldCheck, UserCheck } from "lucide-react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
+import { motion, AnimatePresence, Variants } from "framer-motion";
+import { 
+  Layers, 
+  Terminal, 
+  Globe, 
+  ShieldCheck, 
+  UserCheck, 
+  ChevronRight, 
+  CheckCircle2, 
+  ArrowRight,
+  HelpCircle,
+  Send,
+  Laptop,
+  BookOpen,
+  Sparkles,
+  Award,
+  Cpu,
+  GraduationCap
+} from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 
-const m365Courses = [
+// --- CORE DATA CONFIGURATIONS ---
+interface Course {
+  stage: string;
+  title: string;
+  duration: string;
+  tagline: string;
+  description: string;
+  topics: string[];
+}
+
+const m365Courses: Course[] = [
   {
     stage: "Stage 01",
     title: "Introduction to Microsoft 365 Architecture",
     duration: "60 Hours",
-    topics: ["Microsoft Word", "Excel Dashboards", "PowerPoint Layouts", "Outlook Logic", "Teams Integration", "OneDrive Structure", "SharePoint Core", "Computer basics", "File management", "Cloud storage", "Digital safety"]
+    tagline: "Build foundational digital workplace competence and essential computing layers.",
+    description: "Master everyday application orchestration, structured cloud workspaces, dynamic file security directories, and general operational cloud paradigms.",
+    topics: [
+      "Microsoft Word", "Excel Dashboards", "PowerPoint Layouts", "Outlook Logic", 
+      "Teams Integration", "OneDrive Structure", "SharePoint Core", "Computer basics", 
+      "File management", "Cloud storage", "Digital safety"
+    ]
   },
   {
     stage: "Stage 02",
     title: "Advanced Enterprise Microsoft 365 Administration",
     duration: "80 Hours",
-    topics: ["M365 Licensing Models", "Excel Pivot-Table Automation", "Power BI Data Engineering Overview", "SharePoint Security Governance", "MFA Authentication Layers", "Data Loss Prevention (DLP) Policies", "Teams Infrastructure Administration"]
+    tagline: "Architect, administer, and secure complex enterprise cloud environments.",
+    description: "Transition into high-level organizational cloud engineering. Manage custom enterprise licensing models, system integrations, and advanced governance rules.",
+    topics: [
+      "M365 Licensing Models", "Excel Pivot-Table Automation", "Power BI Data Engineering Overview", 
+      "SharePoint Security Governance", "MFA Authentication Layers", "Data Loss Prevention (DLP) Policies", 
+      "Teams Infrastructure Administration"
+    ]
   }
 ];
 
-const certifications = [
-  { code: "MS-900", title: "Microsoft 365 Fundamentals Certification", duration: "1 Day Prep", desc: "Entry-level certification covering foundational cloud concepts, Microsoft 365 services, core security, compliance options, and identity pricing matrices." },
-  { code: "MS-102", title: "Microsoft 365 Administrator Certification", duration: "4 Days Bootcamp", desc: "Associate-level expert certification focused explicitly on enterprise tenant deployment, managing identities, security configurations, and application compliance synchronization." }
+interface Certification {
+  code: string;
+  title: string;
+  duration: string;
+  desc: string;
+  badgeColor: string;
+}
+
+const certifications: Certification[] = [
+  { 
+    code: "MS-900", 
+    title: "Microsoft 365 Fundamentals Certification", 
+    duration: "1 Day Prep", 
+    desc: "Entry-level certification covering foundational cloud concepts, Microsoft 365 services, core security, compliance options, and identity pricing matrices.",
+    badgeColor: "#3b82f6"
+  },
+  { 
+    code: "MS-102", 
+    title: "Microsoft 365 Administrator Certification", 
+    duration: "4 Days Bootcamp", 
+    desc: "Associate-level expert certification focused explicitly on enterprise tenant deployment, managing identities, security configurations, and application compliance synchronization.",
+    badgeColor: "#a855f7"
+  }
 ];
 
-export default function ProgramsPage() {
+const targetDemographics = [
+  { label: "School Students", description: "Cultivate high-end technical credentials early." },
+  { label: "School Leavers", description: "Accelerate your path into technical industries." },
+  { label: "Absolute Beginners", description: "No prior IT experience required. We guide you from step zero." },
+  { label: "University Students", description: "Bridge the gap between theoretical models and live workflows." },
+  { label: "Working Professionals", description: "Upskill to modern cloud-native administration environments." }
+];
+
+const careerPaths = [
+  { role: "M365 Enterprise Administrator", requirement: "MS-102 Certified" },
+  { role: "Cloud Support Analyst", requirement: "MS-900 Certified" },
+  { role: "IT Systems Engineer", requirement: "Advanced Stage 2" },
+  { role: "Modern Workspace Specialist", requirement: "Stage 1 + 2 Complete" }
+];
+
+// --- FRAMER MOTION ORCHESTRATION ---
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.12, delayChildren: 0.1 }
+  }
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 25 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } 
+  }
+};
+
+const floatAnimation: Variants = {
+  initial: { y: 0, x: 0, rotate: 0 },
+  animate: (custom: { y: number[]; x: number[]; rotate?: number[]; duration: number }) => ({
+    y: custom.y,
+    x: custom.x,
+    rotate: custom.rotate || 0,
+    transition: {
+      duration: custom.duration,
+      repeat: Infinity,
+      repeatType: "reverse" as const,
+      ease: "easeInOut"
+    }
+  })
+};
+
+export default function App() {
+  const [activeTab, setActiveTab] = useState<"m365" | "cambridge">("m365");
+  const [selectedYleStep, setSelectedYleStep] = useState<number>(0);
+  const [selectedMainStep, setSelectedMainStep] = useState<number>(0);
+
+  const [formData, setFormData] = useState({
+    fullName: "",
+    phone: "",
+    email: "",
+    occupation: "",
+    program: "Microsoft 365 Professional",
+    classOption: "Stage 01",
+    message: ""
+  });
+
+  const handleInquirySubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const message = `*New Enrollment Inquiry*%0A%0A*Name:* ${formData.fullName}%0A*Phone:* ${formData.phone}%0A*Email:* ${formData.email}%0A*Occupation:* ${formData.occupation}%0A*Program:* ${formData.program}%0A*Class:* ${formData.classOption}%0A*Message:* ${formData.message}`;
+    window.open(`https://wa.me/94710525968?text=${message}`, '_blank');
+  };
+
+  const handleProgramSwitch = (prog: string) => {
+    let defaultOption = "Stage 01";
+    if (prog === "Cambridge YLE Exams") defaultOption = "Starters";
+    if (prog === "Cambridge English Qualifications") defaultOption = "KET";
+    setFormData({ ...formData, program: prog, classOption: defaultOption });
+  };
+
   return (
-    <div className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-smooth">
+    <div className="bg-[#0B0F19] text-slate-100 min-h-screen font-sans antialiased overflow-x-hidden relative">
       
-      {/* Title Header */}
-      <div className="text-center max-w-3xl mx-auto mb-20">
-        <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-4 text-slate-950 dark:text-white">
-          Educational Programs Ecosystem
-        </h1>
-        <p className="text-base font-bold text-slate-700 dark:text-slate-300 max-w-xl mx-auto">
-          Professional cloud alignment and global language frameworks certified for modern milestones.
-        </p>
-      </div>
+      {/* Ambient Glow Layers */}
+      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-gradient-to-tr from-brand-blue/10 to-brand-purple/5 rounded-full blur-3xl pointer-events-none" />
+      
+      {/* Floating Vectors Matrix */}
+      <motion.div custom={{ y: [0, -20, 0], x: [0, 15, 0], duration: 7 }} variants={floatAnimation} initial="initial" animate="animate" className="absolute top-16 right-[12%] text-brand-blue/20 pointer-events-none hidden lg:block">
+        <Sparkles className="w-16 h-16 stroke-[1.5]" />
+      </motion.div>
+      <motion.div custom={{ y: [0, 25, 0], x: [0, -20, 0], duration: 9 }} variants={floatAnimation} initial="initial" animate="animate" className="absolute top-[45%] left-[6%] text-brand-purple/20 pointer-events-none hidden lg:block">
+        <Terminal className="w-14 h-14 stroke-[1.5]" />
+      </motion.div>
 
-      {/* 🟦 SECTION: MICROSOFT 365 PROFESSIONAL PROGRAM */}
-      <div id="m365" className="mb-28 scroll-mt-24">
-        <motion.div 
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="p-6 md:p-8 rounded-3xl bg-blue-100/40 dark:bg-brand-card-dark/20 border border-blue-200/60 dark:border-slate-800 mb-12 backdrop-blur-xs"
+      {/* 🚀 HEADER SECTION */}
+      <header className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 md:pt-24 text-center">
+        <motion.span 
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.4 }}
+          className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-brand-blue bg-brand-blue/10 px-3 py-1.5 rounded-full border border-brand-blue/20 mb-6"
         >
-          <div className="flex items-center gap-2 text-xs font-black text-brand-blue uppercase tracking-widest mb-3">
-            <ShieldCheck className="w-4 h-4" /> Thakral Global Learning (TGL) Curriculums
-          </div>
-          <p className="text-sm md:text-base font-bold text-slate-800 dark:text-slate-300 leading-relaxed">
-            Our Microsoft 365 pathway targets direct cloud environment operational experience. Powered through enterprise alignment models with TGL, students gain continuous tactical access to official labs and live deployment scenarios.
-          </p>
-        </motion.div>
+          <Award className="w-3.5 h-3.5" /> Educational Programs Ecosystem
+        </motion.span>
 
-        <div className="mb-10">
-          <div className="flex items-center gap-3 mb-2">
-            <Layers className="w-6 h-6 text-brand-blue" />
-            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-950 dark:text-white">Microsoft 365 Professional Program Pipeline</h2>
-          </div>
-          <div className="w-28 h-1 bg-brand-blue rounded-full" />
+        <motion.h1 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mt-3 tracking-tight text-white max-w-5xl mx-auto leading-tight"
+        >
+          Certification Pipelines <br className="hidden sm:inline" />
+          <span className="bg-gradient-to-r from-blue-500 via-cyan-500 to-indigo-500 bg-clip-text text-transparent">
+            For Modern Milestones
+          </span>
+        </motion.h1>
+
+        <motion.p 
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="mt-6 text-sm sm:text-base text-slate-400 max-w-2xl mx-auto font-medium leading-relaxed"
+        >
+          Professional cloud alignment and global language frameworks structured to maximize industry utility and placement outcomes.
+        </motion.p>
+
+        {/* INTERACTIVE TRACK SWITCHER */}
+        <div className="mt-12 max-w-md mx-auto p-1.5 rounded-2xl bg-slate-900 border border-slate-800 backdrop-blur-md flex relative z-10">
+          <button
+            onClick={() => setActiveTab("m365")}
+            className={`flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold tracking-wider transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer relative z-10 ${
+              activeTab === "m365" 
+                ? "bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-lg" 
+                : "text-slate-400 hover:text-slate-100"
+            }`}
+          >
+            <Laptop className="w-4 h-4" /> Microsoft 365
+          </button>
+          <button
+            onClick={() => setActiveTab("cambridge")}
+            className={`flex-1 py-3 px-4 rounded-xl text-xs sm:text-sm font-bold tracking-wider transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer relative z-10 ${
+              activeTab === "cambridge" 
+                ? "bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow-lg" 
+                : "text-slate-400 hover:text-slate-100"
+            }`}
+          >
+            <Globe className="w-4 h-4" /> Cambridge English
+          </button>
         </div>
+      </header>
 
-        {/* Optimized Contrast Card Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-          {m365Courses.map((course, idx) => (
-            <motion.div 
-              key={idx} 
-              initial={{ opacity: 0, scale: 0.98, y: 20 }}
-              whileInView={{ opacity: 1, scale: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              whileHover={{ y: -6, boxShadow: "0 30px 60px -15px rgba(29,78,216,0.1)" }}
-              className="glass-card p-8 rounded-3xl flex flex-col justify-between transition-all duration-300"
+      {/* 💻 MAIN CONTENT LAYOUTS */}
+      <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+        <AnimatePresence mode="wait">
+          {activeTab === "m365" ? (
+            <motion.section
+              key="m365-track"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              className="space-y-16 md:space-y-24"
             >
-              <div>
-                <div className="flex items-center justify-between mb-6">
-                  <span className="text-xs font-black text-brand-blue uppercase tracking-widest bg-blue-100 dark:bg-brand-blue/20 px-3 py-1.5 rounded-xl border border-blue-300/80 dark:border-brand-blue/30">
-                    {course.stage}
-                  </span>
-                  <span className="text-xs font-black text-slate-700 dark:text-slate-300 bg-slate-200/60 dark:bg-slate-800 px-3 py-1.5 rounded-xl border border-slate-300/40 dark:border-slate-700/40">
-                    {course.duration}
-                  </span>
-                </div>
-                <h3 className="text-xl md:text-2xl font-black mb-4 text-slate-950 dark:text-white leading-snug">{course.title}</h3>
-                
-                {/* Contrast tags utilizing concrete slate borders instead of transparent bleed */}
-                <div className="flex flex-wrap gap-2 mb-8">
-                  {course.topics.map((topic, i) => (
-                    <span key={i} className="text-xs bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 rounded-xl font-bold border border-slate-300 dark:border-slate-700/50 shadow-xs">
-                      {topic}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <motion.a
-                whileHover={{ scale: 1.02, backgroundColor: "#1e40af", color: "#ffffff" }}
-                whileTap={{ scale: 0.98 }}
-                href={`https://wa.me/94710525968?text=M365%20Info%3A%20${encodeURIComponent(course.title)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full text-center py-4 bg-brand-blue text-white text-sm font-extrabold rounded-2xl transition-all block shadow-md shadow-brand-blue/10"
+              {/* TGL ACADEMIC PLATFORM HEADER */}
+              <motion.div 
+                variants={itemVariants}
+                whileHover={{ y: -4 }}
+                className="group relative rounded-[2rem] p-6 sm:p-8 border border-brand-blue/30 bg-slate-900 shadow-xl flex flex-col md:flex-row items-center justify-between gap-8 overflow-hidden"
               >
-                Get Syllabus Details via WhatsApp
-              </motion.a>
-            </motion.div>
-          ))}
-        </div>
+                <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-blue-500 via-cyan-500 to-indigo-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                <div className="space-y-4 max-w-3xl">
+                  <div className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-brand-blue bg-brand-blue/10 px-3 py-1.5 rounded-full border border-brand-blue/20">
+                    <ShieldCheck className="w-3.5 h-3.5" /> Thakral Global Learning (TGL) Partnership
+                  </div>
+                  <h2 className="text-xl sm:text-2xl font-black tracking-tight text-white uppercase">
+                    Microsoft 365 Professional Program Pipeline
+                  </h2>
+                  <p className="text-sm sm:text-base text-slate-300 font-semibold leading-relaxed">
+                    Our Microsoft 365 pathway targets direct cloud environment operational experience. Powered through enterprise alignment models with TGL, students gain continuous tactical access to official labs, diagnostic tool suites, and live deployment scenarios.
+                  </p>
+                </div>
+                
+                <div className="w-full md:w-auto shrink-0 relative z-10">
+                  <div className="bg-[#0B0F19] p-6 rounded-[1.5rem] border border-slate-800 text-center w-full sm:w-60 shadow-inner">
+                    <div className="text-2xl sm:text-3xl font-black text-cyan-400">140 Hours</div>
+                    <div className="text-[10px] uppercase tracking-widest text-slate-500 font-black mt-1">Structured Delivery</div>
+                    <div className="h-px bg-slate-800 my-4" />
+                    <div className="text-xs sm:text-sm font-semibold text-slate-300">MS-900 & MS-102 Tracks</div>
+                  </div>
+                </div>
+              </motion.div>
 
-        {/* Certifications Subsections Layer */}
-        <h3 className="text-xs font-black mb-6 text-slate-500 dark:text-slate-400 uppercase tracking-widest flex items-center gap-2">
-          <Terminal className="w-4 h-4 text-brand-purple" /> Certification Pathways
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
-          {certifications.map((cert, idx) => (
-            <motion.div 
-              key={idx} 
-              initial={{ opacity: 0, x: idx % 2 === 0 ? -20 : 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="glass-card p-6 rounded-3xl border-l-4 border-l-brand-purple"
-            >
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-sm font-black text-brand-purple tracking-widest bg-purple-100 dark:bg-brand-purple/20 px-3 py-1 rounded-xl border border-purple-300 dark:border-brand-purple/30">{cert.code}</span>
-                <span className="text-xs font-bold text-slate-800 dark:text-slate-400 bg-slate-200/60 dark:bg-slate-800 px-2.5 py-1 rounded-md">{cert.duration}</span>
-              </div>
-              <h4 className="font-extrabold mb-2 text-base text-slate-950 dark:text-slate-100">{cert.title}</h4>
-              <p className="text-sm font-medium text-slate-700 dark:text-slate-300 leading-relaxed">{cert.desc}</p>
-            </motion.div>
-          ))}
-        </div>
+              {/* CURRICULUM PIPELINE STAGES */}
+              <div className="space-y-8">
+                <div className="text-center md:text-left">
+                  <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-brand-blue bg-brand-blue/10 px-3 py-1.5 rounded-full border border-brand-blue/20">Modular Architecture</span>
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mt-3 tracking-tight">Academic Learning Pipeline</h2>
+                </div>
 
-        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="p-6 rounded-3xl border border-dashed border-brand-blue/40 bg-blue-50/40 dark:bg-brand-blue/5 flex items-center gap-4">
-          <UserCheck className="w-6 h-6 text-brand-blue shrink-0" />
-          <div>
-            <h4 className="text-sm font-bold text-slate-950 dark:text-slate-200">Target Industry Alignment Blueprint</h4>
-            <p className="text-xs font-bold text-slate-700 dark:text-slate-400 mt-0.5">Completing all phases directly prepares candidates for technical vetting as a **Microsoft 365 Enterprise Administrator** role layout.</p>
-          </div>
-        </motion.div>
-      </div>
-
-      {/* 🟨 SECTION: CAMBRIDGE ENGLISH PROGRAMS */}
-      <div id="cambridge" className="scroll-mt-24 pt-12 border-t border-slate-200 dark:border-slate-800">
-        <div className="mb-10">
-          <div className="flex items-center gap-3 mb-2">
-            <Globe className="w-6 h-6 text-emerald-600" />
-            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-950 dark:text-white">Cambridge English Programs</h2>
-          </div>
-          <div className="w-28 h-1 bg-emerald-600 rounded-full" />
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Cambridge YLE Block */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="glass-card p-8 rounded-3xl flex flex-col justify-between"
-          >
-            <div>
-              <div className="mb-4">
-                <span className="px-3 py-1.5 rounded-xl text-xs font-black bg-emerald-100 dark:bg-emerald-500/20 text-emerald-800 dark:text-emerald-400 uppercase tracking-widest border border-emerald-300 dark:border-emerald-500/30">Cambridge YLE</span>
-              </div>
-              <h3 className="text-2xl font-black mb-3 text-slate-950 dark:text-white">Young Learners English (YLE)</h3>
-              <p className="text-sm font-bold text-slate-700 dark:text-slate-300 mb-8 leading-relaxed">
-                Focuses heavily on constructing a robust, native basic English foundation for young learners across structural primary development layers.
-              </p>
-              
-              <div className="border-t border-slate-200 dark:border-slate-800/80 pt-6 mb-8">
-                <h4 className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-4">Included Exam Tracks</h4>
-                <div className="grid grid-cols-3 gap-3 text-center text-xs font-black mb-6">
-                  {["Starters", "Movers", "Flyers"].map((lvl) => (
-                    <div key={lvl} className="bg-slate-100 dark:bg-slate-800/60 p-3 rounded-xl border border-slate-300 dark:border-slate-700/40 text-slate-900 dark:text-slate-200 font-extrabold shadow-xs">
-                      {lvl}
-                    </div>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+                  {m365Courses.map((course, idx) => (
+                    <motion.div
+                      key={idx}
+                      variants={itemVariants}
+                      whileHover={{ y: -6 }}
+                      className="group relative rounded-[2rem] p-6 sm:p-8 border border-brand-blue/30 transition-all duration-300 overflow-hidden bg-slate-900 shadow-xl flex flex-col justify-between"
+                    >
+                      <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-blue-500 via-cyan-500 to-indigo-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                      <div>
+                        <div className="flex items-center justify-between mb-6">
+                          <span className="text-xs font-black text-cyan-400 bg-brand-blue/10 px-3 py-1.5 rounded-full border border-brand-blue/20">
+                            {course.stage}
+                          </span>
+                          <span className="text-xs font-bold text-slate-400 bg-[#0B0F19] px-3 py-1.5 rounded-xl border border-slate-800">
+                            {course.duration}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-4 mb-4">
+                          <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 border border-slate-700 shadow-xs flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
+                            <Cpu className="w-5 h-5" />
+                          </div>
+                          <h3 className="text-xl font-black text-white group-hover:text-cyan-400 transition-colors duration-200">
+                            {course.title}
+                          </h3>
+                        </div>
+                        <p className="text-xs font-semibold text-slate-500 mt-1 mb-4 italic">{course.tagline}</p>
+                        <p className="text-sm sm:text-base text-slate-300 font-medium leading-relaxed mb-6">
+                          {course.description}
+                        </p>
+                        
+                        <div className="w-full h-px bg-slate-800/60 mb-6" />
+                        <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-slate-400 block mb-3">
+                          Pipeline Covered Competencies
+                        </span>
+                        <div className="flex flex-wrap gap-2">
+                          {course.topics.map((topic, index) => (
+                            <span 
+                              key={index} 
+                              className="text-xs bg-[#0B0F19] text-slate-300 px-3 py-1.5 rounded-xl font-semibold border border-slate-800 hover:border-slate-700 hover:text-white transition-colors cursor-default"
+                            >
+                              {topic}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </motion.div>
                   ))}
                 </div>
-                <h4 className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">Core Proficiency Focus</h4>
-                <p className="text-sm font-bold text-slate-700 dark:text-slate-400 leading-relaxed">Reading, writing, speaking, and immersive interactive listening skill methodologies.</p>
               </div>
-            </div>
 
-            <motion.a 
-              whileHover={{ scale: 1.02, backgroundColor: "#046648" }}
-              whileTap={{ scale: 0.98 }}
-              href="https://wa.me/94710525968?text=Cambridge%20YLE%20Admissions"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full text-center py-4 bg-emerald-600 text-white text-sm font-extrabold rounded-2xl shadow-lg shadow-emerald-600/10 transition-all cursor-pointer"
-            >
-              Inquire About YLE Batches
-            </motion.a>
-          </motion.div>
+              {/* CREDENTIAL MILESTONES */}
+              <div className="space-y-8">
+                <div className="text-center md:text-left">
+                  <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-brand-purple bg-brand-purple/10 px-3 py-1.5 rounded-full border border-brand-purple/20">Verification Pathways</span>
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mt-3 tracking-tight">Official Microsoft Certification Milestones</h2>
+                </div>
 
-          {/* Cambridge Assessments Block */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="glass-card p-8 rounded-3xl flex flex-col justify-between"
-          >
-            <div>
-              <div className="mb-4">
-                <span className="px-3 py-1.5 rounded-xl text-xs font-black bg-purple-100 dark:bg-brand-purple/20 text-brand-purple dark:text-purple-400 uppercase tracking-widest border border-purple-300 dark:border-brand-purple/30">Assessments Node</span>
-              </div>
-              <h3 className="text-2xl font-black mb-3 text-slate-950 dark:text-white">Cambridge English Assessments</h3>
-              <p className="text-sm font-bold text-slate-700 dark:text-slate-300 mb-8 leading-relaxed">
-                Rigorous preparation modules engineered explicitly for high-level academic development, checking and validating compliance with global benchmarks.
-              </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {certifications.map((cert, idx) => (
+                    <motion.div 
+                      key={idx}
+                      variants={itemVariants}
+                      whileHover={{ y: -6 }}
+                      className="group relative rounded-[2rem] p-6 sm:p-8 border border-brand-purple/30 transition-all duration-300 overflow-hidden bg-slate-900 shadow-xl flex flex-col sm:flex-row items-center gap-6"
+                    >
+                      <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-purple-500 via-indigo-500 to-pink-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                      
+                      <div className="w-24 h-24 shrink-0 relative flex items-center justify-center bg-[#0B0F19] rounded-2xl border border-slate-800 p-2 shadow-inner group-hover:scale-105 transition-transform">
+                        <svg viewBox="0 0 100 100" className="w-full h-full relative z-10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <circle cx="50" cy="50" r="45" stroke={cert.badgeColor} strokeWidth="1.5" strokeDasharray="4 4" />
+                          <circle cx="50" cy="50" r="39" fill="#0B0F19" stroke={cert.badgeColor} strokeWidth="2" />
+                          <path d="M38 45 L46 53 L62 37" stroke="#06b6d4" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
+                          <text x="50" y="70" fill="#ffffff" fontSize="9" fontWeight="bold" textAnchor="middle">{cert.code}</text>
+                          <text x="50" y="80" fill={cert.badgeColor} fontSize="5" fontWeight="bold" textAnchor="middle" letterSpacing="0.2">CERTIFIED</text>
+                        </svg>
+                      </div>
 
-              <div className="border-t border-slate-200 dark:border-slate-800/80 pt-6 mb-8">
-                <h4 className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-4">Included Advanced Qualifications</h4>
-                <div className="grid grid-cols-3 gap-3 text-center text-xs font-black mb-6">
-                  {["KET", "PET", "FCE"].map((lvl) => (
-                    <div key={lvl} className="bg-slate-100 dark:bg-slate-800/60 p-3 rounded-xl border border-slate-300 dark:border-slate-700/40 text-slate-900 dark:text-slate-200 font-extrabold shadow-xs">
-                      {lvl}
-                    </div>
+                      <div className="flex-1 space-y-3 text-center sm:text-left relative z-10">
+                        <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+                          <span className="text-[10px] font-black uppercase tracking-widest text-purple-400 bg-purple-500/10 px-2.5 py-0.5 rounded border border-brand-purple/20">
+                            {cert.duration}
+                          </span>
+                          <span className="text-xs font-bold text-slate-500">Official Exams Track</span>
+                        </div>
+                        <h4 className="text-xl font-black text-white">{cert.title}</h4>
+                        <p className="text-sm text-slate-300 font-semibold leading-relaxed">{cert.desc}</p>
+                      </div>
+                    </motion.div>
                   ))}
                 </div>
-                <h4 className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">Core Proficiency Focus</h4>
-                <p className="text-sm font-bold text-slate-700 dark:text-slate-400 leading-relaxed">Academic language structuring, advanced syntactic flow, and official international test metrics.</p>
               </div>
+
+              {/* TARGET ALIGNMENT & DEMOGRAPHICS */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Audiences */}
+                <motion.div variants={itemVariants} className="relative rounded-[2rem] p-6 sm:p-8 border border-brand-blue/20 bg-slate-900 shadow-xl">
+                  <h3 className="text-xl font-black text-white mb-6 flex items-center gap-2">
+                    <HelpCircle className="w-5 h-5 text-cyan-400" /> Ideal Target Demographics
+                  </h3>
+                  <div className="space-y-4">
+                    {targetDemographics.map((aud, index) => (
+                      <div key={index} className="flex items-start gap-3 p-3 bg-[#0B0F19] rounded-2xl border border-slate-800 hover:border-slate-700 transition-colors">
+                        <span className="w-6 h-6 bg-brand-blue/10 text-cyan-400 rounded-lg text-xs font-black shrink-0 flex items-center justify-center border border-brand-blue/20">0{index + 1}</span>
+                        <div>
+                          <div className="text-sm font-extrabold text-white">{aud.label}</div>
+                          <div className="text-xs font-semibold text-slate-400 mt-0.5">{aud.description}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+
+                {/* Alignment */}
+                <motion.div variants={itemVariants} className="relative rounded-[2rem] p-6 sm:p-8 border border-brand-purple/20 bg-slate-900 shadow-xl flex flex-col justify-between">
+                  <div>
+                    <h3 className="text-xl font-black text-white mb-6 flex items-center gap-2">
+                      <UserCheck className="w-5 h-5 text-purple-400" /> Target Industry Alignment
+                    </h3>
+                    <div className="space-y-3">
+                      {careerPaths.map((career, index) => (
+                        <div key={index} className="flex items-center justify-between p-3.5 bg-[#0B0F19] rounded-2xl border border-slate-800 hover:border-slate-700 transition-colors">
+                          <span className="text-sm font-semibold text-slate-200">{career.role}</span>
+                          <span className="text-[10px] font-black uppercase tracking-widest text-cyan-400 bg-brand-blue/10 px-2.5 py-1 rounded-full border border-brand-blue/20">
+                            {career.requirement}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div className="mt-8 p-4 bg-[#0B0F19] border border-slate-800 rounded-2xl text-xs font-semibold text-slate-400 leading-relaxed">
+                    Completing all designated phases directly prepares prospective candidates for advanced technical vetting matching the requirements for a standard <strong>Microsoft 365 Enterprise Administrator</strong> role footprint.
+                  </div>
+                </motion.div>
+              </div>
+
+            </motion.section>
+          ) : (
+            <motion.section
+              key="cambridge-track"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              className="space-y-16 md:space-y-24"
+            >
+              {/* CAMBRIDGE STRUCTURAL HEADER */}
+              <motion.div 
+                variants={itemVariants}
+                whileHover={{ y: -4 }}
+                className="group relative rounded-[2rem] p-6 sm:p-8 border border-brand-purple/30 bg-slate-900 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden"
+              >
+                <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-purple-500 via-indigo-500 to-pink-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                <div className="space-y-4 max-w-4xl relative z-10">
+                  <div className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-brand-purple bg-brand-purple/10 px-3 py-1.5 rounded-full border border-brand-purple/20">
+                    <Globe className="w-3.5 h-3.5" /> Standardized Linguistic Frameworks
+                  </div>
+                  <h2 className="text-xl sm:text-2xl font-black tracking-tight text-white uppercase">
+                    Cambridge English Programs
+                  </h2>
+                  <p className="text-sm sm:text-base text-slate-300 font-semibold leading-relaxed">
+                    Harness globally recognized assessment methodologies designed to establish early communication trust and complex language proficiency. Ensure your students navigate phonetic spelling patterns, structure accurate writing formats, and practice native listening.
+                  </p>
+                </div>
+              </motion.div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* INTERACTIVE YOUNG LEARNERS (YLE) PATHWAY */}
+                <motion.div 
+                  variants={itemVariants}
+                  whileHover={{ y: -4 }}
+                  className="group relative rounded-[2rem] p-6 sm:p-8 border border-brand-blue/30 bg-slate-900 shadow-xl flex flex-col justify-between overflow-hidden"
+                >
+                  <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-blue-500 to-cyan-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                  <div>
+                    <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-cyan-400 block mb-2">Ages 6 to 12</span>
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="p-3 rounded-xl bg-blue-500/10 text-blue-400 border border-slate-700 shadow-xs group-hover:scale-110 transition-transform shrink-0">
+                        <BookOpen className="w-5 h-5" />
+                      </div>
+                      <h3 className="text-xl sm:text-2xl font-black text-white">Young Learners English (YLE)</h3>
+                    </div>
+                    <p className="text-sm sm:text-base text-slate-300 font-semibold mt-2 mb-8 leading-relaxed">
+                      Focuses heavily on constructing a robust, native basic English foundation for young learners across structural primary development layers.
+                    </p>
+
+                    <div className="space-y-4 mb-8">
+                      <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-slate-500">Select Exam Milestone to Inspect</span>
+                      <div className="grid grid-cols-3 gap-2">
+                        {["Starters", "Movers", "Flyers"].map((stepName, idx) => (
+                          <motion.button
+                            key={idx}
+                            whileTap={{ scale: 0.98 }}
+                            onClick={() => setSelectedYleStep(idx)}
+                            className={`py-3 px-1 rounded-xl text-xs font-black tracking-wider transition-all duration-300 border cursor-pointer ${
+                              selectedYleStep === idx 
+                                ? "bg-blue-500/10 border-blue-400 text-blue-400 shadow-md" 
+                                : "bg-[#0B0F19] border-slate-800 text-slate-400 hover:border-slate-700"
+                            }`}
+                          >
+                            {stepName}
+                          </motion.button>
+                        ))}
+                      </div>
+
+                      <AnimatePresence mode="wait">
+                        <motion.div 
+                          key={selectedYleStep}
+                          initial={{ opacity: 0, y: 12 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -12 }}
+                          transition={{ duration: 0.25, ease: "easeInOut" }}
+                          className="bg-[#0B0F19] p-5 rounded-2xl border border-slate-800 shadow-inner"
+                        >
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-[10px] font-black tracking-widest uppercase text-cyan-400 bg-brand-blue/10 px-2.5 py-0.5 rounded border border-brand-blue/20">
+                              CEFR Step 0{selectedYleStep + 1}
+                            </span>
+                            <span className="text-[11px] font-bold text-slate-500">Core Primary Track</span>
+                          </div>
+                          <h4 className="font-black text-white text-base">
+                            {["Starters Framework", "Movers Framework", "Flyers Framework"][selectedYleStep]}
+                          </h4>
+                          <p className="text-xs sm:text-sm text-slate-400 font-semibold leading-relaxed mt-1">
+                            {[
+                              "Designed for children beginning their language learning path. Evaluates daily noun naming, introductory conversational directives, and basic phonetics with absolute speaking comfort.",
+                              "Encourages active sentence structure formulation. Prepares young learners to explain simple scenarios, follow sequential story threads, and formulate everyday questions.",
+                              "Confirms operational basic autonomy. Equips children to access complex primary texts, write letters of brief introduction, and easily interface with native speakers."
+                            ][selectedYleStep]}
+                          </p>
+                        </motion.div>
+                      </AnimatePresence>
+                    </div>
+                  </div>
+
+                  <motion.a 
+                    whileTap={{ scale: 0.99 }}
+                    href="https://wa.me/94710525968?text=Cambridge%20YLE%20Admissions"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full text-center py-4 bg-blue-600 hover:bg-blue-500 text-white font-black text-sm rounded-xl transition-all shadow-md block cursor-pointer uppercase tracking-wider"
+                  >
+                    Inquire About YLE Batches
+                  </motion.a>
+                </motion.div>
+
+                {/* INTERACTIVE ENGLISH ASSESSMENTS */}
+                <motion.div 
+                  variants={itemVariants}
+                  whileHover={{ y: -4 }}
+                  className="group relative rounded-[2rem] p-6 sm:p-8 border border-brand-purple/30 bg-slate-900 shadow-xl flex flex-col justify-between overflow-hidden"
+                >
+                  <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-purple-500 to-indigo-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                  <div>
+                    <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-purple-400 block mb-2">Advanced Standardizations</span>
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="p-3 rounded-xl bg-purple-500/10 text-purple-400 border border-slate-700 shadow-xs group-hover:scale-110 transition-transform shrink-0">
+                        <GraduationCap className="w-5 h-5" />
+                      </div>
+                      <h3 className="text-xl sm:text-2xl font-black text-white">Cambridge English Assessments</h3>
+                    </div>
+                    <p className="text-sm sm:text-base text-slate-300 font-semibold mt-2 mb-8 leading-relaxed">
+                      Rigorous preparation modules engineered explicitly for high-level academic development, checking and validating compliance with global benchmarks.
+                    </p>
+
+                    <div className="space-y-4 mb-8">
+                      <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-slate-500">Select Qualification Suite</span>
+                      <div className="grid grid-cols-3 gap-2">
+                        {["KET", "PET", "FCE"].map((stepName, idx) => (
+                          <motion.button
+                            key={idx}
+                            whileTap={{ scale: 0.98 }}
+                            onClick={() => setSelectedMainStep(idx)}
+                            className={`py-3 px-1 rounded-xl text-xs font-black tracking-wider transition-all duration-300 border cursor-pointer ${
+                              selectedMainStep === idx 
+                                ? "bg-purple-500/10 border-purple-400 text-purple-400 shadow-md" 
+                                : "bg-[#0B0F19] border-slate-800 text-slate-400 hover:border-slate-700"
+                            }`}
+                          >
+                            {stepName}
+                          </motion.button>
+                        ))}
+                      </div>
+
+                      <AnimatePresence mode="wait">
+                        <motion.div 
+                          key={selectedMainStep}
+                          initial={{ opacity: 0, y: 12 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -12 }}
+                          transition={{ duration: 0.25, ease: "easeInOut" }}
+                          className="bg-[#0B0F19] p-5 rounded-2xl border border-slate-800 shadow-inner"
+                        >
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-[10px] font-black tracking-widest uppercase text-purple-400 bg-brand-purple/10 px-2.5 py-0.5 rounded border border-brand-purple/20">
+                              {["CEFR A2 Standard", "CEFR B1 Standard", "CEFR B2 Standard"][selectedMainStep]}
+                            </span>
+                            <span className="text-[11px] font-bold text-slate-500">Main Suite Node</span>
+                          </div>
+                          <h4 className="font-black text-white text-base">
+                            {["KET (Key English Test)", "PET (Preliminary English Test)", "FCE (First Certificate)"][selectedMainStep]}
+                          </h4>
+                          <p className="text-xs sm:text-sm text-slate-400 font-semibold leading-relaxed mt-1">
+                            {[
+                              "Validates the absolute basics of daily communication capability. Covers introductory structural reading formats, short notification alerts, and simple social expressions.",
+                              "Validates general intermediate verbal independence. Ensures students communicate with security during travels, express opinions, and compose structured emails.",
+                              "A prestigious upper-intermediate qualification. Validates capabilities required to study in English-medium settings and operate independently across multinational professional pipelines."
+                            ][selectedMainStep]}
+                          </p>
+                        </motion.div>
+                      </AnimatePresence>
+                    </div>
+                  </div>
+
+                  <motion.a 
+                    whileTap={{ scale: 0.99 }}
+                    href="https://wa.me/94710525968?text=Cambridge%20Assessments%20Admissions"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full text-center py-4 bg-purple-600 hover:bg-purple-500 text-white font-black text-sm rounded-xl transition-all shadow-md block cursor-pointer uppercase tracking-wider"
+                  >
+                    Inquire About Assessments
+                  </motion.a>
+                </motion.div>
+              </div>
+            </motion.section>
+          )}
+        </AnimatePresence>
+
+        {/* ECO-GRID BENCHMARKS */}
+        <div className="my-24 py-12 px-6 rounded-[2.5rem] bg-slate-900 border border-brand-blue/10 text-center relative overflow-hidden shadow-2xl">
+          <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-brand-blue bg-brand-blue/10 px-3 py-1.5 rounded-full border border-brand-blue/20">System Benchmarks</span>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mt-3 mb-8 tracking-tight">What Makes This Program Hub Unique?</h2>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left relative z-10">
+            {[
+              { icon: "🎓", title: "Official Syllabi Only", desc: "No generic copy-paste lessons. Completely aligned with global curricula benchmarks." },
+              { icon: "🛠️", title: "Sandbox Access", desc: "Continuous diagnostic training structures inside live, production-grade environments." },
+              { icon: "🏆", title: "Target Alignments", desc: "Direct target checkpoints mapped out to land specialized system administrator roles." },
+              { icon: "🌍", title: "Worldwide Recognition", desc: "Prepare for globally unified assessments respected by thousands of enterprises." }
+            ].map((item, idx) => (
+              <div key={idx} className="p-6 bg-[#0B0F19] rounded-2xl border border-slate-800 shadow-inner hover:border-slate-700 transition-colors duration-300">
+                <span className="text-2xl">{item.icon}</span>
+                <h4 className="text-base font-black text-white mt-3">{item.title}</h4>
+                <p className="text-xs sm:text-sm font-semibold text-slate-400 mt-1.5 leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 📬 INTEGRATED INSTANT ADMISSIONS PORTAL */}
+        <motion.section 
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          className="max-w-5xl mx-auto"
+          id="enrollment-hub"
+        >
+          <div className="bg-[#0B0F19]/60 backdrop-blur-xl border border-white/10 p-6 sm:p-10 md:p-12 rounded-[2.5rem] shadow-2xl relative overflow-hidden">
+            <div className="text-center mb-10">
+              <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-cyan-400 bg-brand-blue/10 px-3 py-1.5 rounded-full border border-brand-blue/20 mb-3">
+                <Sparkles className="w-3.5 h-3.5" /> Instant Placement Node
+              </span>
+              <h2 className="text-3xl sm:text-4xl md:text-6xl font-black text-white mb-4 tracking-tight">Secure Your Program Seat</h2>
+              <p className="text-slate-400 text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
+                Configure your target parameters below to route your enrollment inquiry directly to our Admissions Desk via WhatsApp.
+              </p>
             </div>
 
-            <motion.a 
-              whileHover={{ scale: 1.02, backgroundColor: "#5b21b6" }}
-              whileTap={{ scale: 0.98 }}
-              href="https://wa.me/94710525968?text=Cambridge%20Assessments%20Admissions"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full text-center py-4 bg-brand-purple text-white text-sm font-extrabold rounded-2xl shadow-lg shadow-brand-purple/10 transition-all cursor-pointer"
-            >
-              Inquire About Assessment Frameworks
-            </motion.a>
-          </motion.div>
-        </div>
-      </div>
+            <form onSubmit={handleInquirySubmit} className="space-y-6 relative z-10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <input 
+                  type="text" 
+                  required 
+                  placeholder="Full Name" 
+                  className="w-full bg-[#161B29] border border-slate-700 p-4 sm:p-5 rounded-2xl text-white focus:ring-2 focus:ring-brand-blue outline-none transition-all text-sm sm:text-base font-semibold"
+                  value={formData.fullName}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, fullName: e.target.value })}
+                />
+                <input 
+                  type="tel" 
+                  required 
+                  placeholder="Phone Number" 
+                  className="w-full bg-[#161B29] border border-slate-700 p-4 sm:p-5 rounded-2xl text-white focus:ring-2 focus:ring-brand-blue outline-none transition-all text-sm sm:text-base font-semibold"
+                  value={formData.phone}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, phone: e.target.value })}
+                />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <input 
+                  type="email" 
+                  required 
+                  placeholder="Email Address" 
+                  className="w-full bg-[#161B29] border border-slate-700 p-4 sm:p-5 rounded-2xl text-white focus:ring-2 focus:ring-brand-blue outline-none transition-all text-sm sm:text-base font-semibold"
+                  value={formData.email}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, email: e.target.value })}
+                />
+                <input 
+                  type="text" 
+                  required 
+                  placeholder="School / Occupation" 
+                  className="w-full bg-[#161B29] border border-slate-700 p-4 sm:p-5 rounded-2xl text-white focus:ring-2 focus:ring-brand-blue outline-none transition-all text-sm sm:text-base font-semibold"
+                  value={formData.occupation}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, occupation: e.target.value })}
+                />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <select 
+                  className="w-full bg-[#161B29] border border-slate-700 p-4 sm:p-5 rounded-2xl text-slate-400 focus:ring-2 focus:ring-brand-blue outline-none text-sm sm:text-base font-semibold cursor-pointer"
+                  value={formData.program}
+                  onChange={(e: ChangeEvent<HTMLSelectElement>) => handleProgramSwitch(e.target.value)}
+                >
+                  <option value="Microsoft 365 Professional">Microsoft 365 Professional</option>
+                  <option value="Cambridge YLE Exams">Cambridge YLE Exams</option>
+                  <option value="Cambridge English Qualifications">Cambridge English Qualifications</option>
+                </select>
+
+                <select 
+                  className="w-full bg-[#161B29] border border-slate-700 p-4 sm:p-5 rounded-2xl text-slate-400 focus:ring-2 focus:ring-brand-blue outline-none text-sm sm:text-base font-semibold cursor-pointer"
+                  value={formData.classOption}
+                  onChange={(e: ChangeEvent<HTMLSelectElement>) => setFormData({ ...formData, classOption: e.target.value })}
+                >
+                  {formData.program === "Microsoft 365 Professional" && (
+                    <>
+                      <option value="Stage 01">Stage 01 - Architecture Foundations</option>
+                      <option value="Stage 02">Stage 02 - Enterprise Admin</option>
+                      <option value="MS-900 Prep">MS-900 Prep Course</option>
+                      <option value="MS-102 Prep">MS-102 Bootcamp Prep</option>
+                    </>
+                  )}
+                  {formData.program === "Cambridge YLE Exams" && (
+                    <>
+                      <option value="Starters">Starters Level</option>
+                      <option value="Movers">Movers Level</option>
+                      <option value="Flyers">Flyers Level</option>
+                    </>
+                  )}
+                  {formData.program === "Cambridge English Qualifications" && (
+                    <>
+                      <option value="KET">KET (A2 Key)</option>
+                      <option value="PET">PET (B1 Preliminary)</option>
+                      <option value="FCE">FCE (B2 First)</option>
+                    </>
+                  )}
+                </select>
+              </div>
+
+              <textarea 
+                rows={4} 
+                placeholder="Additional details or questions..." 
+                className="w-full bg-[#161B29] border border-slate-700 p-4 sm:p-5 rounded-2xl text-white focus:ring-2 focus:ring-brand-blue outline-none transition-all text-sm sm:text-base font-semibold"
+                value={formData.message}
+                onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setFormData({ ...formData, message: e.target.value })}
+              />
+
+              <motion.button 
+                whileTap={{ scale: 0.99 }}
+                type="submit" 
+                className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-black py-4 sm:py-5 rounded-2xl shadow-xl transition-all flex items-center justify-center gap-3 text-lg sm:text-xl cursor-pointer"
+              >
+                <FaWhatsapp className="w-6 h-6 sm:w-7 h-7" /> 
+                <span>Chat via WhatsApp Now</span>
+              </motion.button>
+            </form>
+          </div>
+        </motion.section>
+      </main>
+
+      {/* FOOTER */}
+      <footer className="relative z-10 border-t border-slate-900 bg-slate-950/60 py-12 text-center text-xs text-slate-500 max-w-7xl mx-auto px-4 mt-24">
+        <p>© 2026 Educational Innovation Ecosystem. Designed for scalable student milestone architectures.</p>
+        <p className="mt-2 text-slate-600">Thakral Global Learning (TGL) curricula and exam alignments are globally regulated.</p>
+      </footer>
+      
     </div>
   );
 }
