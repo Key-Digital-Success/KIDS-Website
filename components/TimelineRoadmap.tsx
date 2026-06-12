@@ -39,7 +39,7 @@ const STAGES: Stage[] = [
     icon: Terminal,
     stage: "Stage 03",
     title: "Microsoft 365 Fundamentals (MS-900)",
-    duration: "1 Day Prep",
+    duration: "1 Day",
     description: "Fast-track prep for MS-900 covering cloud basics, Microsoft 365 services, security, compliance, and licensing essentials.",
     highlights: ["Fast-track prep for MS-900", "cloud basics", "Microsoft 365 services", "security", "compliance", "licensing essentials"],
     color: "from-purple-500 to-pink-500",
@@ -49,7 +49,7 @@ const STAGES: Stage[] = [
     icon: Award,
     stage: "Stage 04",
     title: "Microsoft 365 Administrator (MS-102)",
-    duration: "4 Days Bootcamp",
+    duration: "4 Days",
     description: "Hands-on admin training for Microsoft 365 including identity management, tenant setup, and cloud security—built for real enterprise roles.",
     highlights: ["Hands-on admin training", "Microsoft 365", "identity management", "tenant setup", "cloud security", "real enterprise roles"],
     color: "from-pink-500 to-rose-500",
@@ -84,12 +84,12 @@ export default function TimelineRoadmap() {
   };
 
   return (
-    <section className="py-20 relative overflow-hidden bg-slate-50 dark:bg-transparent">
+    <section className="py-16 md:py-20 relative overflow-hidden bg-slate-50 dark:bg-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Heading */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
-          <div>
+        {/* Section Heading: Centered on Mobile & Tablet, Left-aligned on Desktop */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-16 items-center text-center lg:text-left lg:items-start">
+          <div className="flex flex-col items-center lg:items-start">
             <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-brand-blue bg-brand-blue/10 px-3 py-1.5 rounded-full border border-brand-blue/20">
               <TrendingUp className="w-3.5 h-3.5" /> Career Pipeline
             </span>
@@ -97,19 +97,19 @@ export default function TimelineRoadmap() {
               Microsoft 365 Professional Pathway
             </h2>
           </div>
-          <p 
-            className="text-base font-medium text-slate-600 dark:text-slate-400 max-w-lg md:text-right text-justify"
-            style={{ textJustify: "inter-word" }}
-          >
-            The clean, high-impact pipeline designed to transition students directly into industry-ready cloud administrators.
-          </p>
         </div>
 
-        {/* 4-Stage Grid Area */}
-        <div className="relative">
-          <div className="absolute top-[28px] left-4 right-4 h-[2px] bg-gradient-to-r from-blue-500 via-purple-500 to-rose-500 opacity-20 hidden md:block" />
+        {/* Responsive Timeline Container Wrapper */}
+        <div className="relative pl-2 lg:pl-0">
+          
+          {/* Vertical Track Line: Set to perfectly slice down the center of the 48px box nodes */}
+          <div className="absolute left-[23px] top-6 bottom-6 w-[2px] bg-gradient-to-b from-blue-500 via-purple-500 to-rose-500 opacity-20 lg:hidden" />
+          
+          {/* Horizontal Track Line: Formatted along the middle desktop axis of the blocks */}
+          <div className="absolute top-[25px] left-12 right-12 h-[2px] bg-gradient-to-r from-blue-500 via-purple-500 to-rose-500 opacity-20 hidden lg:block" />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          {/* Dynamic Flex/Grid Control Matrix */}
+          <div className="flex flex-col gap-10 lg:grid lg:grid-cols-4 lg:gap-6 lg:items-stretch">
             {STAGES.map((item, idx) => {
               const Icon = item.icon;
               return (
@@ -118,41 +118,37 @@ export default function TimelineRoadmap() {
                   initial={{ opacity: 0, y: 25 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: idx * 0.1 }}
-                  className="w-full flex flex-col justify-between"
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  className="relative flex flex-col pl-16 lg:pl-0 group"
                 >
-                  {/* Icon Indicator */}
-                  <div className="hidden md:flex items-center justify-center w-12 h-12 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 relative z-20 mb-6 shadow-sm mx-auto transition-transform">
-                    <Icon className="w-5 h-5 text-slate-700 dark:text-slate-300" />
+                  {/* Premium Box Icon Indicator Asset Node */}
+                  <div className="absolute left-0 top-1 lg:relative lg:top-0 lg:left-0 flex-shrink-0 flex items-center justify-center p-3 rounded-xl bg-slate-950 border border-slate-800 z-20 shadow-sm lg:mx-auto mb-5 transition-transform duration-300 group-hover:scale-110 w-12 h-12">
+                    <div className={`absolute inset-0 rounded-xl bg-gradient-to-br ${item.color} opacity-10`} />
+                    <Icon className="w-5 h-5 text-slate-200 relative z-10" />
                   </div>
 
                   {/* Premium Dark Card Matrix */}
                   <div 
-                    className="p-6 rounded-[2rem] relative group min-h-[300px] flex flex-col justify-between border border-slate-800 bg-gradient-to-br from-slate-900 to-slate-950 dark:from-slate-900/90 dark:to-slate-950/90 backdrop-blur-md transition-transform duration-300 hover:-translate-y-1"
+                    className="w-full h-full p-5 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] border border-slate-800 bg-gradient-to-br from-slate-900 to-slate-950 dark:from-slate-900/90 dark:to-slate-950/90 backdrop-blur-md transition-all duration-300 hover:-translate-y-1"
                     style={{ boxShadow: `0 20px 40px -15px ${item.glow}` }}
                   >
-                    <div>
-                      <div className="flex items-center justify-between gap-2 mb-4">
-                        <span className={`text-[10px] font-black px-2.5 py-1 rounded bg-gradient-to-r ${item.color} text-white uppercase tracking-wider`}>
-                          {item.stage}
-                        </span>
-                        <div className="flex items-center gap-1.5 text-xs font-bold text-slate-400">
-                          <Clock className="w-3.5 h-3.5" />
-                          {item.duration}
-                        </div>
+                    <div className="flex items-center justify-between gap-2 mb-4">
+                      <span className={`text-[10px] font-black px-2.5 py-1 rounded bg-gradient-to-r ${item.color} text-white uppercase tracking-wider`}>
+                        {item.stage}
+                      </span>
+                      <div className="flex items-center gap-1.5 text-xs font-bold text-slate-400">
+                        <Clock className="w-3.5 h-3.5" />
+                        {item.duration}
                       </div>
-
-                      <h3 className="text-lg font-bold leading-snug mb-3 text-white">
-                        {item.title}
-                      </h3>
-                      
-                      <p 
-                        className="text-sm font-medium leading-relaxed text-slate-300 text-justify"
-                        style={{ textJustify: "inter-word" }}
-                      >
-                        {renderHighlightedText(item.description, item.highlights)}
-                      </p>
                     </div>
+
+                    <h3 className="text-base sm:text-lg font-bold leading-snug mb-3 text-white">
+                      {item.title}
+                    </h3>
+                    
+                    <p className="text-xs sm:text-sm font-medium leading-relaxed text-slate-300 text-left lg:text-justify">
+                      {renderHighlightedText(item.description, item.highlights)}
+                    </p>
                   </div>
                 </motion.div>
               );
