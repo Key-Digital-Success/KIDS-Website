@@ -85,7 +85,7 @@ export default function Navbar() {
             ))}
             
             <div className="flex items-center gap-3 border-l border-slate-200 dark:border-slate-800 pl-6">
-              <a href="tel:+94710525968" className="w-10 h-10 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 hover:bg-green-500 hover:text-white transition-all">
+              <a href="tel:+94710525968" className="w-10 h-10 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 hover:bg-green-500 hover:text-white transition-all" aria-label="Call Key Institute">
                 <Phone className="w-4 h-4" />
               </a>
               <motion.a whileHover={{ scale: 1.03 }} href="#enrollment-hub" className="inline-flex items-center gap-1.5 px-5 py-2.5 text-sm font-extrabold text-white bg-gradient-to-r from-brand-blue to-brand-purple rounded-xl shadow-md">
@@ -94,8 +94,12 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Mobile Zone */}
+          {/* Mobile Zone Buttons */}
           <div className="flex items-center lg:hidden gap-3">
+            {/* Direct Call Button next to the Menu Trigger for quick mobile access */}
+            <a href="tel:+94710525968" className="w-10 h-10 rounded-xl flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-green-500 hover:text-white transition-all" aria-label="Call Key Institute">
+              <Phone className="w-4.5 h-4.5" />
+            </a>
             <button onClick={() => setIsOpen(!isOpen)} className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800">
               {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -115,9 +119,16 @@ export default function Navbar() {
               {navLinks.slice(1).map((link) => (
                 <Link key={link.name} href={link.href} onClick={() => setIsOpen(false)} className="block p-3 font-bold text-sm">{link.name}</Link>
               ))}
-              <Link href="#enrollment-hub" onClick={() => setIsOpen(false)} className="block text-center mt-4 p-4 font-black text-white bg-brand-blue rounded-xl">
-                Enroll Now
-              </Link>
+              
+              {/* Call Action + Enroll Action Grid for Mobile Drawer Layout */}
+              <div className="grid grid-cols-5 gap-2 mt-4">
+                <a href="tel:+94710525968" className="col-span-2 flex items-center justify-center gap-2 p-4 font-bold text-sm rounded-xl border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:bg-green-500 hover:text-white dark:hover:bg-green-600 transition-colors">
+                  <Phone className="w-4 h-4" /> Call Us
+                </a>
+                <Link href="#enrollment-hub" onClick={() => setIsOpen(false)} className="col-span-3 block text-center p-4 font-black text-sm text-white bg-brand-blue rounded-xl">
+                  Enroll Now
+                </Link>
+              </div>
             </div>
           </motion.div>
         )}
