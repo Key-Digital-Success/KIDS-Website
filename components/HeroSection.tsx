@@ -14,25 +14,26 @@ import Link from "next/link";
 const floatingIcons = [
   {
     icon: MonitorSmartphone,
-    className: "top-16 left-2 md:left-10",
+    // 🛠️ Tablet Fix: Adjusted positioning with tighter bounds for md (tablets) to clear text columns
+    className: "top-16 left-4 md:left-6 lg:left-12 xl:left-20",
     outer: "bg-cyan-950/20 border-cyan-500/30",
     inner: "text-cyan-400",
   },
   {
     icon: Sparkles,
-    className: "top-[45%] left-4 md:left-24",
+    className: "top-[50%] left-4 md:left-12 lg:left-24",
     outer: "bg-violet-950/20 border-violet-500/30",
     inner: "text-violet-400",
   },
   {
     icon: ImageIcon,
-    className: "top-20 right-2 md:right-16",
+    className: "top-20 right-4 md:right-10 lg:right-20 xl:right-32",
     outer: "bg-amber-950/20 border-amber-500/30",
     inner: "text-amber-400",
   },
   {
     icon: Globe,
-    className: "bottom-20 right-2 md:right-10",
+    className: "bottom-24 right-4 md:right-6 lg:right-16 xl:right-24",
     outer: "bg-rose-950/20 border-rose-500/30",
     inner: "text-rose-400",
   },
@@ -43,15 +44,15 @@ export default function HeroSection() {
     <section
       className="
         relative overflow-hidden
-        pt-24 pb-20 md:pt-32 md:pb-28
+        pt-28 pb-16 md:pt-36 md:pb-24 lg:pt-40 lg:pb-32
         flex flex-col items-center justify-center
-        min-h-screen
+        min-h-screen lg:h-screen
         bg-gradient-to-b from-[#02040a] via-[#030712] to-[#02040a] 
         text-white
       "
     >
       {/* GRID BACKGROUND */}
-      <div className="absolute inset-0 opacity-[0.12]">
+      <div className="absolute inset-0 opacity-[0.12] pointer-events-none">
         <div
           className="h-full w-full"
           style={{
@@ -69,10 +70,10 @@ export default function HeroSection() {
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-violet-500/5 blur-3xl pointer-events-none" />
 
       {/* FLOATING SMALL DOTS */}
-      <div className="absolute top-24 left-44 w-4 h-4 rounded-full bg-violet-500/20" />
-      <div className="absolute top-[40%] right-44 w-3 h-3 rounded-full bg-yellow-400/20" />
-      <div className="absolute bottom-32 right-72 w-5 h-5 rounded-full bg-sky-500/20" />
-      <div className="absolute bottom-12 left-8 w-6 h-6 rounded-full bg-pink-500/10" />
+      <div className="absolute top-24 left-[10%] w-4 h-4 rounded-full bg-violet-500/20 hidden sm:block" />
+      <div className="absolute top-[40%] right-[10%] w-3 h-3 rounded-full bg-yellow-400/20 hidden sm:block" />
+      <div className="absolute bottom-32 right-[20%] w-5 h-5 rounded-full bg-sky-500/20 hidden lg:block" />
+      <div className="absolute bottom-12 left-8 w-6 h-6 rounded-full bg-pink-500/10 hidden sm:block" />
 
       {/* FLOATING ICONS */}
       {floatingIcons.map((item, i) => {
@@ -86,8 +87,10 @@ export default function HeroSection() {
             transition={{
               duration: 5 + i,
               repeat: Infinity,
+              repeatType: "reverse",
               ease: "easeInOut",
             }}
+            // 🛠️ Tablet Fix: Scaled main container sizes down for `md` viewports so they don't overlay content text columns
             className={`absolute hidden md:block z-20 ${item.className}`}
           >
             {/* OUTER GLOW */}
@@ -97,18 +100,19 @@ export default function HeroSection() {
             <div
               className={`
                 relative flex items-center justify-center
-                w-32 h-32 rounded-full border
+                w-20 h-20 lg:w-28 lg:h-28 xl:w-32 xl:h-32 rounded-full border
                 backdrop-blur-2xl
                 shadow-[0_25px_100px_rgba(0,0,0,0.8)]
+                transition-all duration-300
                 ${item.outer}
               `}
             >
               {/* INNER RING */}
-              <div className="absolute inset-3 rounded-full border border-white/[0.05]" />
+              <div className="absolute inset-2 lg:inset-3 rounded-full border border-white/[0.05]" />
 
               {/* ICON */}
               <Icon
-                className={`w-14 h-14 ${item.inner}`}
+                className={`w-8 h-8 lg:w-12 lg:h-12 xl:w-14 xl:h-14 ${item.inner}`}
                 strokeWidth={1.8}
               />
             </div>
@@ -117,38 +121,19 @@ export default function HeroSection() {
       })}
 
       {/* MAIN CONTENT */}
-      <div className="max-w-5xl mx-auto px-4 text-center relative z-10">
-        {/* BADGE */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="
-            inline-flex items-center gap-2
-            px-5 py-2 rounded-full
-            border border-sky-500/20
-            backdrop-blur-xl
-            text-sky-400
-            text-xs font-semibold uppercase tracking-wider
-            shadow-lg
-            mb-6
-            bg-white/[0.03]
-          "
-        >
-          <ShieldCheck className="w-4 h-4" />
-          Thakral Global Learning (TGL) Partner
-        </motion.div>
+      {/* 🛠️ Tablet Fix: Rebalanced z-indexing and max widths so text overlays clean grid layers */}
+      <div className="max-w-4xl mx-auto px-6 sm:px-12 md:px-16 text-center relative z-30 flex flex-col items-center justify-center h-full my-auto">
 
         {/* TITLE WITH ACCENT UNDERLINE */}
-        <div className="relative mb-6">
+        <div className="relative mb-4 sm:mb-6 w-full">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
             className="
-              text-4xl sm:text-5xl lg:text-6xl
+              text-4xl sm:text-5xl md:text-5xl lg:text-6xl
               font-extrabold tracking-tight
-              leading-tight max-w-4xl mx-auto
+              leading-[1.15] max-w-3xl mx-auto
               bg-clip-text text-transparent
               bg-gradient-to-b from-white via-slate-200 to-slate-500
             "
@@ -161,7 +146,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, scaleX: 0 }}
             animate={{ opacity: 1, scaleX: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="mx-auto mt-4 w-[280px] sm:w-[420px] md:w-[540px]"
+            className="mx-auto mt-4 w-[260px] sm:w-[380px] md:w-[460px] lg:w-[520px]"
             viewBox="0 0 420 30"
             fill="none"
           >
@@ -180,9 +165,9 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
           className="
-            text-lg md:text-xl
-            max-w-3xl mx-auto
-            mb-10
+            text-base sm:text-lg md:text-xl
+            max-w-2xl mx-auto
+            mb-8 sm:mb-10
             leading-relaxed
             text-slate-400
           "
@@ -199,7 +184,7 @@ export default function HeroSection() {
             flex flex-col sm:flex-row
             items-center justify-center
             gap-4
-            w-full max-w-md mx-auto
+            w-full sm:w-auto mx-auto
           "
         >
           <Link
@@ -217,6 +202,7 @@ export default function HeroSection() {
               active:scale-95
               transition-all duration-300
               flex items-center justify-center gap-2
+              text-sm sm:text-base
             "
           >
             Explore Programs
@@ -238,6 +224,7 @@ export default function HeroSection() {
               rounded-2xl
               shadow-lg
               transition-all duration-300
+              text-sm sm:text-base
             "
           >
             Contact Us
