@@ -65,7 +65,7 @@ export default function AboutPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.15]"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mt-3 tracking-tight text-white max-w-5xl mx-auto leading-tight"
             >
               About <br />
               <span className="bg-gradient-to-r from-blue-500 via-amber-400 to-blue-600 bg-clip-text text-transparent drop-shadow-sm">

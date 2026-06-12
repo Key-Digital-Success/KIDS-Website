@@ -41,7 +41,7 @@ export default function Navbar() {
               />
             </div>
             <div className="flex flex-col leading-none">
-              <span className="font-black text-sm md:text-xl tracking-tight bg-gradient-to-r from-brand-blue via-brand-purple to-brand-blue bg-[size:200%_auto] bg-clip-text text-transparent">
+            <span className="font-black text-sm md:text-xl tracking-tight bg-gradient-to-r from-blue-500 via-amber-400 to-blue-600 bg-[size:200%_auto] bg-clip-text text-transparent group-hover:bg-[100%_auto] transition-all duration-500">
                 KEY INSTITUTE
               </span>
               <span className="text-[8px] md:text-[10px] font-black uppercase tracking-[0.2em] mt-1">

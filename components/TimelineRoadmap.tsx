@@ -14,6 +14,7 @@ interface Stage {
   glow: string;
 }
 
+/* Color definitions and directional flows aligned to Gold and Navy accents */
 const STAGES: Stage[] = [
   {
     icon: Layers,
@@ -22,8 +23,8 @@ const STAGES: Stage[] = [
     duration: "60 Hours",
     description: "Learn core Microsoft 365 skills like Word, Excel, PowerPoint, Outlook, Teams, OneDrive, and SharePoint. Wrap it up with a hands-on mini project built for real-world productivity.",
     highlights: ["core Microsoft 365 skills", "Word", "Excel", "PowerPoint", "Outlook", "Teams", "OneDrive", "SharePoint", "hands-on mini project", "real-world productivity"],
-    color: "from-blue-500 to-cyan-500",
-    glow: "rgba(37, 99, 235, 0.15)"
+    color: "from-blue-500 to-blue-600",
+    glow: "rgba(59, 130, 246, 0.1)"
   },
   {
     icon: Network,
@@ -32,8 +33,8 @@ const STAGES: Stage[] = [
     duration: "80 Hours",
     description: "Upgrade your skills with advanced Excel, automation, and Microsoft 365 tools. Also learn MFA, DLP, and modern security basics used in real workplaces.",
     highlights: ["advanced Excel", "automation", "Microsoft 365 tools", "MFA", "DLP", "modern security basics", "real workplaces"],
-    color: "from-indigo-500 to-purple-500",
-    glow: "rgba(124, 58, 237, 0.15)"
+    color: "from-blue-600 to-amber-500",
+    glow: "rgba(245, 158, 11, 0.05)"
   },
   {
     icon: Terminal,
@@ -42,8 +43,8 @@ const STAGES: Stage[] = [
     duration: "1 Day",
     description: "Fast-track prep for MS-900 covering cloud basics, Microsoft 365 services, security, compliance, and licensing essentials.",
     highlights: ["Fast-track prep for MS-900", "cloud basics", "Microsoft 365 services", "security", "compliance", "licensing essentials"],
-    color: "from-purple-500 to-pink-500",
-    glow: "rgba(219, 39, 119, 0.15)"
+    color: "from-amber-400 to-amber-500",
+    glow: "rgba(245, 158, 11, 0.15)"
   },
   {
     icon: Award,
@@ -52,8 +53,8 @@ const STAGES: Stage[] = [
     duration: "4 Days",
     description: "Hands-on admin training for Microsoft 365 including identity management, tenant setup, and cloud security—built for real enterprise roles.",
     highlights: ["Hands-on admin training", "Microsoft 365", "identity management", "tenant setup", "cloud security", "real enterprise roles"],
-    color: "from-pink-500 to-rose-500",
-    glow: "rgba(244, 63, 94, 0.15)"
+    color: "from-amber-500 to-amber-600",
+    glow: "rgba(217, 119, 6, 0.15)"
   }
 ];
 
@@ -84,16 +85,17 @@ export default function TimelineRoadmap() {
   };
 
   return (
-    <section className="py-16 md:py-20 relative overflow-hidden bg-slate-50 dark:bg-transparent">
+    /* Background forced transparent over the parent black backdrop context */
+    <section className="py-16 md:py-20 relative overflow-hidden bg-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Heading: Centered on Mobile & Tablet, Left-aligned on Desktop */}
+        {/* Section Heading Panel */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-16 items-center text-center lg:text-left lg:items-start">
           <div className="flex flex-col items-center lg:items-start">
-            <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-brand-blue bg-brand-blue/10 px-3 py-1.5 rounded-full border border-brand-blue/20">
+            <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-amber-400 bg-amber-400/10 px-3 py-1.5 rounded-full border border-amber-400/20">
               <TrendingUp className="w-3.5 h-3.5" /> Career Pipeline
             </span>
-            <h2 className="text-3xl md:text-5xl font-black tracking-tight mt-3 text-slate-900 dark:text-white">
+            <h2 className="text-3xl md:text-5xl font-black tracking-tight mt-3 text-white">
               Microsoft 365 Professional Pathway
             </h2>
           </div>
@@ -102,11 +104,11 @@ export default function TimelineRoadmap() {
         {/* Responsive Timeline Container Wrapper */}
         <div className="relative pl-2 lg:pl-0">
           
-          {/* Vertical Track Line: Set to perfectly slice down the center of the 48px box nodes */}
-          <div className="absolute left-[23px] top-6 bottom-6 w-[2px] bg-gradient-to-b from-blue-500 via-purple-500 to-rose-500 opacity-20 lg:hidden" />
+          {/* Vertical Track Line: Adjusted gradient to utilize Blue and Gold parameters */}
+          <div className="absolute left-[23px] top-6 bottom-6 w-[2px] bg-gradient-to-b from-blue-500 via-blue-900 to-amber-500 opacity-20 lg:hidden" />
           
-          {/* Horizontal Track Line: Formatted along the middle desktop axis of the blocks */}
-          <div className="absolute top-[25px] left-12 right-12 h-[2px] bg-gradient-to-r from-blue-500 via-purple-500 to-rose-500 opacity-20 hidden lg:block" />
+          {/* Horizontal Track Line: Adjusted layout axis color gradient */}
+          <div className="absolute top-[25px] left-12 right-12 h-[2px] bg-gradient-to-r from-blue-500 via-blue-900 to-amber-500 opacity-20 hidden lg:block" />
 
           {/* Dynamic Flex/Grid Control Matrix */}
           <div className="flex flex-col gap-10 lg:grid lg:grid-cols-4 lg:gap-6 lg:items-stretch">
@@ -122,14 +124,14 @@ export default function TimelineRoadmap() {
                   className="relative flex flex-col pl-16 lg:pl-0 group"
                 >
                   {/* Premium Box Icon Indicator Asset Node */}
-                  <div className="absolute left-0 top-1 lg:relative lg:top-0 lg:left-0 flex-shrink-0 flex items-center justify-center p-3 rounded-xl bg-slate-950 border border-slate-800 z-20 shadow-sm lg:mx-auto mb-5 transition-transform duration-300 group-hover:scale-110 w-12 h-12">
+                  <div className="absolute left-0 top-1 lg:relative lg:top-0 lg:left-0 flex-shrink-0 flex items-center justify-center p-3 rounded-xl bg-black border border-blue-950/60 z-20 shadow-sm lg:mx-auto mb-5 transition-transform duration-300 group-hover:scale-110 w-12 h-12">
                     <div className={`absolute inset-0 rounded-xl bg-gradient-to-br ${item.color} opacity-10`} />
                     <Icon className="w-5 h-5 text-slate-200 relative z-10" />
                   </div>
 
-                  {/* Premium Dark Card Matrix */}
+                  {/* Premium Dark Card Matrix aligned with Code 2/3 background aesthetics */}
                   <div 
-                    className="w-full h-full p-5 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] border border-slate-800 bg-gradient-to-br from-slate-900 to-slate-950 dark:from-slate-900/90 dark:to-slate-950/90 backdrop-blur-md transition-all duration-300 hover:-translate-y-1"
+                    className="w-full h-full p-5 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] border border-blue-900/30 bg-gradient-to-br from-[#0A1428] to-[#0F1E36] backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-blue-900/60 shadow-xl"
                     style={{ boxShadow: `0 20px 40px -15px ${item.glow}` }}
                   >
                     <div className="flex items-center justify-between gap-2 mb-4">
@@ -142,11 +144,11 @@ export default function TimelineRoadmap() {
                       </div>
                     </div>
 
-                    <h3 className="text-base sm:text-lg font-bold leading-snug mb-3 text-white">
+                    <h3 className="text-base sm:text-lg font-bold leading-snug mb-3 text-white group-hover:text-amber-400 transition-colors duration-200">
                       {item.title}
                     </h3>
                     
-                    <p className="text-xs sm:text-sm font-medium leading-relaxed text-slate-300 text-left lg:text-justify">
+                    <p className="text-xs sm:text-sm font-medium leading-relaxed text-left lg:text-justify">
                       {renderHighlightedText(item.description, item.highlights)}
                     </p>
                   </div>
