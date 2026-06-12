@@ -6,7 +6,6 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X, ArrowUpRight, ChevronDown, Phone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import ThemeToggle from "./ThemeToggle"; // Assuming you have this component
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -86,7 +85,6 @@ export default function Navbar() {
             ))}
             
             <div className="flex items-center gap-3 border-l border-slate-200 dark:border-slate-800 pl-6">
-              <ThemeToggle />
               <a href="tel:+94710525968" className="w-10 h-10 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 hover:bg-green-500 hover:text-white transition-all">
                 <Phone className="w-4 h-4" />
               </a>
@@ -98,7 +96,6 @@ export default function Navbar() {
 
           {/* Mobile Zone */}
           <div className="flex items-center lg:hidden gap-3">
-            <ThemeToggle />
             <button onClick={() => setIsOpen(!isOpen)} className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800">
               {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
