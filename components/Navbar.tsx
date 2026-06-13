@@ -31,6 +31,9 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
+  // Convert Lucide Phone icon to an animated Framer Motion component
+  const AnimatedPhone = motion.create(Phone);
+
   return (
     <motion.nav 
       initial={{ opacity: 0, y: -20 }}
@@ -108,7 +111,16 @@ export default function Navbar() {
             
             <div className="flex items-center gap-3 border-l border-slate-200 dark:border-slate-800 pl-6">
               <a href="tel:+94710525968" className="w-10 h-10 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 hover:bg-green-500 hover:text-white transition-all" aria-label="Call Key Institute">
-                <Phone className="w-4 h-4" />
+                <AnimatedPhone 
+                  className="w-4 h-4" 
+                  animate={{ rotate: [0, -12, 10, -10, 8, -4, 4, 0] }}
+                  transition={{
+                    duration: 0.7,
+                    repeat: Infinity,
+                    repeatDelay: 1.5,
+                    ease: "easeInOut" as const
+                  }}
+                />
               </a>
               <motion.a whileHover={{ scale: 1.03 }} href="#enrollment-hub" className="inline-flex items-center gap-1.5 px-5 py-2.5 text-sm font-extrabold text-white bg-gradient-to-r from-brand-blue to-brand-purple rounded-xl shadow-md">
                 Enroll Now <ArrowUpRight className="w-4 h-4" />
@@ -119,20 +131,35 @@ export default function Navbar() {
           {/* Mobile Zone Buttons */}
           <div className="flex items-center lg:hidden gap-3">
             <a href="tel:+94710525968" className="w-10 h-10 rounded-xl flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-green-500 hover:text-white transition-all" aria-label="Call Key Institute">
-              <Phone className="w-4.5 h-4.5" />
+              <AnimatedPhone 
+                className="w-4.5 h-4.5" 
+                animate={{ rotate: [0, -12, 10, -10, 8, -4, 4, 0] }}
+                transition={{
+                  duration: 0.7,
+                  repeat: Infinity,
+                  repeatDelay: 1.5,
+                  ease: "easeInOut" as const
+                }}
+              />
             </a>
-            <button onClick={() => setIsOpen(!isOpen)} className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800">
+            <button onClick={() => setIsOpen(!isOpen)} className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200">
               {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Drawer with Smooth Timing and Layout Adjustments */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="lg:hidden bg-white dark:bg-[#030712] border-t border-slate-200 dark:border-slate-800 px-4 pb-6">
-            <div className="py-4 space-y-1">
+          <motion.div 
+            initial={{ opacity: 0, height: 0 }} 
+            animate={{ opacity: 1, height: "auto" }} 
+            exit={{ opacity: 0, height: 0 }} 
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:hidden bg-white dark:bg-[#030712] border-t border-slate-200 dark:border-slate-800 overflow-hidden"
+          >
+            <div className="px-4 pb-6 py-4 space-y-1">
               <Link href="/" onClick={() => setIsOpen(false)} className="flex items-center gap-2.5 p-3 font-bold text-sm">
                 <Home className="w-4 h-4 opacity-70" /> Home
               </Link>
@@ -163,7 +190,16 @@ export default function Navbar() {
               {/* Call Action + Enroll Action Grid */}
               <div className="grid grid-cols-5 gap-2 mt-4">
                 <a href="tel:+94710525968" className="col-span-2 flex items-center justify-center gap-2 p-4 font-bold text-sm rounded-xl border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:bg-green-500 hover:text-white dark:hover:bg-green-600 transition-colors">
-                  <Phone className="w-4 h-4" /> Call Us
+                  <AnimatedPhone 
+                    className="w-4 h-4" 
+                    animate={{ rotate: [0, -12, 10, -10, 8, -4, 4, 0] }}
+                    transition={{
+                      duration: 0.7,
+                      repeat: Infinity,
+                      repeatDelay: 1.5,
+                      ease: "easeInOut" as const
+                    }}
+                  /> Call Us
                 </a>
                 <Link href="#enrollment-hub" onClick={() => setIsOpen(false)} className="col-span-3 block text-center p-4 font-black text-sm text-white bg-brand-blue rounded-xl">
                   Enroll Now

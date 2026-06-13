@@ -62,41 +62,43 @@ export default function ContactPage() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="lg:col-span-1 space-y-4 flex flex-col justify-between"
           >
-            {/* Phone Communication Panel */}
-            <motion.div
+            {/* Interactive Phone Link Panel */}
+            <motion.a
+              href="tel:+94710525968"
               whileHover={{ y: -3, borderColor: "rgba(59, 130, 246, 0.4)" }}
-              className="group relative bg-[#0A1428] border border-blue-950/60 backdrop-blur-xl p-5 rounded-2xl flex items-center gap-4 transition-all duration-300 shadow-xl"
+              className="group relative bg-[#0A1428] border border-blue-950/60 backdrop-blur-xl p-5 rounded-2xl flex items-center gap-4 transition-all duration-300 shadow-xl cursor-pointer block"
             >
-              <div className="p-3 bg-black border border-blue-950/60 rounded-xl text-amber-400 shadow-md">
+              <div className="p-3 bg-black border border-blue-950/60 rounded-xl text-amber-400 shadow-md transition-colors group-hover:border-blue-500/40">
                 <Phone className="w-5 h-5" />
               </div>
               <div className="flex-grow min-w-0">
                 <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
                   Call Us
                 </p>
-                <p className="text-sm font-semibold text-white mt-0.5 tracking-tight truncate">
+                <p className="text-sm font-semibold text-white mt-0.5 tracking-tight truncate group-hover:text-blue-400 transition-colors">
                   +94 71 052 5968
                 </p>
               </div>
-            </motion.div>
+            </motion.a>
 
-            {/* Email Communications Panel */}
-            <motion.div
+            {/* Interactive Email Link Panel */}
+            <motion.a
+              href="mailto:keydigitalsuccess@gmail.com"
               whileHover={{ y: -3, borderColor: "rgba(59, 130, 246, 0.4)" }}
-              className="group relative bg-[#0A1428] border border-blue-950/60 backdrop-blur-xl p-5 rounded-2xl flex items-center gap-4 transition-all duration-300 shadow-xl"
+              className="group relative bg-[#0A1428] border border-blue-950/60 backdrop-blur-xl p-5 rounded-2xl flex items-center gap-4 transition-all duration-300 shadow-xl cursor-pointer block"
             >
-              <div className="p-3 bg-black border border-blue-950/60 rounded-xl text-amber-400 shadow-md">
+              <div className="p-3 bg-black border border-blue-950/60 rounded-xl text-amber-400 shadow-md transition-colors group-hover:border-blue-500/40">
                 <Mail className="w-5 h-5" />
               </div>
               <div className="flex-grow min-w-0">
                 <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
                   Email Us
                 </p>
-                <p className="text-sm font-semibold text-white mt-0.5 tracking-tight truncate">
-                  keydigitalleraning@gmail.com
+                <p className="text-sm font-semibold text-white mt-0.5 tracking-tight truncate group-hover:text-blue-400 transition-colors">
+                  keydigitalsuccess@gmail.com
                 </p>
               </div>
-            </motion.div>
+            </motion.a>
 
             {/* Optimized Secure Instant Messaging Path (WhatsApp Single-Click Route) */}
             <motion.a
