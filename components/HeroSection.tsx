@@ -14,8 +14,8 @@ import Link from "next/link";
 const floatingIcons = [
   {
     icon: MonitorSmartphone,
-    // 🛠️ Tablet Fix: Adjusted positioning with tighter bounds for md (tablets) to clear text columns
-    className: "top-16 left-4 md:left-6 lg:left-12 xl:left-20",
+    // 🛠️ Tablet & Mobile Spacing Fix: Nudged up slightly to respect tighter top padding
+    className: "top-12 left-4 md:left-6 lg:left-12 xl:left-20",
     outer: "bg-cyan-950/20 border-cyan-500/30",
     inner: "text-cyan-400",
   },
@@ -27,13 +27,13 @@ const floatingIcons = [
   },
   {
     icon: ImageIcon,
-    className: "top-20 right-4 md:right-10 lg:right-20 xl:right-32",
+    className: "top-14 right-4 md:right-10 lg:right-20 xl:right-32",
     outer: "bg-amber-950/20 border-amber-500/30",
     inner: "text-amber-400",
   },
   {
     icon: Globe,
-    className: "bottom-24 right-4 md:right-6 lg:right-16 xl:right-24",
+    className: "bottom-24 right-4 md:right-6 lg:left-16 xl:right-24",
     outer: "bg-rose-950/20 border-rose-500/30",
     inner: "text-rose-400",
   },
@@ -44,9 +44,11 @@ export default function HeroSection() {
     <section
       className="
         relative overflow-hidden
-        pt-28 pb-16 md:pt-36 md:pb-24 lg:pt-40 lg:pb-32
+        /* 🛠️ Reduced top and bottom padding across all breakpoints */
+        pt-20 pb-12 md:pt-28 md:pb-20 lg:pt-32 lg:pb-24
         flex flex-col items-center justify-center
-        min-h-screen lg:h-screen
+        /* 🛠️ Safe viewport heights for mobile address bars */
+        min-h-[85vh] sm:min-h-screen
         bg-gradient-to-b from-[#02040a] via-[#030712] to-[#02040a] 
         text-white
       "
@@ -70,7 +72,7 @@ export default function HeroSection() {
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-violet-500/5 blur-3xl pointer-events-none" />
 
       {/* FLOATING SMALL DOTS */}
-      <div className="absolute top-24 left-[10%] w-4 h-4 rounded-full bg-violet-500/20 hidden sm:block" />
+      <div className="absolute top-16 left-[10%] w-4 h-4 rounded-full bg-violet-500/20 hidden sm:block" />
       <div className="absolute top-[40%] right-[10%] w-3 h-3 rounded-full bg-yellow-400/20 hidden sm:block" />
       <div className="absolute bottom-32 right-[20%] w-5 h-5 rounded-full bg-sky-500/20 hidden lg:block" />
       <div className="absolute bottom-12 left-8 w-6 h-6 rounded-full bg-pink-500/10 hidden sm:block" />
@@ -90,7 +92,6 @@ export default function HeroSection() {
               repeatType: "reverse",
               ease: "easeInOut",
             }}
-            // 🛠️ Tablet Fix: Scaled main container sizes down for `md` viewports so they don't overlay content text columns
             className={`absolute hidden md:block z-20 ${item.className}`}
           >
             {/* OUTER GLOW */}
@@ -121,7 +122,6 @@ export default function HeroSection() {
       })}
 
       {/* MAIN CONTENT */}
-      {/* 🛠️ Tablet Fix: Rebalanced z-indexing and max widths so text overlays clean grid layers */}
       <div className="max-w-4xl mx-auto px-6 sm:px-12 md:px-16 text-center relative z-30 flex flex-col items-center justify-center h-full my-auto">
 
         {/* TITLE WITH ACCENT UNDERLINE */}
