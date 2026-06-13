@@ -14,26 +14,26 @@ import Link from "next/link";
 const floatingIcons = [
   {
     icon: MonitorSmartphone,
-    // 🛠️ Tablet & Mobile Spacing Fix: Nudged up slightly to respect tighter top padding
-    className: "top-12 left-4 md:left-6 lg:left-12 xl:left-20",
+    // 🛠️ Shifted positions up significantly to match the compact top layout
+    className: "top-4 left-4 md:left-6 lg:left-12 xl:left-20",
     outer: "bg-cyan-950/20 border-cyan-500/30",
     inner: "text-cyan-400",
   },
   {
     icon: Sparkles,
-    className: "top-[50%] left-4 md:left-12 lg:left-24",
+    className: "top-[45%] left-4 md:left-12 lg:left-24",
     outer: "bg-violet-950/20 border-violet-500/30",
     inner: "text-violet-400",
   },
   {
     icon: ImageIcon,
-    className: "top-14 right-4 md:right-10 lg:right-20 xl:right-32",
+    className: "top-6 right-4 md:right-10 lg:right-20 xl:right-32",
     outer: "bg-amber-950/20 border-amber-500/30",
     inner: "text-amber-400",
   },
   {
     icon: Globe,
-    className: "bottom-24 right-4 md:right-6 lg:left-16 xl:right-24",
+    className: "bottom-16 right-4 md:right-6 lg:left-16 xl:right-24",
     outer: "bg-rose-950/20 border-rose-500/30",
     inner: "text-rose-400",
   },
@@ -44,11 +44,11 @@ export default function HeroSection() {
     <section
       className="
         relative overflow-hidden
-        /* 🛠️ Reduced top and bottom padding across all breakpoints */
-        pt-20 pb-12 md:pt-28 md:pb-20 lg:pt-32 lg:pb-24
+        /* 🛠️ Aggressive space reduction: Very tight padding for mobile and tabs */
+        pt-8 pb-12 sm:pt-12 sm:pb-16 md:pt-16 md:pb-20 lg:pt-24 lg:pb-24
         flex flex-col items-center justify-center
-        /* 🛠️ Safe viewport heights for mobile address bars */
-        min-h-[85vh] sm:min-h-screen
+        /* 🛠️ Removed structural screen-forcing constraints to pull content upward naturally */
+        min-h-0 lg:min-h-screen
         bg-gradient-to-b from-[#02040a] via-[#030712] to-[#02040a] 
         text-white
       "
@@ -66,15 +66,15 @@ export default function HeroSection() {
       </div>
 
       {/* TOP CENTER GLOW */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full bg-cyan-500/5 blur-3xl pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[500px] rounded-full bg-cyan-500/5 blur-3xl pointer-events-none" />
 
       {/* RIGHT SIDE GLOW */}
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-violet-500/5 blur-3xl pointer-events-none" />
 
       {/* FLOATING SMALL DOTS */}
-      <div className="absolute top-16 left-[10%] w-4 h-4 rounded-full bg-violet-500/20 hidden sm:block" />
+      <div className="absolute top-8 left-[10%] w-4 h-4 rounded-full bg-violet-500/20 hidden sm:block" />
       <div className="absolute top-[40%] right-[10%] w-3 h-3 rounded-full bg-yellow-400/20 hidden sm:block" />
-      <div className="absolute bottom-32 right-[20%] w-5 h-5 rounded-full bg-sky-500/20 hidden lg:block" />
+      <div className="absolute bottom-24 right-[20%] w-5 h-5 rounded-full bg-sky-500/20 hidden lg:block" />
       <div className="absolute bottom-12 left-8 w-6 h-6 rounded-full bg-pink-500/10 hidden sm:block" />
 
       {/* FLOATING ICONS */}
@@ -167,7 +167,7 @@ export default function HeroSection() {
           className="
             text-base sm:text-lg md:text-xl
             max-w-2xl mx-auto
-            mb-8 sm:mb-10
+            mb-6 sm:mb-8
             leading-relaxed
             text-slate-400
           "
