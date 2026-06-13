@@ -14,7 +14,6 @@ import Link from "next/link";
 const floatingIcons = [
   {
     icon: MonitorSmartphone,
-    // 🛠️ Shifted positions up significantly to match the compact top layout
     className: "top-4 left-4 md:left-6 lg:left-12 xl:left-20",
     outer: "bg-cyan-950/20 border-cyan-500/30",
     inner: "text-cyan-400",
@@ -33,7 +32,8 @@ const floatingIcons = [
   },
   {
     icon: Globe,
-    className: "bottom-16 right-4 md:right-6 lg:left-16 xl:right-24",
+    // 🛠️ Fixed: Changed lg:left-16 to lg:right-16 to keep it on the right side
+    className: "bottom-16 right-4 md:right-6 lg:right-16 xl:right-24",
     outer: "bg-rose-950/20 border-rose-500/30",
     inner: "text-rose-400",
   },
