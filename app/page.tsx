@@ -20,13 +20,27 @@ import {
   Briefcase,
   Layers3,
   Cpu,
-  Award
+  Award,
+  PenSquare
 } from "lucide-react";
 
+// Updated testimonials with detailed content
 const staticTestimonials = [
-  { name: "Amali Perera", track: "Microsoft 365 Graduate", feedback: "The MS-102 track setup here completely saved my cloud administration concepts. Highly practical lab sessions!" },
-  { name: "Devinda Silva", track: "Cambridge FCE Candidate", feedback: "Excellent language frameworks. The mock tests mirror real Cambridge parameters perfectly." },
-  { name: "Zaid Rahman", track: "M365 & MS-900 Certified", feedback: "Fast tracking into corporate cloud deployments became easy thanks to Key Institute guides." }
+  { 
+    name: "Udula Thejal", 
+    track: "Microsoft 365 Graduate", 
+    feedback: "Stage 01 was a strong introduction to the Microsoft 365 ecosystem. I appreciated how the course started with the basics and gradually moved into practical use of core apps like Outlook, Excel, PowerPoint, Word, OneDrive, Teams, and SharePoint. The structure made it easy to follow, even for someone who hadn't used all the tools before.\n\nAREAS I FOUND MOST VALUABLE: Learning how Teams connects with Outlook and OneDrive was a highlight. I didn't realize how much time it could save for sharing documents and scheduling. The SharePoint overview showed me how to manage files centrally. Overall, Stage 01 gave me confidence to start using Microsoft 365 daily ✨" 
+  },
+  { 
+    name: "Nihara Dewmini", 
+    track: "Microsoft 365 Graduate", 
+    feedback: "Actually, I learned a lot of extra things in ICT from this course. Even though I already knew about Excel and Word, when the teacher was teaching, I realized there were still things I didn't know. I hope we will be able to learn many more things like that in the future. It is great that a course like this was started. It is a huge help that Teacher Chathu teaches us and explains things again whenever we ask about what we don't understand. All I have to say is that this is a very valuable and good course." 
+  },
+  { 
+    name: "Bigun Mansith", 
+    track: "Microsoft 365 Graduate", 
+    feedback: "This training was well-structured and beginner-friendly. I enjoyed exploring the different Microsoft 365 applications and learning how they can be used together to improve communication and productivity. The SharePoint module was particularly useful because it demonstrated how organizations can manage and share information efficiently. Overall, Stage 01 was a valuable learning experience that prepared me to use Microsoft 365 more effectively." 
+  }
 ];
 
 const containerVariants: Variants = {
@@ -61,7 +75,6 @@ const floatAnimation: Variants = {
   })
 };
 
-// --- CUSTOM DROPDOWN COMPONENT WITH SYNTAX BUG FIXED ---
 function FormDropdown({
   placeholder,
   options,
@@ -134,6 +147,56 @@ function FormDropdown({
         )}
       </AnimatePresence>
     </div>
+  );
+}
+
+// --- COLLAPSIBLE TESTIMONIAL COMPONENT ---
+function TestimonialCard({ name, track, feedback, isFullWidth = false }: { name: string; track: string; feedback: string; isFullWidth?: boolean }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  
+  // Cutoff lengths for truncation logic
+  const characterLimit = isFullWidth ? 160 : 110;
+  const shouldTruncate = feedback.length > characterLimit;
+  
+  const displayFeedback = isExpanded || !shouldTruncate 
+    ? feedback 
+    : `${feedback.slice(0, characterLimit).trim()}...`;
+
+  return (
+    <motion.div
+      layout="position"
+      className={`${
+        isFullWidth ? "sm:col-span-2 md:p-10" : "min-h-[240px] sm:min-h-[280px]"
+      } relative overflow-hidden bg-[#0A1428]/80 border border-blue-900/30 p-6 sm:p-8 rounded-[2.5rem] transition-all duration-300 flex flex-col justify-between`}
+    >
+      <div className="relative z-10">
+        <div className="flex gap-1 mb-4 text-amber-400">
+          {[...Array(5)].map((_, i) => (
+            <Star key={i} className={`${isFullWidth ? "w-4 h-4" : "w-3.5 h-3.5"} fill-current`} />
+          ))}
+        </div>
+        <p className={`${isFullWidth ? "text-base sm:text-lg" : "text-sm sm:text-base"} text-slate-200 font-medium italic leading-relaxed whitespace-pre-line`}>
+          "{displayFeedback}"
+        </p>
+        {shouldTruncate && (
+          <button
+            type="button"
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="text-xs font-black text-amber-400 hover:text-amber-300 mt-2 transition-colors outline-none block uppercase tracking-wider"
+          >
+            {isExpanded ? "Read Less" : "Read More"}
+          </button>
+        )}
+      </div>
+      
+      <div className="flex items-center justify-between pt-6 mt-6 border-t border-blue-900/30 relative z-10">
+        <div>
+          <h4 className={`font-black text-slate-100 ${isFullWidth ? "text-base" : "text-sm"}`}>{name}</h4>
+          <p className={`font-bold text-blue-400 uppercase tracking-wider mt-0.5 ${isFullWidth ? "text-xs" : "text-[11px]"}`}>{track}</p>
+        </div>
+        <MessageCircle className="w-5 h-5 text-blue-400/50 shrink-0" />
+      </div>
+    </motion.div>
   );
 }
 
@@ -615,83 +678,92 @@ export default function HomePage() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-gradient-to-tr from-blue-500/5 via-amber-500/5 to-transparent rounded-full blur-3xl pointer-events-none opacity-40" />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 relative z-10 items-start">
-          <div className="lg:col-span-4 lg:sticky lg:top-24 text-center lg:text-left">
-            <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-amber-400 bg-amber-400/10 px-3 py-1.5 rounded-full">
-              Ecosystem Reviews
-            </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-4 mb-4 tracking-tight leading-tight text-white">
-              What our students say.
-            </h2>
-            <p className="text-sm sm:text-base text-slate-400 leading-relaxed max-w-xl mx-auto lg:mx-0">
-              Real outcomes from verified learning matrices. See how localized professionals scale up across infrastructure and language benchmarks.
-            </p>
-            <div className="flex items-center justify-center lg:justify-start gap-4 mt-6">
-              <div className="flex -space-x-3">
-                {[...Array(3)].map((_, i) => (
-                  <div key={i} className="w-9 h-9 rounded-full border-2 border-black bg-blue-950 flex items-center justify-center text-[10px] font-black text-amber-400">
-                    {String.fromCharCode(65 + i)}
-                  </div>
-                ))}
+          <div className="lg:col-span-4 lg:sticky lg:top-24 text-center lg:text-left flex flex-col gap-6">
+            <div>
+              <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-amber-400 bg-amber-400/10 px-3 py-1.5 rounded-full">
+                Ecosystem Reviews
+              </span>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-4 mb-4 tracking-tight leading-tight text-white">
+                What our students say.
+              </h2>
+              <p className="text-sm sm:text-base text-slate-400 leading-relaxed max-w-xl mx-auto lg:mx-0">
+                Real outcomes from verified learning matrices. See how localized professionals scale up across infrastructure and language benchmarks.
+              </p>
+              <div className="flex items-center justify-center lg:justify-start gap-4 mt-6">
+                <div className="flex -space-x-3">
+                  {[...Array(3)].map((_, i) => (
+                    <div key={i} className="w-9 h-9 rounded-full border-2 border-black bg-blue-950 flex items-center justify-center text-[10px] font-black text-amber-400">
+                      {String.fromCharCode(65 + i)}
+                    </div>
+                  ))}
+                </div>
+                <span className="text-xs font-bold text-slate-400">Trusted by over 1,200+ graduates</span>
               </div>
-              <span className="text-xs font-bold text-slate-400">Trusted by over 1,200+ graduates</span>
+            </div>
+
+            {/* Completely Revamped Dynamic Review Trigger Component */}
+            <div className="mt-4 flex flex-col items-center lg:items-start gap-4">
+              <span className="text-xs font-black uppercase tracking-widest text-slate-400">
+                Want to leave a review?
+              </span>
+              
+              <a 
+                href="https://g.page/r/CcXNSZquV4z9EAE/review"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative flex items-center gap-4 bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent border border-amber-500/20 rounded-2xl p-4 w-full max-w-sm transition-all duration-300 hover:border-amber-400/40 hover:bg-amber-500/10"
+              >
+                {/* High Energy Jumping Icon Target Component */}
+                <motion.div 
+                  animate={{ 
+                    y: [0, -10, 0, -6, 0, -2, 0],
+                    scale: [1, 1.08, 0.95, 1.03, 0.98, 1.01, 1]
+                  }}
+                  transition={{ 
+                    duration: 1.2, 
+                    repeat: Infinity, 
+                    repeatDelay: 2.5,
+                    ease: "easeInOut"
+                  }}
+                  className="w-12 h-12 rounded-xl bg-amber-400 text-black flex items-center justify-center shadow-lg shadow-amber-500/20 shrink-0"
+                >
+                  <PenSquare className="w-6 h-6 stroke-[2.5]" />
+                </motion.div>
+
+                <div className="text-left">
+                  <h4 className="text-sm font-black text-white group-hover:text-amber-400 transition-colors tracking-tight">
+                    Give us your feedback
+                  </h4>
+                  <p className="text-[11px] text-slate-400 font-bold uppercase tracking-wider mt-0.5">
+                    Direct Google Verification Matrix →
+                  </p>
+                </div>
+              </a>
             </div>
           </div>
 
           <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6 items-start">
-            {/* Testimonial Card 1 */}
-            <motion.div
-              className="sm:col-span-2 relative overflow-hidden bg-[#0A1428]/80 border border-blue-900/30 p-6 sm:p-8 md:p-10 rounded-[2.5rem] transition-all duration-300"
-            >
-              <div className="flex gap-1 mb-4 text-amber-400 relative z-10">
-                {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
-              </div>
-              <p className="text-base sm:text-lg text-slate-200 font-medium italic mb-6 sm:mb-8 leading-relaxed relative z-10">
-                "{staticTestimonials[0].feedback}"
-              </p>
-              <div className="flex items-center justify-between pt-6 border-t border-blue-900/30 relative z-10">
-                <div>
-                  <h4 className="font-black text-base text-slate-100">{staticTestimonials[0].name}</h4>
-                  <p className="text-xs font-bold text-blue-400 uppercase tracking-wider mt-0.5">{staticTestimonials[0].track}</p>
-                </div>
-                <MessageCircle className="w-5 h-5 text-blue-400/50" />
-              </div>
-            </motion.div>
+            {/* Testimonial Card 1 (Full Width Feature Card) */}
+            <TestimonialCard 
+              name={staticTestimonials[0].name}
+              track={staticTestimonials[0].track}
+              feedback={staticTestimonials[0].feedback}
+              isFullWidth={true}
+            />
 
             {/* Testimonial Card 2 */}
-            <motion.div
-              className="relative overflow-hidden bg-[#0A1428]/80 border border-blue-900/30 p-6 sm:p-8 rounded-[2.5rem] flex flex-col justify-between min-h-[220px] sm:min-h-[260px] transition-all duration-300"
-            >
-              <div className="relative z-10">
-                <div className="flex gap-0.5 mb-4 text-amber-400">
-                  {[...Array(5)].map((_, i) => <Star key={i} className="w-3.5 h-3.5 fill-current" />)}
-                </div>
-                <p className="text-sm sm:text-base text-slate-300 italic mb-6 leading-relaxed">
-                  "{staticTestimonials[1].feedback}"
-                </p>
-              </div>
-              <div className="pt-4 border-t border-blue-900/30 relative z-10">
-                <h4 className="font-extrabold text-sm text-slate-100">{staticTestimonials[1].name}</h4>
-                <p className="text-[11px] font-bold text-amber-400 uppercase tracking-wider mt-0.5">{staticTestimonials[1].track}</p>
-              </div>
-            </motion.div>
+            <TestimonialCard 
+              name={staticTestimonials[1].name}
+              track={staticTestimonials[1].track}
+              feedback={staticTestimonials[1].feedback}
+            />
 
             {/* Testimonial Card 3 */}
-            <motion.div
-              className="relative overflow-hidden bg-[#0A1428]/80 border border-blue-900/30 p-6 sm:p-8 rounded-[2.5rem] flex flex-col justify-between min-h-[220px] sm:min-h-[260px] transition-all duration-300"
-            >
-              <div className="relative z-10">
-                <div className="flex gap-0.5 mb-4 text-amber-400">
-                  {[...Array(5)].map((_, i) => <Star key={i} className="w-3.5 h-3.5 fill-current" />)}
-                </div>
-                <p className="text-sm sm:text-base text-slate-300 italic mb-6 leading-relaxed">
-                  "{staticTestimonials[2].feedback}"
-                </p>
-              </div>
-              <div className="pt-4 border-t border-blue-900/30 relative z-10">
-                <h4 className="font-extrabold text-sm text-slate-100">{staticTestimonials[2].name}</h4>
-                <p className="text-[11px] font-bold text-blue-400 uppercase tracking-wider mt-0.5">{staticTestimonials[2].track}</p>
-              </div>
-            </motion.div>
+            <TestimonialCard 
+              name={staticTestimonials[2].name}
+              track={staticTestimonials[2].track}
+              feedback={staticTestimonials[2].feedback}
+            />
           </div>
         </div>
       </section>
@@ -790,7 +862,7 @@ export default function HomePage() {
                 className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-black py-4 sm:py-5 rounded-2xl shadow-xl transition-all flex items-center justify-center gap-3 text-lg sm:text-xl cursor-pointer"
               >
                 <FaWhatsapp className="w-6 h-6 sm:w-7 h-7" /> 
-                <span>Chat via WhatsApp Now</span>
+                <span>Submit via WhatsApp</span>
               </motion.button>
             </form>
           </div>

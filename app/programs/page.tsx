@@ -19,7 +19,9 @@ import {
   Sparkles,
   Award,
   Cpu,
-  GraduationCap
+  GraduationCap,
+  FileCheck,
+  ShieldAlert
 } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 
@@ -31,6 +33,8 @@ interface Course {
   tagline: string;
   description: string;
   topics: string[];
+  certHighlight: string;
+  isOfficialBadge: boolean;
 }
 
 const m365Courses: Course[] = [
@@ -44,11 +48,13 @@ const m365Courses: Course[] = [
       "Microsoft Word", "Excel Dashboards", "PowerPoint Layouts", "Outlook Logic", 
       "Teams Integration", "OneDrive Structure", "SharePoint Core", "Computer basics", 
       "File management", "Cloud storage", "Digital safety"
-    ]
+    ],
+    certHighlight: "Certificate given by Thakral Global Learning with Microsoft Logo",
+    isOfficialBadge: false
   },
   {
     stage: "Stage 02",
-    title: " Advanced Microsoft 365 Certification",
+    title: "Advanced Microsoft 365 Certification",
     duration: "80 Hours",
     tagline: "Architect, administer, and secure complex enterprise cloud environments.",
     description: "Transition into high-level organizational cloud engineering. Manage custom enterprise licensing models, system integrations, and advanced governance rules.",
@@ -56,7 +62,35 @@ const m365Courses: Course[] = [
       "M365 Licensing Models", "Excel Pivot-Table Automation", "Power BI Data Engineering Overview", 
       "SharePoint Security Governance", "MFA Authentication Layers", "Data Loss Prevention (DLP) Policies", 
       "Teams Infrastructure Administration"
-    ]
+    ],
+    certHighlight: "Certificate given by Thakral Global Learning with Microsoft Logo",
+    isOfficialBadge: false
+  },
+  {
+    stage: "Stage 03",
+    title: "Microsoft 365 Fundamentals Expert Track",
+    duration: "30 Hours",
+    tagline: "Validate core structural paradigms across fundamental cloud tenant capabilities.",
+    description: "Deep dive alignment mapping directly into global standard systems. Validates foundational insights regarding modern software migrations and licensing matrices.",
+    topics: [
+      "Cloud Concepts", "Core M365 Services", "Security & Compliance Specs", "M365 Pricing Metrics",
+      "Tenant Lifecycles", "Support Models"
+    ],
+    certHighlight: "Official Certificate from Microsoft & Verified Digital Badge",
+    isOfficialBadge: true
+  },
+  {
+    stage: "Stage 04",
+    title: "Microsoft 365 Certified: Enterprise Administrator",
+    duration: "50 Hours",
+    tagline: "The absolute pinnacle capstone achievement for modern cloud enterprise engineers.",
+    description: "In-depth deployment testing covering identity state synchronizations, threat management architectures, and continuous multitenant application administration.",
+    topics: [
+      "M365 Tenant Deployment", "Identity Synchronization", "Microsoft Entra ID Rules", "Access Management",
+      "Advanced Security Layouts", "Compliance Infrastructure"
+    ],
+    certHighlight: "Official Certificate from Microsoft & Verified Digital Badge",
+    isOfficialBadge: true
   }
 ];
 
@@ -158,7 +192,6 @@ function FormDropdown({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Check if current form state value exists within the given options
   const activeOption = options.find(o => o.value === value);
 
   return (
@@ -168,7 +201,6 @@ function FormDropdown({
         onClick={() => setIsOpen(!isOpen)}
         className="w-full bg-black border border-blue-900/40 p-4 sm:p-5 rounded-2xl text-left text-sm sm:text-base flex justify-between items-center focus:ring-2 focus:ring-amber-400 outline-none transition-all duration-300 font-semibold"
       >
-        {/* If chosen, render white text option, otherwise treat placeholder as standard muted text */}
         <span className={activeOption ? "text-white" : "text-slate-400"}>
           {activeOption ? activeOption.label : placeholder}
         </span>
@@ -216,13 +248,12 @@ export default function App() {
   const [selectedYleStep, setSelectedYleStep] = useState<number>(0);
   const [selectedMainStep, setSelectedMainStep] = useState<number>(0);
 
-  // Set standard starting configurations for form hooks
   const [formData, setFormData] = useState({
     fullName: "",
     phone: "",
     email: "",
     occupation: "",
-    program: "", // Starts blank so placeholders show initially
+    program: "", 
     classOption: "",
     message: ""
   });
@@ -250,7 +281,10 @@ export default function App() {
     switch (formData.program) {
       case "Microsoft 365 Professional":
         return [
-          { value: "Stage 01", label: "Microsoft 365 Professional Certification" },
+          { value: "Stage 01", label: "Stage 01: Introductory Foundation" },
+          { value: "Stage 02", label: "Stage 02: Advanced Corporate Engineering" },
+          { value: "Stage 03", label: "Stage 03: MS-900 Fundamentals Blueprint" },
+          { value: "Stage 04", label: "Stage 04: MS-102 Enterprise Capstone" },
         ];
       case "Cambridge YLE Exams":
         return [
@@ -370,10 +404,10 @@ export default function App() {
                 
                 <div className="w-full md:w-auto shrink-0 relative z-10">
                   <div className="bg-black p-6 rounded-[1.5rem] border border-blue-950/60 text-center w-full sm:w-60 shadow-inner">
-                    <div className="text-2xl sm:text-3xl font-black text-amber-400">140 Hours</div>
-                    <div className="text-[10px] uppercase tracking-widest text-slate-500 font-black mt-1">Structured Delivery</div>
+                    <div className="text-2xl sm:text-3xl font-black text-amber-400">220 Hours</div>
+                    <div className="text-[10px] uppercase tracking-widest text-slate-500 font-black mt-1">Full Delivery Matrix</div>
                     <div className="h-px bg-blue-950/60 my-4" />
-                    <div className="text-xs sm:text-sm font-semibold text-slate-300">MS-900 & MS-102 Tracks</div>
+                    <div className="text-xs sm:text-sm font-semibold text-slate-300">Stages 01 - 04 Comprehensive</div>
                   </div>
                 </div>
               </motion.div>
@@ -416,6 +450,24 @@ export default function App() {
                           {course.description}
                         </p>
                         
+                        <div className="mb-6 p-4 rounded-xl bg-black/60 border border-amber-400/20 flex items-start gap-3">
+                          {course.isOfficialBadge ? (
+                            <div className="p-1 rounded-lg bg-gradient-to-br from-amber-400 to-amber-600 shrink-0 text-black mt-0.5">
+                              <Award className="w-4 h-4 font-black" />
+                            </div>
+                          ) : (
+                            <div className="p-1 rounded-lg bg-blue-500/10 text-blue-400 shrink-0 border border-blue-500/30 mt-0.5">
+                              <FileCheck className="w-4 h-4" />
+                            </div>
+                          )}
+                          <div>
+                            <div className="text-[10px] uppercase font-black tracking-widest text-slate-500">Tier Credential Recognition</div>
+                            <div className={`text-xs sm:text-sm font-bold mt-0.5 ${course.isOfficialBadge ? "text-amber-400" : "text-white"}`}>
+                              {course.certHighlight}
+                            </div>
+                          </div>
+                        </div>
+
                         <div className="w-full h-px bg-blue-950/40 mb-6" />
                         <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-slate-400 block mb-3">
                           Pipeline Covered Competencies
@@ -824,7 +876,7 @@ export default function App() {
                 className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-black py-4 sm:py-5 rounded-2xl shadow-xl transition-all flex items-center justify-center gap-3 text-lg sm:text-xl cursor-pointer"
               >
                 <FaWhatsapp className="w-6 h-6 sm:w-7 h-7" /> 
-                <span>Chat via WhatsApp Now</span>
+                <span>Submit via WhatsApp</span>
               </motion.button>
             </form>
           </div>
