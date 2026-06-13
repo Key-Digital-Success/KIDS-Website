@@ -145,22 +145,23 @@ export default function AboutPage() {
             
             {/* 🎯 BIOMETRIC RADAR LOGO CONTAINER */}
             <div className="lg:col-span-4 flex justify-center">
-              <div className="w-44 h-44 md:w-48 md:h-48 relative flex items-center justify-center bg-black rounded-full border border-blue-950/60 p-1.5 shadow-inner group">
+              <div className="w-56 h-56 md:w-64 md:h-64 relative flex items-center justify-center bg-transparent rounded-full p-1 group">
                 <div className="absolute inset-0 border border-amber-500/10 rounded-full animate-ping pointer-events-none" />
                 <div className="absolute inset-3 border border-dashed border-blue-900/20 rounded-full animate-[spin_40s_linear_infinite]" />
                 <div className="absolute inset-6 border border-blue-950/40 rounded-full" />
                 
-                <div className="absolute top-0 left-0 w-2.5 h-2.5 border-t-2 border-l-2 border-amber-400/40" />
-                <div className="absolute bottom-0 right-0 w-2.5 h-2.5 border-b-2 border-r-2 border-amber-400/40" />
+                <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-amber-400/40" />
+                <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-amber-400/40" />
 
-                <div className="w-28 h-28 md:w-34 md:h-34 bg-black rounded-full flex items-center justify-center z-10 overflow-hidden relative border border-blue-950/60">
+                {/* Main rounded center container showcasing large logo natively on layout background */}
+                <div className="w-44 h-44 md:w-52 md:h-52 bg-transparent rounded-full flex items-center justify-center z-10 overflow-hidden relative">
                   <Image 
-                    src="/logo.png" 
+                    src="/logo white.png" 
                     alt="KIDS Logo" 
-                    width={140} 
-                    height={140} 
+                    width={220} 
+                    height={220} 
                     priority
-                    className="w-full h-full object-cover grayscale-0 scale-100 group-hover:scale-105 transition-all duration-500"
+                    className="w-full h-full object-contain grayscale-0 scale-100 group-hover:scale-105 transition-all duration-500"
                   />
                 </div>
               </div>
