@@ -4,19 +4,31 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, ArrowUpRight, ChevronDown, Phone } from "lucide-react";
+import { 
+  Menu, 
+  X, 
+  ArrowUpRight, 
+  ChevronDown, 
+  Phone,
+  Home,
+  BookOpen,
+  Info,
+  Image as ImageIcon,
+  Mail,
+  FileCode,
+  GraduationCap
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
-  { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
-  { name: "Gallery", href: "/gallery" },
-  { name: "Contact", href: "/contact" },
+  { name: "Home", href: "/", icon: Home },
+  { name: "About", href: "/about", icon: Info },
+  { name: "Gallery", href: "/gallery", icon: ImageIcon },
+  { name: "Contact", href: "/contact", icon: Mail },
 ];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const pathname = usePathname();
 
   return (
@@ -41,7 +53,7 @@ export default function Navbar() {
               />
             </div>
             <div className="flex flex-col leading-none">
-            <span className="font-black text-sm md:text-xl tracking-tight bg-gradient-to-r from-blue-500 via-amber-400 to-blue-600 bg-[size:200%_auto] bg-clip-text text-transparent group-hover:bg-[100%_auto] transition-all duration-500">
+              <span className="font-black text-sm md:text-xl tracking-tight bg-gradient-to-r from-blue-500 via-amber-400 to-blue-600 bg-[size:200%_auto] bg-clip-text text-transparent group-hover:bg-[100%_auto] transition-all duration-500">
                 KEY INSTITUTE
               </span>
               <span className="text-[8px] md:text-[10px] font-black uppercase tracking-[0.2em] mt-1">
@@ -52,37 +64,47 @@ export default function Navbar() {
           
           {/* Desktop Nav */}
           <div className="hidden lg:flex items-center space-x-6">
-            <Link href="/" className="text-sm font-bold hover:text-brand-blue transition-colors">Home</Link>
+            <Link href="/" className="flex items-center gap-1.5 text-sm font-bold hover:text-brand-blue transition-colors">
+              <Home className="w-4 h-4 opacity-70" />
+              Home
+            </Link>
             
             {/* Programs Dropdown */}
-            <div 
-              className="relative"
-              onMouseEnter={() => setIsDropdownOpen(true)}
-              onMouseLeave={() => setIsDropdownOpen(false)}
-            >
-              <button className="flex items-center gap-1 text-sm font-bold hover:text-brand-blue transition-colors">
-                Programs <ChevronDown className={`w-3.5 h-3.5 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
-              </button>
-              <AnimatePresence>
-                {isDropdownOpen && (
-                  <motion.div 
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 5 }}
-                    className="absolute top-full left-0 w-60 pt-2 z-50"
-                  >
-                    <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl p-2">
-                      <Link href="/programs#m365" className="block px-4 py-3 text-sm font-bold rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Microsoft 365 Pro</Link>
-                      <Link href="/programs#cambridge" className="block px-4 py-3 text-sm font-bold rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Cambridge English</Link>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+            <div className="relative group/dropdown py-2">
+              <Link 
+                href="/programs" 
+                className="flex items-center gap-1.5 text-sm font-bold hover:text-brand-blue transition-colors"
+              >
+                <BookOpen className="w-4 h-4 opacity-70" />
+                Programs 
+                <ChevronDown className="w-3.5 h-3.5 transition-transform group-hover/dropdown:rotate-180" />
+              </Link>
+              
+              <div className="absolute top-full left-0 w-64 pt-2 z-50 opacity-0 pointer-events-none scale-95 origin-top-left group-hover/dropdown:opacity-100 group-hover/dropdown:pointer-events-auto group-hover/dropdown:scale-100 transition-all duration-200">
+                <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl p-2">
+                  <Link href="/programs#m365" className="flex items-center gap-2.5 px-4 py-3 text-sm font-bold rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                    <FileCode className="w-4 h-4 text-blue-500" />
+                    MS 365 Certification
+                  </Link>
+                  
+                  {/* Updated Target Link */}
+                  <Link href="/programs#m365#cambridge" className="flex items-center gap-2.5 px-4 py-3 text-sm font-bold rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                    <GraduationCap className="w-4 h-4 text-amber-500" />
+                    Cambridge English
+                  </Link>
+                </div>
+              </div>
             </div>
             
-            {navLinks.slice(1).map((link) => (
-              <Link key={link.name} href={link.href} className="text-sm font-bold hover:text-brand-blue">{link.name}</Link>
-            ))}
+            {navLinks.slice(1).map((link) => {
+              const LinkIcon = link.icon;
+              return (
+                <Link key={link.name} href={link.href} className="flex items-center gap-1.5 text-sm font-bold hover:text-brand-blue transition-colors">
+                  <LinkIcon className="w-4 h-4 opacity-70" />
+                  {link.name}
+                </Link>
+              );
+            })}
             
             <div className="flex items-center gap-3 border-l border-slate-200 dark:border-slate-800 pl-6">
               <a href="tel:+94710525968" className="w-10 h-10 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 hover:bg-green-500 hover:text-white transition-all" aria-label="Call Key Institute">
@@ -96,7 +118,6 @@ export default function Navbar() {
 
           {/* Mobile Zone Buttons */}
           <div className="flex items-center lg:hidden gap-3">
-            {/* Direct Call Button next to the Menu Trigger for quick mobile access */}
             <a href="tel:+94710525968" className="w-10 h-10 rounded-xl flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-green-500 hover:text-white transition-all" aria-label="Call Key Institute">
               <Phone className="w-4.5 h-4.5" />
             </a>
@@ -112,15 +133,34 @@ export default function Navbar() {
         {isOpen && (
           <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="lg:hidden bg-white dark:bg-[#030712] border-t border-slate-200 dark:border-slate-800 px-4 pb-6">
             <div className="py-4 space-y-1">
-              <Link href="/" onClick={() => setIsOpen(false)} className="block p-3 font-bold text-sm">Home</Link>
-              <div className="px-3 pt-3 pb-1 font-black text-[10px] uppercase tracking-widest opacity-50">Programs</div>
-              <Link href="/programs#m365" onClick={() => setIsOpen(false)} className="block px-6 py-2 text-sm font-bold">Microsoft 365 Professional</Link>
-              <Link href="/programs#cambridge" onClick={() => setIsOpen(false)} className="block px-6 py-2 text-sm font-bold">Cambridge English</Link>
-              {navLinks.slice(1).map((link) => (
-                <Link key={link.name} href={link.href} onClick={() => setIsOpen(false)} className="block p-3 font-bold text-sm">{link.name}</Link>
-              ))}
+              <Link href="/" onClick={() => setIsOpen(false)} className="flex items-center gap-2.5 p-3 font-bold text-sm">
+                <Home className="w-4 h-4 opacity-70" /> Home
+              </Link>
               
-              {/* Call Action + Enroll Action Grid for Mobile Drawer Layout */}
+              <Link href="/programs" onClick={() => setIsOpen(false)} className="flex items-center gap-2.5 p-3 font-bold text-sm">
+                <BookOpen className="w-4 h-4 opacity-70" /> Programs
+              </Link>
+              
+              <Link href="/programs#m365" onClick={() => setIsOpen(false)} className="flex items-center gap-2.5 pl-9 pr-3 py-2 font-bold text-sm text-slate-600 dark:text-slate-400 hover:text-brand-blue">
+                <FileCode className="w-4 h-4 text-blue-500 shrink-0" /> MS 365 Certification
+              </Link>
+              
+              {/* Updated Target Link (Mobile) */}
+              <Link href="/programs#m365#cambridge" onClick={() => setIsOpen(false)} className="flex items-center gap-2.5 pl-9 pr-3 py-2 font-bold text-sm text-slate-600 dark:text-slate-400 hover:text-brand-blue">
+                <GraduationCap className="w-4 h-4 text-amber-500 shrink-0" /> Cambridge English
+              </Link>
+              
+              {navLinks.slice(1).map((link) => {
+                const LinkIcon = link.icon;
+                return (
+                  <Link key={link.name} href={link.href} onClick={() => setIsOpen(false)} className="flex items-center gap-2.5 p-3 font-bold text-sm">
+                    <LinkIcon className="w-4 h-4 opacity-70" />
+                    {link.name}
+                  </Link>
+                );
+              })}
+              
+              {/* Call Action + Enroll Action Grid */}
               <div className="grid grid-cols-5 gap-2 mt-4">
                 <a href="tel:+94710525968" className="col-span-2 flex items-center justify-center gap-2 p-4 font-bold text-sm rounded-xl border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:bg-green-500 hover:text-white dark:hover:bg-green-600 transition-colors">
                   <Phone className="w-4 h-4" /> Call Us

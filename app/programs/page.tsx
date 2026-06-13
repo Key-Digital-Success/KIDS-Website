@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import React, { useState, useRef, useEffect, ChangeEvent, FormEvent } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { 
   Layers, 
@@ -12,6 +12,7 @@ import {
   CheckCircle2, 
   ArrowRight,
   HelpCircle,
+  ChevronDown,
   Send,
   Laptop,
   BookOpen,
@@ -35,7 +36,7 @@ interface Course {
 const m365Courses: Course[] = [
   {
     stage: "Stage 01",
-    title: "Introduction to Microsoft 365 Architecture",
+    title: "Introduction to Microsoft 365 Certification",
     duration: "60 Hours",
     tagline: "Build foundational digital workplace competence and essential computing layers.",
     description: "Master everyday application orchestration, structured cloud workspaces, dynamic file security directories, and general operational cloud paradigms.",
@@ -47,7 +48,7 @@ const m365Courses: Course[] = [
   },
   {
     stage: "Stage 02",
-    title: "Advanced Enterprise Microsoft 365 Administration",
+    title: " Advanced Microsoft 365 Certification",
     duration: "80 Hours",
     tagline: "Architect, administer, and secure complex enterprise cloud environments.",
     description: "Transition into high-level organizational cloud engineering. Manage custom enterprise licensing models, system integrations, and advanced governance rules.",
@@ -67,7 +68,6 @@ interface Certification {
   badgeColor: string;
 }
 
-/* Badge colors synchronized directly to the Gold accents of the logo */
 const certifications: Certification[] = [
   { 
     code: "MS-900", 
@@ -133,42 +133,147 @@ const floatAnimation: Variants = {
   })
 };
 
+// --- CUSTOM DROPDOWN COMPONENT ---
+function FormDropdown({
+  placeholder,
+  options,
+  value,
+  onChange,
+}: {
+  placeholder: string;
+  options: { value: string; label: string }[];
+  value: string;
+  onChange: (val: string) => void;
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Check if current form state value exists within the given options
+  const activeOption = options.find(o => o.value === value);
+
+  return (
+    <div ref={dropdownRef} className="relative w-full">
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full bg-black border border-blue-900/40 p-4 sm:p-5 rounded-2xl text-left text-sm sm:text-base flex justify-between items-center focus:ring-2 focus:ring-amber-400 outline-none transition-all duration-300 font-semibold"
+      >
+        {/* If chosen, render white text option, otherwise treat placeholder as standard muted text */}
+        <span className={activeOption ? "text-white" : "text-slate-400"}>
+          {activeOption ? activeOption.label : placeholder}
+        </span>
+        <motion.div
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.2 }}
+          className="text-slate-400 shrink-0"
+        >
+          <ChevronDown className="w-4 h-4 sm:w-5 h-5" />
+        </motion.div>
+      </button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.ul
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="absolute z-50 w-full mt-2 bg-[#060D1A] border border-blue-900/60 rounded-2xl overflow-hidden shadow-2xl max-h-60 overflow-y-auto"
+          >
+            {options.map((option) => (
+              <li key={option.value}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    onChange(option.value);
+                    setIsOpen(false);
+                  }}
+                  className="w-full text-left px-5 py-3.5 text-sm sm:text-base text-slate-300 hover:bg-blue-600/20 hover:text-white transition-colors duration-150 font-semibold"
+                >
+                  {option.label}
+                </button>
+              </li>
+            ))}
+          </motion.ul>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 export default function App() {
   const [activeTab, setActiveTab] = useState<"m365" | "cambridge">("m365");
   const [selectedYleStep, setSelectedYleStep] = useState<number>(0);
   const [selectedMainStep, setSelectedMainStep] = useState<number>(0);
 
+  // Set standard starting configurations for form hooks
   const [formData, setFormData] = useState({
     fullName: "",
     phone: "",
     email: "",
     occupation: "",
-    program: "Microsoft 365 Professional",
-    classOption: "Stage 01",
+    program: "", // Starts blank so placeholders show initially
+    classOption: "",
     message: ""
   });
 
   const handleInquirySubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const message = `*New Enrollment Inquiry*%0A%0A*Name:* ${formData.fullName}%0A*Phone:* ${formData.phone}%0A*Email:* ${formData.email}%0A*Occupation:* ${formData.occupation}%0A*Program:* ${formData.program}%0A*Class:* ${formData.classOption}%0A*Message:* ${formData.message}`;
+    const message = `*New Enrollment Inquiry*%0A%0A*Name:* ${formData.fullName}%0A*Phone:* ${formData.phone}%0A*Email:* ${formData.email}%0A*Occupation:* ${formData.occupation}%0A*Program:* ${formData.program || "None Picked"}%0A*Class:* ${formData.classOption || "None Picked"}%0A*Message:* ${formData.message}`;
     window.open(`https://wa.me/94710525968?text=${message}`, '_blank');
   };
 
   const handleProgramSwitch = (prog: string) => {
     let defaultOption = "Stage 01";
     if (prog === "Cambridge YLE Exams") defaultOption = "Starters";
-    if (prog === "Cambridge English Qualifications") defaultOption = "KET";
-    setFormData({ ...formData, program: prog, classOption: defaultOption });
+    if (prog === "Cambridge English Assessments") defaultOption = "KET";
+    setFormData(prev => ({ ...prev, program: prog, classOption: defaultOption }));
+  };
+
+  const programOptions = [
+    { value: "Microsoft 365 Professional", label: "Microsoft 365 Professional" },
+    { value: "Cambridge YLE Exams", label: "Cambridge YLE Exams" },
+    { value: "Cambridge English Assessments", label: "Cambridge English Assessments" }
+  ];
+
+  const getClassOptions = () => {
+    switch (formData.program) {
+      case "Microsoft 365 Professional":
+        return [
+          { value: "Stage 01", label: "Microsoft 365 Professional Certification" },
+        ];
+      case "Cambridge YLE Exams":
+        return [
+          { value: "Starters", label: "Starters Level" },
+          { value: "Movers", label: "Movers Level" },
+          { value: "Flyers", label: "Flyers Level" }
+        ];
+      case "Cambridge English Assessments":
+        return [
+          { value: "KET", label: "KET (A2 Key)" },
+          { value: "PET", label: "PET (B1 Preliminary)" },
+          { value: "FCE", label: "FCE (B2 First)" }
+        ];
+      default:
+        return [];
+    }
   };
 
   return (
-    /* Global background customized to pure solid black */
     <div className="bg-black text-slate-200 min-h-screen font-sans antialiased overflow-x-hidden relative">
       
-      {/* Ambient Glow Layers - Modified to echo Gold/Blue brand identities */}
       <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-gradient-to-tr from-amber-500/5 to-blue-600/5 rounded-full blur-3xl pointer-events-none" />
       
-      {/* Floating Vectors Matrix */}
       <motion.div custom={{ y: [0, -20, 0], x: [0, 15, 0], duration: 7 }} variants={floatAnimation} initial="initial" animate="animate" className="absolute top-16 right-[12%] text-amber-500/20 pointer-events-none hidden lg:block">
         <Sparkles className="w-16 h-16 stroke-[1.5]" />
       </motion.div>
@@ -208,7 +313,6 @@ export default function App() {
           Professional cloud alignment and global language frameworks structured to maximize industry utility and placement outcomes.
         </motion.p>
 
-        {/* INTERACTIVE TRACK SWITCHER - Customized to Brand Tones */}
         <div className="mt-12 max-w-md mx-auto p-1.5 rounded-2xl bg-[#0A1428] border border-blue-950 backdrop-blur-md flex relative z-10">
           <button
             onClick={() => setActiveTab("m365")}
@@ -376,7 +480,6 @@ export default function App() {
 
               {/* TARGET ALIGNMENT & DEMOGRAPHICS */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {/* Audiences */}
                 <motion.div variants={itemVariants} className="relative rounded-[2rem] p-6 sm:p-8 border border-blue-500/20 bg-[#0A1428] shadow-xl">
                   <h3 className="text-xl font-black text-white mb-6 flex items-center gap-2">
                     <HelpCircle className="w-5 h-5 text-amber-400" /> Ideal Target Demographics
@@ -394,7 +497,6 @@ export default function App() {
                   </div>
                 </motion.div>
 
-                {/* Alignment */}
                 <motion.div variants={itemVariants} className="relative rounded-[2rem] p-6 sm:p-8 border border-blue-500/20 bg-[#0A1428] shadow-xl flex flex-col justify-between">
                   <div>
                     <h3 className="text-xl font-black text-white mb-6 flex items-center gap-2">
@@ -690,45 +792,21 @@ export default function App() {
                 />
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <select 
-                  className="w-full bg-black border border-blue-900/40 p-4 sm:p-5 rounded-2xl text-slate-400 focus:ring-2 focus:ring-amber-400 outline-none text-sm sm:text-base font-semibold cursor-pointer"
+              {/* Smooth Custom Dropdowns Layout */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 relative z-30">
+                <FormDropdown
+                  placeholder="Select Interested Program"
+                  options={programOptions}
                   value={formData.program}
-                  onChange={(e: ChangeEvent<HTMLSelectElement>) => handleProgramSwitch(e.target.value)}
-                >
-                  <option value="Microsoft 365 Professional">Microsoft 365 Professional</option>
-                  <option value="Cambridge YLE Exams">Cambridge YLE Exams</option>
-                  <option value="Cambridge English Qualifications">Cambridge English Qualifications</option>
-                </select>
+                  onChange={handleProgramSwitch}
+                />
 
-                <select 
-                  className="w-full bg-black border border-blue-900/40 p-4 sm:p-5 rounded-2xl text-slate-400 focus:ring-2 focus:ring-amber-400 outline-none text-sm sm:text-base font-semibold cursor-pointer"
+                <FormDropdown
+                  placeholder="Preferred Class"
+                  options={getClassOptions()}
                   value={formData.classOption}
-                  onChange={(e: ChangeEvent<HTMLSelectElement>) => setFormData({ ...formData, classOption: e.target.value })}
-                >
-                  {formData.program === "Microsoft 365 Professional" && (
-                    <>
-                      <option value="Stage 01">Stage 01 - Architecture Foundations</option>
-                      <option value="Stage 02">Stage 02 - Enterprise Admin</option>
-                      <option value="MS-900 Prep">MS-900 Prep Course</option>
-                      <option value="MS-102 Prep">MS-102 Bootcamp Prep</option>
-                    </>
-                  )}
-                  {formData.program === "Cambridge YLE Exams" && (
-                    <>
-                      <option value="Starters">Starters Level</option>
-                      <option value="Movers">Movers Level</option>
-                      <option value="Flyers">Flyers Level</option>
-                    </>
-                  )}
-                  {formData.program === "Cambridge English Qualifications" && (
-                    <>
-                      <option value="KET">KET (A2 Key)</option>
-                      <option value="PET">PET (B1 Preliminary)</option>
-                      <option value="FCE">FCE (B2 First)</option>
-                    </>
-                  )}
-                </select>
+                  onChange={(val) => setFormData(prev => ({ ...prev, classOption: val }))}
+                />
               </div>
 
               <textarea 
@@ -752,13 +830,6 @@ export default function App() {
           </div>
         </motion.section>
       </main>
-
-      {/* FOOTER */}
-      <footer className="relative z-10 border-t border-blue-950/60 bg-black/60 py-12 text-center text-xs text-slate-500 max-w-7xl mx-auto px-4 mt-24">
-        <p>© 2026 Educational Innovation Ecosystem. Designed for scalable student milestone architectures.</p>
-        <p className="mt-2 text-slate-600">Thakral Global Learning (TGL) curricula and exam alignments are globally regulated.</p>
-      </footer>
-      
     </div>
   );
 }

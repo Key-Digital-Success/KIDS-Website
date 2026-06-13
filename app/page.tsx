@@ -1,9 +1,11 @@
 "use client";
 
+import React, { useState, useRef, useEffect, ChangeEvent, FormEvent } from "react";
 import HeroSection from "@/components/HeroSection";
 import TimelineRoadmap from "@/components/TimelineRoadmap";
-import { motion, Variants } from "framer-motion";
+import { motion, Variants, AnimatePresence } from "framer-motion";
 import { FaWhatsapp } from "react-icons/fa";
+import { ChevronDown } from "lucide-react";
 import { 
   CheckCircle2, 
   MessageCircle, 
@@ -59,18 +61,143 @@ const floatAnimation: Variants = {
   })
 };
 
-export default function HomePage() {
+// --- CUSTOM DROPDOWN COMPONENT WITH SYNTAX BUG FIXED ---
+function FormDropdown({
+  placeholder,
+  options,
+  value,
+  onChange,
+}: {
+  placeholder: string;
+  options: { value: string; label: string }[];
+  value: string;
+  onChange: (val: string) => void;
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const activeOption = options.find(o => o.value === value);
+
   return (
-    /* Global backdrop configured to pure rich black */
+    <div ref={dropdownRef} className="relative w-full">
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full bg-black border border-blue-900/40 p-4 sm:p-5 rounded-2xl text-left text-sm sm:text-base flex justify-between items-center focus:ring-2 focus:ring-amber-400 outline-none transition-all duration-300 font-semibold"
+      >
+        <span className={activeOption ? "text-white" : "text-slate-400"}>
+          {activeOption ? activeOption.label : placeholder}
+        </span>
+        <motion.div
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.2 }}
+          className="text-slate-400 shrink-0"
+        >
+          <ChevronDown className="w-4 h-4 sm:w-5 h-5" />
+        </motion.div>
+      </button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.ul
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="absolute z-50 w-full mt-2 bg-[#060D1A] border border-blue-900/60 rounded-2xl overflow-hidden shadow-2xl max-h-60 overflow-y-auto"
+          >
+            {options.map((option) => (
+              <li key={option.value}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    onChange(option.value);
+                    setIsOpen(false);
+                  }}
+                  className="w-full text-left px-5 py-3.5 text-sm sm:text-base text-slate-300 hover:bg-blue-600/20 hover:text-white transition-colors duration-150 font-semibold"
+                >
+                  {option.label}
+                </button>
+              </li>
+            ))}
+          </motion.ul>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+export default function HomePage() {
+  const [formData, setFormData] = useState({
+    fullName: "",
+    phone: "",
+    email: "",
+    occupation: "",
+    program: "", 
+    classOption: "",
+    message: ""
+  });
+
+  const programOptions = [
+    { value: "Microsoft 365 Professional", label: "Microsoft 365 Professional" },
+    { value: "Cambridge YLE Exams", label: "Cambridge YLE Exams" },
+    { value: "Cambridge English Assessments", label: "Cambridge English Assessments" }
+  ];
+
+  const handleProgramSwitch = (prog: string) => {
+    let defaultOption = "Stage 01";
+    if (prog === "Cambridge YLE Exams") defaultOption = "Starters";
+    if (prog === "Cambridge English Assessments") defaultOption = "KET";
+    setFormData(prev => ({ ...prev, program: prog, classOption: defaultOption }));
+  };
+
+  const getClassOptions = () => {
+    switch (formData.program) {
+      case "Microsoft 365 Professional":
+        return [
+          { value: "Stage 01", label: "Microsoft 365 Professional Certification" },
+        ];
+      case "Cambridge YLE Exams":
+        return [
+          { value: "Starters", label: "Starters Level" },
+          { value: "Movers", label: "Movers Level" },
+          { value: "Flyers", label: "Flyers Level" }
+        ];
+      case "Cambridge English Assessments":
+        return [
+          { value: "KET", label: "KET (A2 Key)" },
+          { value: "PET", label: "PET (B1 Preliminary)" },
+          { value: "FCE", label: "FCE (B2 First)" }
+        ];
+      default:
+        return [];
+    }
+  };
+
+  const handleInquirySubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const message = `*New Enrollment Inquiry*%0A%0A*Name:* ${formData.fullName}%0A*Phone:* ${formData.phone}%0A*Email:* ${formData.email}%0A*Occupation:* ${formData.occupation}%0A*Program:* ${formData.program || "None Picked"}%0A*Class:* ${formData.classOption || "None Picked"}%0A*Message:* ${formData.message}`;
+    window.open(`https://wa.me/94710525968?text=${message}`, '_blank');
+  };
+
+  return (
     <div className="bg-black text-slate-200 min-h-screen font-sans antialiased overflow-x-hidden">
       <HeroSection />
 
       {/* 🌟 2. Why Choose KIDS? Section */}
       <section className="py-12 md:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        {/* Ambient Glow Layer - Enhanced for pure black contrast */}
         <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-gradient-to-tr from-amber-500/10 to-blue-600/10 rounded-full blur-3xl pointer-events-none" />
         
-        {/* Floating Vectors */}
         <motion.div custom={{ y: [0, -20, 0], x: [0, 15, 0], duration: 7 }} variants={floatAnimation} initial="initial" animate="animate" className="absolute top-16 right-[12%] text-amber-500/20 pointer-events-none hidden lg:block">
           <Sparkles className="w-16 h-16 stroke-[1.5]" />
         </motion.div>
@@ -87,7 +214,6 @@ export default function HomePage() {
           </h2>
         </div>
 
-        {/* Responsive Grid */}
         <motion.div 
           variants={containerVariants}
           initial="hidden"
@@ -95,7 +221,7 @@ export default function HomePage() {
           viewport={{ once: true, margin: "-50px" }}
           className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 relative z-10 items-stretch"
         >
-          {/* Card 1: Industry Aligned Training */}
+          {/* Card 1 */}
           <motion.div 
             variants={itemVariants}
             whileHover={{ y: -6 }}
@@ -126,7 +252,7 @@ export default function HomePage() {
             </div>
           </motion.div>
 
-          {/* Card 2: Globally Recognized Certifications */}
+          {/* Card 2 */}
           <motion.div 
             variants={itemVariants}
             whileHover={{ y: -6 }}
@@ -157,7 +283,7 @@ export default function HomePage() {
             </div>
           </motion.div>
 
-          {/* Card 3: Practical Learning */}
+          {/* Card 3 */}
           <motion.div 
             variants={itemVariants}
             whileHover={{ y: -6 }}
@@ -188,7 +314,7 @@ export default function HomePage() {
             </div>
           </motion.div>
 
-          {/* Card 4: Career Focused */}
+          {/* Card 4 */}
           <motion.div 
             variants={itemVariants}
             whileHover={{ y: -6 }}
@@ -406,7 +532,6 @@ export default function HomePage() {
           </h2>
         </div>
 
-        {/* Content Layout Grid */}
         <motion.div 
           variants={containerVariants}
           initial="hidden"
@@ -414,7 +539,7 @@ export default function HomePage() {
           viewport={{ once: true }}
           className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10"
         >
-          {/* Card 1: Hands-on Deployment Infrastructure */}
+          {/* Card 1 */}
           <motion.div 
             variants={itemVariants}
             whileHover={{ y: -6 }}
@@ -434,7 +559,7 @@ export default function HomePage() {
             </div>
           </motion.div>
 
-          {/* Card 2: Instructor-Led Matrix */}
+          {/* Card 2 */}
           <motion.div 
             variants={itemVariants}
             whileHover={{ y: -6 }}
@@ -455,7 +580,7 @@ export default function HomePage() {
             </div>
           </motion.div>
 
-          {/* Card 3: Parent Confidence Node */}
+          {/* Card 3 */}
           <motion.div 
             variants={itemVariants}
             whileHover={{ y: -6 }}
@@ -490,8 +615,6 @@ export default function HomePage() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-gradient-to-tr from-blue-500/5 via-amber-500/5 to-transparent rounded-full blur-3xl pointer-events-none opacity-40" />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 relative z-10 items-start">
-          
-          {/* Header text container block */}
           <div className="lg:col-span-4 lg:sticky lg:top-24 text-center lg:text-left">
             <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-amber-400 bg-amber-400/10 px-3 py-1.5 rounded-full">
               Ecosystem Reviews
@@ -514,7 +637,6 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Testimonial grid setup */}
           <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6 items-start">
             {/* Testimonial Card 1 */}
             <motion.div
@@ -597,56 +719,79 @@ export default function HomePage() {
 
           {/* Form Card */}
           <div className="bg-[#0A1428]/90 backdrop-blur-xl border border-blue-900/40 p-6 sm:p-10 md:p-12 rounded-[2.5rem] shadow-2xl">
-            <form 
-              id="enrollmentForm"
-              onSubmit={(e) => {
-                e.preventDefault();
-                const formData = new FormData(e.currentTarget);
-                const data = Object.fromEntries(formData.entries());
-                const message = `*New Enrollment Inquiry*%0A%0A*Name:* ${data.fullName}%0A*Phone:* ${data.phone}%0A*Email:* ${data.email}%0A*Occupation:* ${data.occupation}%0A*Program:* ${data.program}%0A*Class:* ${data.class}%0A*Message:* ${data.message}`;
-                window.open(`https://wa.me/94710525968?text=${message}`, '_blank');
-              }}
-              className="space-y-6"
-            >
+            <form onSubmit={handleInquirySubmit} className="space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <input name="fullName" placeholder="Full Name" required className="w-full bg-black border border-blue-900/40 p-4 sm:p-5 rounded-2xl text-white focus:ring-2 focus:ring-amber-400 outline-none transition-all text-sm sm:text-base" />
-                <input name="phone" type="tel" placeholder="Phone Number" required className="w-full bg-black border border-blue-900/40 p-4 sm:p-5 rounded-2xl text-white focus:ring-2 focus:ring-amber-400 outline-none transition-all text-sm sm:text-base" />
+                <input 
+                  type="text"
+                  required
+                  placeholder="Full Name" 
+                  className="w-full bg-black border border-blue-900/40 p-4 sm:p-5 rounded-2xl text-white focus:ring-2 focus:ring-amber-400 outline-none transition-all text-sm sm:text-base font-semibold" 
+                  value={formData.fullName}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, fullName: e.target.value })}
+                />
+                <input 
+                  type="tel"
+                  required
+                  placeholder="Phone Number" 
+                  className="w-full bg-black border border-blue-900/40 p-4 sm:p-5 rounded-2xl text-white focus:ring-2 focus:ring-amber-400 outline-none transition-all text-sm sm:text-base font-semibold" 
+                  value={formData.phone}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, phone: e.target.value })}
+                />
               </div>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <input name="email" type="email" placeholder="Email Address" required className="w-full bg-black border border-blue-900/40 p-4 sm:p-5 rounded-2xl text-white focus:ring-2 focus:ring-amber-400 outline-none transition-all text-sm sm:text-base" />
-                <input name="occupation" placeholder="School / Occupation" required className="w-full bg-black border border-blue-900/40 p-4 sm:p-5 rounded-2xl text-white focus:ring-2 focus:ring-amber-400 outline-none transition-all text-sm sm:text-base" />
+                <input 
+                  type="email"
+                  required
+                  placeholder="Email Address" 
+                  className="w-full bg-black border border-blue-900/40 p-4 sm:p-5 rounded-2xl text-white focus:ring-2 focus:ring-amber-400 outline-none transition-all text-sm sm:text-base font-semibold" 
+                  value={formData.email}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, email: e.target.value })}
+                />
+                <input 
+                  type="text"
+                  required
+                  placeholder="School / Occupation" 
+                  className="w-full bg-black border border-blue-900/40 p-4 sm:p-5 rounded-2xl text-white focus:ring-2 focus:ring-amber-400 outline-none transition-all text-sm sm:text-base font-semibold" 
+                  value={formData.occupation}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, occupation: e.target.value })}
+                />
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <select name="program" required className="w-full bg-black border border-blue-900/40 p-4 sm:p-5 rounded-2xl text-slate-400 focus:ring-2 focus:ring-amber-400 outline-none text-sm sm:text-base">
-                  <option value="">Select Interested Program</option>
-                  <option>Microsoft 365 Professional</option>
-                  <option>Cambridge YLE Exams</option>
-                  <option>Cambridge Assessments</option>
-                </select>
+              {/* Dynamic custom dropdown pairing with dynamic filters */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 relative z-30">
+                <FormDropdown
+                  placeholder="Select Interested Program"
+                  options={programOptions}
+                  value={formData.program}
+                  onChange={handleProgramSwitch}
+                />
 
-                <select name="class" required className="w-full bg-black border border-blue-900/40 p-4 sm:p-5 rounded-2xl text-slate-400 focus:ring-2 focus:ring-amber-400 outline-none text-sm sm:text-base">
-                  <option value="">Preferred Class</option>
-                  <option>Microsoft 365 Professional Certification</option>
-                  <option>Starters</option>
-                  <option>Movers</option>
-                  <option>Flyers</option>
-                  <option>KET</option>
-                  <option>PET</option>
-                  <option>FCE</option>
-                </select>
+                <FormDropdown
+                  placeholder="Preferred Class"
+                  options={getClassOptions()}
+                  value={formData.classOption}
+                  onChange={(val) => setFormData(prev => ({ ...prev, classOption: val }))}
+                />
               </div>
 
-              <textarea name="message" rows={4} placeholder="Additional details or questions..." className="w-full bg-black border border-blue-900/40 p-4 sm:p-5 rounded-2xl text-white focus:ring-2 focus:ring-amber-400 outline-none transition-all text-sm sm:text-base" />
+              <textarea 
+                required
+                rows={4} 
+                placeholder="Additional details or questions..." 
+                className="w-full bg-black border border-blue-900/40 p-4 sm:p-5 rounded-2xl text-white focus:ring-2 focus:ring-amber-400 outline-none transition-all text-sm sm:text-base font-semibold" 
+                value={formData.message}
+                onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setFormData({ ...formData, message: e.target.value })}
+              />
 
-              <button 
+              <motion.button 
+                whileTap={{ scale: 0.99 }}
                 type="submit" 
-                className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-black py-4 sm:py-5 rounded-2xl shadow-xl transition-all flex items-center justify-center gap-3 text-lg sm:text-xl"
+                className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-black py-4 sm:py-5 rounded-2xl shadow-xl transition-all flex items-center justify-center gap-3 text-lg sm:text-xl cursor-pointer"
               >
                 <FaWhatsapp className="w-6 h-6 sm:w-7 h-7" /> 
                 <span>Chat via WhatsApp Now</span>
-              </button>
+              </motion.button>
             </form>
           </div>
         </div>
