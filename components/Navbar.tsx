@@ -118,7 +118,7 @@ export default function Navbar() {
                     duration: 0.7,
                     repeat: Infinity,
                     repeatDelay: 1.5,
-                    ease: "easeInOut" as const
+                    ease: "easeInOut"
                   }}
                 />
               </a>
@@ -138,7 +138,7 @@ export default function Navbar() {
                   duration: 0.7,
                   repeat: Infinity,
                   repeatDelay: 1.5,
-                  ease: "easeInOut" as const
+                  ease: "easeInOut"
                 }}
               />
             </a>
@@ -150,16 +150,17 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Drawer with Smooth Timing and Layout Adjustments */}
-      <AnimatePresence>
+      <AnimatePresence initial={false}>
         {isOpen && (
           <motion.div 
-            initial={{ opacity: 0, height: 0 }} 
-            animate={{ opacity: 1, height: "auto" }} 
-            exit={{ opacity: 0, height: 0 }} 
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ height: 0, opacity: 0 }} 
+            animate={{ height: "auto", opacity: 1 }} 
+            exit={{ height: 0, opacity: 0 }} 
+            transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
             className="lg:hidden bg-[#030712] border-t border-slate-800 overflow-hidden"
           >
-            <div className="px-4 pb-6 py-4 space-y-1">
+            {/* Added container wrapper to give absolute height boundaries during execution */}
+            <div className="px-4 pb-6 py-4 space-y-1 forward-drop">
               <Link href="/" onClick={() => setIsOpen(false)} className="flex items-center gap-2.5 p-3 font-bold text-sm hover:bg-slate-800 rounded-xl transition-colors">
                 <Home className="w-4 h-4 opacity-70" /> Home
               </Link>
@@ -197,7 +198,7 @@ export default function Navbar() {
                       duration: 0.7,
                       repeat: Infinity,
                       repeatDelay: 1.5,
-                      ease: "easeInOut" as const
+                      ease: "easeInOut"
                     }}
                   /> Call Us
                 </a>
