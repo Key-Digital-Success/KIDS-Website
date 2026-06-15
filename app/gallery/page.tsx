@@ -6,11 +6,10 @@ import { motion, AnimatePresence } from "framer-motion";
 
 // Updated galleryData with all local assets categorized under "Classroom"
 const galleryData = [
-  { id: 1, category: "Classroom", title: "Modern Computing Lab Layout", url: "/classroom/classroom (1).jpg" },
-  { id: 2, category: "Classroom", title: "Interactive Project Lab Group", url: "/classroom/classroom (2).jpg" },
-  { id: 3, category: "Classroom", title: "Official Microsoft Path Awarding", url: "/classroom/classroom (3).jpg" },
-  { id: 4, category: "Classroom", title: "Strategic Digital Excellence Seminar", url: "/classroom/classroom (4).jpg" },
-  { id: 5, category: "Classroom", title: "Cambridge Language Training Workspace", url: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80" },
+  { id: 1, category: "Classroom", title: "Our KIDS Digital Classroom", url: "/classroom/classroom (1).jpg" },
+  { id: 2, category: "Classroom", title: "Our KIDS Digital Classroom", url: "/classroom/classroom (2).jpg" },
+  { id: 3, category: "Classroom", title: "Our KIDS Digital Classroom", url: "/classroom/classroom (3).jpg" },
+  { id: 4, category: "Classroom", title: "Our KIDS Digital Classroom", url: "/classroom/classroom (4).jpg" },
   { id: 6, category: "Students", title: "M365 Identity Management Lab Practice", url: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80" },
 ];
 

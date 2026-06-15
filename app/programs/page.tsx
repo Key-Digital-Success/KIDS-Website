@@ -65,13 +65,16 @@ const m365Courses: Course[] = [
     ],
     certHighlight: "Certificate given by Thakral Global Learning with Microsoft Logo",
     isOfficialBadge: false
-  },
+  }
+];
+
+const milestoneCourses: Course[] = [
   {
     stage: "Stage 03",
-    title: "Microsoft 365 Fundamentals Expert Track",
-    duration: "30 Hours",
+    title: "Microsoft 365 Fundamental Certification",
+    duration: "1 Day",
     tagline: "Validate core structural paradigms across fundamental cloud tenant capabilities.",
-    description: "Deep dive alignment mapping directly into global standard systems. Validates foundational insights regarding modern software migrations and licensing matrices.",
+    description: "Entry-level certification covering cloud concepts, Microsoft 365 services, security, and compliance",
     topics: [
       "Cloud Concepts", "Core M365 Services", "Security & Compliance Specs", "M365 Pricing Metrics",
       "Tenant Lifecycles", "Support Models"
@@ -81,41 +84,16 @@ const m365Courses: Course[] = [
   },
   {
     stage: "Stage 04",
-    title: "Microsoft 365 Certified: Enterprise Administrator",
-    duration: "50 Hours",
+    title: "Microsoft 365 Administrator Certification",
+    duration: "4 Days",
     tagline: "The absolute pinnacle capstone achievement for modern cloud enterprise engineers.",
-    description: "In-depth deployment testing covering identity state synchronizations, threat management architectures, and continuous multitenant application administration.",
+    description: "Associate-level certification focused on Microsoft 365 administration, identity management, and security",
     topics: [
       "M365 Tenant Deployment", "Identity Synchronization", "Microsoft Entra ID Rules", "Access Management",
       "Advanced Security Layouts", "Compliance Infrastructure"
     ],
     certHighlight: "Official Certificate from Microsoft & Verified Digital Badge",
     isOfficialBadge: true
-  }
-];
-
-interface Certification {
-  code: string;
-  title: string;
-  duration: string;
-  desc: string;
-  badgeColor: string;
-}
-
-const certifications: Certification[] = [
-  { 
-    code: "MS-900", 
-    title: "Microsoft 365 Fundamentals Certification", 
-    duration: "1 Day Prep", 
-    desc: "Entry-level certification covering foundational cloud concepts, Microsoft 365 services, core security, compliance options, and identity pricing matrices.",
-    badgeColor: "#fbbf24"
-  },
-  { 
-    code: "MS-102", 
-    title: "Microsoft 365 Administrator Certification", 
-    duration: "4 Days Bootcamp", 
-    desc: "Associate-level expert certification focused explicitly on enterprise tenant deployment, managing identities, security configurations, and application compliance synchronization.",
-    badgeColor: "#f59e0b"
   }
 ];
 
@@ -404,7 +382,7 @@ export default function App() {
                 
                 <div className="w-full md:w-auto shrink-0 relative z-10">
                   <div className="bg-black p-6 rounded-[1.5rem] border border-blue-950/60 text-center w-full sm:w-60 shadow-inner">
-                    <div className="text-2xl sm:text-3xl font-black text-amber-400">220 Hours</div>
+                    <div className="text-2xl sm:text-3xl font-black text-amber-400">140+ Hours</div>
                     <div className="text-[10px] uppercase tracking-widest text-slate-500 font-black mt-1">Full Delivery Matrix</div>
                     <div className="h-px bg-blue-950/60 my-4" />
                     <div className="text-xs sm:text-sm font-semibold text-slate-300">Stages 01 - 04 Comprehensive</div>
@@ -412,7 +390,7 @@ export default function App() {
                 </div>
               </motion.div>
 
-              {/* CURRICULUM PIPELINE STAGES */}
+              {/* CURRICULUM PIPELINE STAGES 01 & 02 */}
               <div className="space-y-8">
                 <div className="text-center md:text-left">
                   <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-amber-400 bg-amber-400/10 px-3 py-1.5 rounded-full border border-amber-400/20">Modular Architecture</span>
@@ -437,32 +415,30 @@ export default function App() {
                             {course.duration}
                           </span>
                         </div>
-                        <div className="flex items-center gap-4 mb-4">
-                          <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-950/60 shadow-xs flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
-                            <Cpu className="w-5 h-5" />
+                        
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                          <div className="flex items-center gap-4">
+                            <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-950/60 shadow-xs flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
+                              <Cpu className="w-5 h-5" />
+                            </div>
+                            <h3 className="text-xl font-black text-white group-hover:text-amber-400 transition-colors duration-200">
+                              {course.title}
+                            </h3>
                           </div>
-                          <h3 className="text-xl font-black text-white group-hover:text-amber-400 transition-colors duration-200">
-                            {course.title}
-                          </h3>
                         </div>
+
                         <p className="text-xs font-semibold text-slate-500 mt-1 mb-4 italic">{course.tagline}</p>
                         <p className="text-sm sm:text-base text-slate-300 font-medium leading-relaxed mb-6">
                           {course.description}
                         </p>
                         
                         <div className="mb-6 p-4 rounded-xl bg-black/60 border border-amber-400/20 flex items-start gap-3">
-                          {course.isOfficialBadge ? (
-                            <div className="p-1 rounded-lg bg-gradient-to-br from-amber-400 to-amber-600 shrink-0 text-black mt-0.5">
-                              <Award className="w-4 h-4 font-black" />
-                            </div>
-                          ) : (
-                            <div className="p-1 rounded-lg bg-blue-500/10 text-blue-400 shrink-0 border border-blue-500/30 mt-0.5">
-                              <FileCheck className="w-4 h-4" />
-                            </div>
-                          )}
+                          <div className="p-1 rounded-lg bg-blue-500/10 text-blue-400 shrink-0 border border-blue-500/30 mt-0.5">
+                            <FileCheck className="w-4 h-4" />
+                          </div>
                           <div>
                             <div className="text-[10px] uppercase font-black tracking-widest text-slate-500">Tier Credential Recognition</div>
-                            <div className={`text-xs sm:text-sm font-bold mt-0.5 ${course.isOfficialBadge ? "text-amber-400" : "text-white"}`}>
+                            <div className="text-xs sm:text-sm font-bold mt-0.5 text-white">
                               {course.certHighlight}
                             </div>
                           </div>
@@ -488,42 +464,76 @@ export default function App() {
                 </div>
               </div>
 
-              {/* CREDENTIAL MILESTONES */}
+              {/* OFFICIAL MICROSOFT CERTIFICATION MILESTONES (STAGES 03 & 04) */}
               <div className="space-y-8">
                 <div className="text-center md:text-left">
-                  <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-amber-400 bg-amber-400/10 px-3 py-1.5 rounded-full border border-amber-400/20">Verification Pathways</span>
-                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mt-3 tracking-tight">Official Microsoft Certification Milestones</h2>
+                  <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-amber-400 bg-amber-400/10 px-3 py-1.5 rounded-full border border-amber-400/20">
+                    Official Examination Map
+                  </span>
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mt-3 tracking-tight">
+                    Official Microsoft Certification Milestones
+                  </h2>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {certifications.map((cert, idx) => (
-                    <motion.div 
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+                  {milestoneCourses.map((course, idx) => (
+                    <motion.div
                       key={idx}
                       variants={itemVariants}
                       whileHover={{ y: -6 }}
-                      className="group relative rounded-[2rem] p-6 sm:p-8 border border-blue-500/20 transition-all duration-300 overflow-hidden bg-[#0A1428] shadow-xl flex flex-col sm:flex-row items-center gap-6"
+                      className="group relative rounded-[2rem] p-6 sm:p-8 border border-amber-500/20 transition-all duration-300 overflow-hidden bg-[#0A1428] shadow-xl flex flex-col justify-between"
                     >
-                      <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-blue-500 via-amber-400 to-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-                      
-                      <div className="w-24 h-24 shrink-0 relative flex items-center justify-center bg-black rounded-2xl border border-blue-950/60 p-2 shadow-inner group-hover:scale-105 transition-transform">
-                        <svg viewBox="0 0 100 100" className="w-full h-full relative z-10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <circle cx="50" cy="50" r="45" stroke={cert.badgeColor} strokeWidth="1.5" strokeDasharray="4 4" />
-                          <circle cx="50" cy="50" r="39" fill="#000000" stroke={cert.badgeColor} strokeWidth="2" />
-                          <path d="M38 45 L46 53 L62 37" stroke="#fbbf24" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
-                          <text x="50" y="70" fill="#ffffff" fontSize="9" fontWeight="bold" textAnchor="middle">{cert.code}</text>
-                          <text x="50" y="80" fill={cert.badgeColor} fontSize="5" fontWeight="bold" textAnchor="middle" letterSpacing="0.2">CERTIFIED</text>
-                        </svg>
-                      </div>
-
-                      <div className="flex-1 space-y-3 text-center sm:text-left relative z-10">
-                        <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-                          <span className="text-[10px] font-black uppercase tracking-widest text-amber-400 bg-amber-400/10 px-2.5 py-0.5 rounded border border-amber-400/20">
-                            {cert.duration}
+                      <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-amber-500 to-blue-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                      <div>
+                        <div className="flex items-center justify-between mb-6">
+                          <span className="text-xs font-black text-amber-400 bg-amber-400/10 px-3 py-1.5 rounded-full border border-amber-400/20">
+                            {course.stage}
                           </span>
-                          <span className="text-xs font-bold text-slate-500">Official Exams Track</span>
+                          <span className="text-xs font-bold text-slate-400 bg-black px-3 py-1.5 rounded-xl border border-blue-950/60">
+                            {course.duration}
+                          </span>
                         </div>
-                        <h4 className="text-xl font-black text-white">{cert.title}</h4>
-                        <p className="text-sm text-slate-300 font-semibold leading-relaxed">{cert.desc}</p>
+                        
+                        <div className="flex items-center gap-4 mb-4">
+                          <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 border border-blue-950/60 shadow-xs flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
+                            <Award className="w-5 h-5" />
+                          </div>
+                          <h3 className="text-xl font-black text-white group-hover:text-amber-400 transition-colors duration-200">
+                            {course.title}
+                          </h3>
+                        </div>
+
+                        <p className="text-xs font-semibold text-slate-500 mt-1 mb-4 italic">{course.tagline}</p>
+                        <p className="text-sm sm:text-base text-slate-300 font-medium leading-relaxed mb-6">
+                          {course.description}
+                        </p>
+                        
+                        <div className="mb-6 p-4 rounded-xl bg-black/60 border border-amber-400/20 flex items-start gap-3">
+                          <div className="p-1 rounded-lg bg-gradient-to-br from-amber-400 to-amber-600 shrink-0 text-black mt-0.5">
+                            <Award className="w-4 h-4 font-black" />
+                          </div>
+                          <div>
+                            <div className="text-[10px] uppercase font-black tracking-widest text-slate-500">Tier Credential Recognition</div>
+                            <div className="text-xs sm:text-sm font-bold mt-0.5 text-amber-400">
+                              {course.certHighlight}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="w-full h-px bg-blue-950/40 mb-6" />
+                        <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-slate-400 block mb-3">
+                          Pipeline Covered Competencies
+                        </span>
+                        <div className="flex flex-wrap gap-2">
+                          {course.topics.map((topic, index) => (
+                            <span 
+                              key={index} 
+                              className="text-xs bg-black text-slate-300 px-3 py-1.5 rounded-xl font-semibold border border-blue-950/60 hover:border-blue-900 hover:text-white transition-colors cursor-default"
+                            >
+                              {topic}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </motion.div>
                   ))}
@@ -772,13 +782,35 @@ export default function App() {
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left relative z-10">
             {[
-              { icon: "🎓", title: "Official Syllabi Only", desc: "No generic copy-paste lessons. Completely aligned with global curricula benchmarks." },
-              { icon: "🛠️", title: "Sandbox Access", desc: "Continuous diagnostic training structures inside live, production-grade environments." },
-              { icon: "🏆", title: "Target Alignments", desc: "Direct target checkpoints mapped out to land specialized system administrator roles." },
-              { icon: "🌍", title: "Worldwide Recognition", desc: "Prepare for globally unified assessments respected by thousands of enterprises." }
+              { 
+                icon: <GraduationCap className="w-5 h-5" />, 
+                title: "Official Syllabi Only", 
+                desc: "No generic copy-paste lessons. Completely aligned with global curricula benchmarks.",
+                colorClass: "text-blue-400 bg-blue-500/10 border-blue-500/20"
+              },
+              { 
+                icon: <Terminal className="w-5 h-5" />, 
+                title: "Sandbox Access", 
+                desc: "Continuous diagnostic training structures inside live, production-grade environments.",
+                colorClass: "text-amber-400 bg-amber-400/10 border-amber-400/20"
+              },
+              { 
+                icon: <UserCheck className="w-5 h-5" />, 
+                title: "Target Alignments", 
+                desc: "Direct target checkpoints mapped out to land specialized system administrator roles.",
+                colorClass: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20"
+              },
+              { 
+                icon: <Globe className="w-5 h-5" />, 
+                title: "Worldwide Recognition", 
+                desc: "Prepare for globally unified assessments respected by thousands of enterprises.",
+                colorClass: "text-purple-400 bg-purple-500/10 border-purple-500/20"
+              }
             ].map((item, idx) => (
               <div key={idx} className="p-6 bg-black rounded-2xl border border-blue-950/60 shadow-inner hover:border-blue-900 transition-colors duration-300">
-                <span className="text-2xl">{item.icon}</span>
+                <div className={`w-10 h-10 rounded-xl border flex items-center justify-center mb-4 shrink-0 shadow-xs ${item.colorClass}`}>
+                  {item.icon}
+                </div>
                 <h4 className="text-base font-black text-white mt-3">{item.title}</h4>
                 <p className="text-xs sm:text-sm font-semibold text-slate-400 mt-1.5 leading-relaxed">{item.desc}</p>
               </div>

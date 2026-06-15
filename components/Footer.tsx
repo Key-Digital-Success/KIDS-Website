@@ -8,9 +8,9 @@ import {
 
 import {
   FaFacebookF,
-  FaLinkedinIn,
   FaInstagram,
-} from "react-icons/fa";
+  FaTiktok,
+} from "react-icons/fa6";
 
 export default function Footer() {
   return (
@@ -22,7 +22,6 @@ export default function Footer() {
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
-
         {/* CTA Section */}
         <div className="py-8 md:py-12 border-b border-slate-800">
           <div className="rounded-3xl bg-gradient-to-r from-brand-blue to-brand-purple p-[1px]">
@@ -54,7 +53,6 @@ export default function Footer() {
 
         {/* Main Footer Content */}
         <div className="py-10 md:py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-x-8 gap-y-10 lg:gap-8 text-center lg:text-left">
-
           {/* Column 1: Brand Info */}
           <div className="lg:col-span-4 flex flex-col justify-between items-center lg:items-start text-center lg:text-left">
             <div>
@@ -71,21 +69,27 @@ export default function Footer() {
             {/* Social Media Links */}
             <div className="mt-4 flex items-center justify-center lg:justify-start gap-3">
               <a
-                href="#"
+                href="https://www.facebook.com/profile.php?id=61590797219908"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="Facebook"
                 className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-900 hover:bg-brand-blue hover:text-white text-slate-400 transition-all duration-300"
               >
                 <FaFacebookF size={14} />
               </a>
               <a
-                href="#"
-                aria-label="LinkedIn"
+                href="https://www.tiktok.com/@key_digital_success"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="TikTok"
                 className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-900 hover:bg-brand-blue hover:text-white text-slate-400 transition-all duration-300"
               >
-                <FaLinkedinIn size={14} />
+                <FaTiktok size={14} />
               </a>
               <a
                 href="https://www.instagram.com/keydigitalsucess/"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="Instagram"
                 className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-900 hover:bg-brand-blue hover:text-white text-slate-400 transition-all duration-300"
               >
@@ -96,9 +100,7 @@ export default function Footer() {
 
           {/* Column 4: Contact Info */}
           <div className="lg:col-span-3 md:order-2 lg:order-none text-center lg:text-left">
-            <h3 className="text-sm font-semibold tracking-wider uppercase text-white">
-              Contact Us
-            </h3>
+            <h3 className="text-sm font-semibold tracking-wider uppercase text-white">Contact Us</h3>
             <div className="mt-3 space-y-2.5 text-sm flex flex-col items-center lg:items-start">
               <div className="flex items-center gap-3 group justify-center lg:justify-start">
                 <Mail size={16} className="text-brand-blue shrink-0 group-hover:scale-110 transition-transform" />
@@ -106,76 +108,44 @@ export default function Footer() {
                   keydigitalsuccess@gmail.com
                 </a>
               </div>
-
               <div className="flex items-center gap-3 group justify-center lg:justify-start">
                 <Phone size={16} className="text-brand-blue shrink-0 group-hover:scale-110 transition-transform" />
-                <a href="tel:+94710525968" className="text-slate-400 hover:text-brand-blue transition-colors">
-                  +94 71 052 5968
-                </a>
+                <a href="tel:+94710525968" className="text-slate-400 hover:text-brand-blue transition-colors">+94 71 052 5968</a>
               </div>
-
               <div className="flex items-start gap-3 justify-center lg:justify-start">
                 <MapPin size={16} className="text-brand-blue shrink-0 mt-0.5" />
-                <span className="text-slate-400">
+                <a 
+                  href="https://www.google.com/maps/place/Key+Institute+of+Digital+Success/@6.806882,80.9529827,17z/data=!3m1!4b1!4m6!3m5!1s0x3ae4714d03c180c9:0xfd8c57ae9a49cdc5!8m2!3d6.806882!4d80.9555576!16s%2Fg%2F11w0z9748g?entry=ttu" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-slate-400 hover:text-brand-blue transition-colors"
+                >
                   KIDS, Fair Road, Diyathalawa
-                </span>
+                </a>
               </div>
             </div>
           </div>
 
           {/* Column 2: Quick Links */}
           <div className="lg:col-span-2 lg:pl-4 md:order-3 lg:order-none text-center lg:text-left">
-            <h3 className="text-sm font-semibold tracking-wider uppercase text-white">
-              Quick Links
-            </h3>
+            <h3 className="text-sm font-semibold tracking-wider uppercase text-white">Quick Links</h3>
             <ul className="mt-3 space-y-1.5 text-sm">
-              <li>
-                <Link href="/" className="text-slate-400 hover:text-brand-blue transition-colors">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="text-slate-400 hover:text-brand-blue transition-colors">
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link href="/gallery" className="text-slate-400 hover:text-brand-blue transition-colors">
-                  Gallery
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="text-slate-400 hover:text-brand-blue transition-colors">
-                  Contact
-                </Link>
-              </li>
+              <li><Link href="/" className="text-slate-400 hover:text-brand-blue transition-colors">Home</Link></li>
+              <li><Link href="/about" className="text-slate-400 hover:text-brand-blue transition-colors">About Us</Link></li>
+              <li><Link href="/gallery" className="text-slate-400 hover:text-brand-blue transition-colors">Gallery</Link></li>
+              <li><Link href="/contact" className="text-slate-400 hover:text-brand-blue transition-colors">Contact</Link></li>
             </ul>
           </div>
 
           {/* Column 3: Programs */}
           <div className="lg:col-span-3 md:order-4 lg:order-none text-center lg:text-left">
-            <h3 className="text-sm font-semibold tracking-wider uppercase text-white">
-              Programs
-            </h3>
+            <h3 className="text-sm font-semibold tracking-wider uppercase text-white">Programs</h3>
             <ul className="mt-3 space-y-1.5 text-sm">
-              <li>
-                <Link href="/programs#m365" className="text-slate-400 hover:text-brand-blue transition-colors">
-                  MS 365 Certification
-                </Link>
-              </li>
-              <li>
-                <Link href="/programs#cambridge" className="text-slate-400 hover:text-brand-blue transition-colors">
-                  Young Learners English (YLE)
-                </Link>
-              </li>
-              <li>
-                <Link href="/programs#cambridge" className="text-slate-400 hover:text-brand-blue transition-colors">
-                  Cambridge English Assessments
-                </Link>
-              </li>
+              <li><Link href="/programs#m365" className="text-slate-400 hover:text-brand-blue transition-colors">MS 365 Certification</Link></li>
+              <li><Link href="/programs#cambridge" className="text-slate-400 hover:text-brand-blue transition-colors">Young Learners English (YLE)</Link></li>
+              <li><Link href="/programs#cambridge" className="text-slate-400 hover:text-brand-blue transition-colors">Cambridge English Assessments</Link></li>
             </ul>
           </div>
-
         </div>
 
         {/* Bottom Bar */}
@@ -186,7 +156,6 @@ export default function Footer() {
             </p>
           </div>
         </div>
-
       </div>
     </footer>
   );

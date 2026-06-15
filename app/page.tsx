@@ -28,17 +28,17 @@ import {
 const staticTestimonials = [
   { 
     name: "Udula Thejal", 
-    track: "Microsoft 365 Graduate", 
+    track: "Microsoft 365 Foundation Graduate", 
     feedback: "Stage 01 was a strong introduction to the Microsoft 365 ecosystem. I appreciated how the course started with the basics and gradually moved into practical use of core apps like Outlook, Excel, PowerPoint, Word, OneDrive, Teams, and SharePoint. The structure made it easy to follow, even for someone who hadn't used all the tools before.\n\nAREAS I FOUND MOST VALUABLE: Learning how Teams connects with Outlook and OneDrive was a highlight. I didn't realize how much time it could save for sharing documents and scheduling. The SharePoint overview showed me how to manage files centrally. Overall, Stage 01 gave me confidence to start using Microsoft 365 daily ✨" 
   },
   { 
     name: "Nihara Dewmini", 
-    track: "Microsoft 365 Graduate", 
+    track: "Microsoft 365 Foundation Graduate", 
     feedback: "Actually, I learned a lot of extra things in ICT from this course. Even though I already knew about Excel and Word, when the teacher was teaching, I realized there were still things I didn't know. I hope we will be able to learn many more things like that in the future. It is great that a course like this was started. It is a huge help that Teacher Chathu teaches us and explains things again whenever we ask about what we don't understand. All I have to say is that this is a very valuable and good course." 
   },
   { 
     name: "Bigun Mansith", 
-    track: "Microsoft 365 Graduate", 
+    track: "Microsoft 365 Foundation Graduate", 
     feedback: "This training was well-structured and beginner-friendly. I enjoyed exploring the different Microsoft 365 applications and learning how they can be used together to improve communication and productivity. The SharePoint module was particularly useful because it demonstrated how organizations can manage and share information efficiently. Overall, Stage 01 was a valuable learning experience that prepared me to use Microsoft 365 more effectively." 
   }
 ];
@@ -259,156 +259,108 @@ export default function HomePage() {
 
       {/* 🌟 2. Why Choose KIDS? Section */}
       <section className="py-12 md:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-gradient-to-tr from-amber-500/10 to-blue-600/10 rounded-full blur-3xl pointer-events-none" />
-        
-        <motion.div custom={{ y: [0, -20, 0], x: [0, 15, 0], duration: 7 }} variants={floatAnimation} initial="initial" animate="animate" className="absolute top-16 right-[12%] text-amber-500/20 pointer-events-none hidden lg:block">
-          <Sparkles className="w-16 h-16 stroke-[1.5]" />
-        </motion.div>
-        <motion.div custom={{ y: [0, 25, 0], x: [0, -20, 0], duration: 9 }} variants={floatAnimation} initial="initial" animate="animate" className="absolute bottom-20 left-[6%] text-blue-400/20 pointer-events-none hidden lg:block">
-          <Layers3 className="w-16 h-16 stroke-[1.2]" />
-        </motion.div>
+  <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-gradient-to-tr from-amber-500/10 to-blue-600/10 rounded-full blur-3xl pointer-events-none" />
+  
+  <motion.div custom={{ y: [0, -20, 0], x: [0, 15, 0], duration: 7 }} variants={floatAnimation} initial="initial" animate="animate" className="absolute top-16 right-[12%] text-amber-500/20 pointer-events-none hidden lg:block">
+    <Sparkles className="w-16 h-16 stroke-[1.5]" />
+  </motion.div>
+  <motion.div custom={{ y: [0, 25, 0], x: [0, -20, 0], duration: 9 }} variants={floatAnimation} initial="initial" animate="animate" className="absolute bottom-20 left-[6%] text-blue-400/20 pointer-events-none hidden lg:block">
+    <Layers3 className="w-16 h-16 stroke-[1.2]" />
+  </motion.div>
 
-        <div className="text-center md:text-left mb-10 relative z-10">
-          <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-amber-400 bg-amber-400/10 px-3 py-1.5 rounded-full border border-amber-400/20">
-            Institutional Value
-          </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-3 tracking-tight text-white">
-            Why Choose KIDS?
-          </h2>
+  <div className="text-center md:text-left mb-10 relative z-10">
+    <span className="text-[10px] sm:text-xs font-black uppercase tracking-[0.18em] text-amber-400 bg-amber-400/10 px-3 py-1.5 rounded-full border border-amber-400/20">
+      Institutional Value
+    </span>
+    <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-3 tracking-tight text-white">
+      Why Choose KIDS?
+    </h2>
+  </div>
+
+  <motion.div 
+    variants={containerVariants}
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true, margin: "-50px" }}
+    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10"
+  >
+    {/* Card 1 */}
+    <motion.div variants={itemVariants} whileHover={{ y: -6 }} className="group relative rounded-[2rem] p-6 sm:p-8 border border-blue-500/20 bg-[#0A1428] shadow-xl flex flex-col h-full">
+      <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-blue-500 via-amber-400 to-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+      <div className="flex items-center gap-4 mb-6">
+        <div className="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-900/50 flex items-center justify-center shrink-0">
+          <Cpu className="w-5 h-5" />
         </div>
+        <h3 className="text-lg font-black text-white">Industry Aligned</h3>
+      </div>
+      <ul className="space-y-3">
+        {["Real Microsoft 365 tenants", "Active production tools", "Zero textbook simulations"].map((item, i) => (
+          <li key={i} className="flex items-start gap-2 text-sm font-semibold text-slate-300">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-2 shrink-0" />
+            {item}
+          </li>
+        ))}
+      </ul>
+    </motion.div>
 
-        <motion.div 
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 relative z-10 items-stretch"
-        >
-          {/* Card 1 */}
-          <motion.div 
-            variants={itemVariants}
-            whileHover={{ y: -6 }}
-            className="group relative rounded-[2rem] p-6 sm:p-8 border border-blue-500/20 transition-all duration-300 overflow-hidden bg-[#0A1428] shadow-xl flex flex-col justify-between"
-          >
-            <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-blue-500 via-amber-400 to-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-            <div>
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-900/50 shadow-xs flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
-                  <Cpu className="w-5 h-5" />
-                </div>
-                <h3 className="text-xl font-black text-white">Industry Aligned</h3>
-              </div>
-              <ul className="space-y-3">
-                <li className="flex items-start gap-2 text-sm font-semibold text-slate-300">
-                  <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-2 shrink-0 shadow-xs shadow-blue-500/50" />
-                  Real Microsoft 365 tenants
-                </li>
-                <li className="flex items-start gap-2 text-sm font-semibold text-slate-300">
-                  <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-2 shrink-0 shadow-xs shadow-blue-500/50" />
-                  Active production tools
-                </li>
-                <li className="flex items-start gap-2 text-sm font-semibold text-slate-300">
-                  <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-2 shrink-0 shadow-xs shadow-blue-500/50" />
-                  Zero textbook simulations
-                </li>
-              </ul>
-            </div>
-          </motion.div>
+    {/* Card 2 */}
+    <motion.div variants={itemVariants} whileHover={{ y: -6 }} className="group relative rounded-[2rem] p-6 sm:p-8 border border-amber-500/20 bg-[#0A1428] shadow-xl flex flex-col h-full">
+      <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-amber-400 via-amber-500 to-blue-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+      <div className="flex items-center gap-4 mb-6">
+        <div className="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-900/30 flex items-center justify-center shrink-0">
+          <Award className="w-5 h-5" />
+        </div>
+        <h3 className="text-lg font-black text-white">Global Pathways</h3>
+      </div>
+      <ul className="space-y-3">
+        {["Official Microsoft tracks", "Cambridge English framework", "Worldwide career validity"].map((item, i) => (
+          <li key={i} className="flex items-start gap-2 text-sm font-semibold text-slate-300">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 shrink-0" />
+            {item}
+          </li>
+        ))}
+      </ul>
+    </motion.div>
 
-          {/* Card 2 */}
-          <motion.div 
-            variants={itemVariants}
-            whileHover={{ y: -6 }}
-            className="group relative rounded-[2rem] p-6 sm:p-8 border border-amber-500/20 transition-all duration-300 overflow-hidden bg-[#0A1428] shadow-xl flex flex-col justify-between"
-          >
-            <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-amber-400 via-amber-500 to-blue-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-            <div>
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-900/30 shadow-xs flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
-                  <Award className="w-5 h-5" />
-                </div>
-                <h3 className="text-xl font-black text-white">Global Pathways</h3>
-              </div>
-              <ul className="space-y-3">
-                <li className="flex items-start gap-2 text-sm font-semibold text-slate-300">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 shrink-0 shadow-xs shadow-amber-500/50" />
-                  Official Microsoft tracks
-                </li>
-                <li className="flex items-start gap-2 text-sm font-semibold text-slate-300">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 shrink-0 shadow-xs shadow-amber-500/50" />
-                  Cambridge English framework
-                </li>
-                <li className="flex items-start gap-2 text-sm font-semibold text-slate-300">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 shrink-0 shadow-xs shadow-amber-500/50" />
-                  Worldwide career validity
-                </li>
-              </ul>
-            </div>
-          </motion.div>
+    {/* Card 3 */}
+    <motion.div variants={itemVariants} whileHover={{ y: -6 }} className="group relative rounded-[2rem] p-6 sm:p-8 border border-blue-500/20 bg-[#0A1428] shadow-xl flex flex-col h-full">
+      <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-blue-500 via-cyan-500 to-amber-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+      <div className="flex items-center gap-4 mb-6">
+        <div className="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-900/50 flex items-center justify-center shrink-0">
+          <Laptop className="w-5 h-5" />
+        </div>
+        <h3 className="text-lg font-black text-white">Practical Focus</h3>
+      </div>
+      <ul className="space-y-3">
+        {["100% Live lab architecture", "Real deployment scenarios", "Execution-based outcomes"].map((item, i) => (
+          <li key={i} className="flex items-start gap-2 text-sm font-semibold text-slate-300">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-2 shrink-0" />
+            {item}
+          </li>
+        ))}
+      </ul>
+    </motion.div>
 
-          {/* Card 3 */}
-          <motion.div 
-            variants={itemVariants}
-            whileHover={{ y: -6 }}
-            className="group relative rounded-[2rem] p-6 sm:p-8 border border-blue-500/20 transition-all duration-300 overflow-hidden bg-[#0A1428] shadow-xl flex flex-col justify-between"
-          >
-            <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-blue-500 via-cyan-500 to-amber-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-            <div>
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-900/50 shadow-xs flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
-                  <Laptop className="w-5 h-5" />
-                </div>
-                <h3 className="text-xl font-black text-white">Practical Focus</h3>
-              </div>
-              <ul className="space-y-3">
-                <li className="flex items-start gap-2 text-sm font-semibold text-slate-300">
-                  <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-2 shrink-0 shadow-xs shadow-blue-500/50" />
-                  100% Live lab architecture
-                </li>
-                <li className="flex items-start gap-2 text-sm font-semibold text-slate-300">
-                  <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-2 shrink-0 shadow-xs shadow-blue-500/50" />
-                  Real deployment scenarios
-                </li>
-                <li className="flex items-start gap-2 text-sm font-semibold text-slate-300">
-                  <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-2 shrink-0 shadow-xs shadow-blue-500/50" />
-                  Execution-based outcomes
-                </li>
-              </ul>
-            </div>
-          </motion.div>
-
-          {/* Card 4 */}
-          <motion.div 
-            variants={itemVariants}
-            whileHover={{ y: -6 }}
-            className="group relative rounded-[2rem] p-6 sm:p-8 border border-amber-500/20 transition-all duration-300 overflow-hidden bg-[#0A1428] shadow-xl flex flex-col justify-between sm:col-span-2 md:col-span-3 lg:col-span-1"
-          >
-            <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-amber-400 via-orange-500 to-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-            <div>
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-900/30 shadow-xs flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
-                  <Briefcase className="w-5 h-5" />
-                </div>
-                <h3 className="text-xl font-black text-white">Career Blueprint</h3>
-              </div>
-              <ul className="space-y-3 grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-3 sm:space-y-0 lg:space-y-3">
-                <li className="flex items-start gap-2 text-sm font-semibold text-slate-300">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 shrink-0 shadow-xs shadow-amber-500/50" />
-                  Seamless corporate transition
-                </li>
-                <li className="flex items-start gap-2 text-sm font-semibold text-slate-300">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 shrink-0 shadow-xs shadow-amber-500/50" />
-                  Workplace readiness focus
-                </li>
-                <li className="flex items-start gap-2 text-sm font-semibold text-slate-300">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 shrink-0 shadow-xs shadow-amber-500/50" />
-                  Higher education scaling
-                </li>
-              </ul>
-            </div>
-          </motion.div>
-        </motion.div>
-      </section>
+    {/* Card 4 */}
+    <motion.div variants={itemVariants} whileHover={{ y: -6 }} className="group relative rounded-[2rem] p-6 sm:p-8 border border-amber-500/20 bg-[#0A1428] shadow-xl flex flex-col h-full">
+      <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-amber-400 via-orange-500 to-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+      <div className="flex items-center gap-4 mb-6">
+        <div className="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-900/30 flex items-center justify-center shrink-0">
+          <Briefcase className="w-5 h-5" />
+        </div>
+        <h3 className="text-lg font-black text-white">Career Blueprint</h3>
+      </div>
+      <ul className="space-y-3">
+        {["Seamless corporate transition", "Workplace readiness focus", "Higher education scaling"].map((item, i) => (
+          <li key={i} className="flex items-start gap-2 text-sm font-semibold text-slate-300">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 shrink-0" />
+            {item}
+          </li>
+        ))}
+      </ul>
+    </motion.div>
+  </motion.div>
+</section>
 
       {/* ── TIMELINE CONTAINER LINK ── */}
       <div className="relative overflow-hidden bg-transparent rounded-[3rem]">
@@ -689,16 +641,16 @@ export default function HomePage() {
               <p className="text-sm sm:text-base text-slate-400 leading-relaxed max-w-xl mx-auto lg:mx-0">
                 Real outcomes from verified learning matrices. See how localized professionals scale up across infrastructure and language benchmarks.
               </p>
-              <div className="flex items-center justify-center lg:justify-start gap-4 mt-6">
-                <div className="flex -space-x-3">
-                  {[...Array(3)].map((_, i) => (
-                    <div key={i} className="w-9 h-9 rounded-full border-2 border-black bg-blue-950 flex items-center justify-center text-[10px] font-black text-amber-400">
-                      {String.fromCharCode(65 + i)}
-                    </div>
-                  ))}
-                </div>
-                <span className="text-xs font-bold text-slate-400">Trusted by over 1,200+ graduates</span>
-              </div>
+                  <div className="flex items-center justify-center lg:justify-start gap-4 mt-6">
+      <div className="flex -space-x-3">
+        {['U', 'N', 'B'].map((letter, i) => (
+          <div key={i} className="w-9 h-9 rounded-full border-2 border-black bg-blue-950 flex items-center justify-center text-[10px] font-black text-amber-400">
+            {letter}
+          </div>
+        ))}
+      </div>
+      <span className="text-xs font-bold text-slate-400">Trusted by over 1,200+ graduates</span>
+    </div>
             </div>
 
             {/* Completely Revamped Dynamic Review Trigger Component */}

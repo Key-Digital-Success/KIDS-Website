@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import {
   ArrowUpRight,
-  ShieldCheck,
   Globe,
   ImageIcon,
   MonitorSmartphone,
@@ -32,7 +31,6 @@ const floatingIcons = [
   },
   {
     icon: Globe,
-    // 🛠️ Fixed: Changed lg:left-16 to lg:right-16 to keep it on the right side
     className: "bottom-16 right-4 md:right-6 lg:right-16 xl:right-24",
     outer: "bg-rose-950/20 border-rose-500/30",
     inner: "text-rose-400",
@@ -44,32 +42,21 @@ export default function HeroSection() {
     <section
       className="
         relative overflow-hidden
-        /* 🛠️ Aggressive space reduction: Very tight padding for mobile and tabs */
         pt-8 pb-12 sm:pt-12 sm:pb-16 md:pt-16 md:pb-20 lg:pt-24 lg:pb-24
         flex flex-col items-center justify-center
-        /* 🛠️ Removed structural screen-forcing constraints to pull content upward naturally */
         min-h-0 lg:min-h-screen
         bg-gradient-to-b from-[#02040a] via-[#030712] to-[#02040a] 
         text-white
       "
     >
-      {/* GRID BACKGROUND */}
-      <div className="absolute inset-0 opacity-[0.12] pointer-events-none">
-        <div
-          className="h-full w-full"
-          style={{
-            backgroundImage: `linear-gradient(to right, rgba(56,189,248,0.15) 1px, transparent 1px),
-                              linear-gradient(to bottom, rgba(56,189,248,0.15) 1px, transparent 1px)`,
-            backgroundSize: "55px 55px",
-          }}
-        />
-      </div>
+      {/* GRID BACKGROUND - Replaced inline style with optimized Tailwind CSS rules */}
+      <div 
+        className="absolute inset-0 opacity-[0.12] pointer-events-none bg-[linear-gradient(to_right,rgba(56,189,248,0.15)_1px,transparent_1px),linear-gradient(to_bottom,rgba(56,189,248,0.15)_1px,transparent_1px)] bg-[size:55px_55px]" 
+      />
 
-      {/* TOP CENTER GLOW */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[500px] rounded-full bg-cyan-500/5 blur-3xl pointer-events-none" />
-
-      {/* RIGHT SIDE GLOW */}
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-violet-500/5 blur-3xl pointer-events-none" />
+      {/* GLOW EFFECTS - Added will-change-transform to trigger GPU acceleration */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[500px] rounded-full bg-cyan-500/5 blur-3xl pointer-events-none will-change-transform" />
+      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-violet-500/5 blur-3xl pointer-events-none will-change-transform" />
 
       {/* FLOATING SMALL DOTS */}
       <div className="absolute top-8 left-[10%] w-4 h-4 rounded-full bg-violet-500/20 hidden sm:block" />
@@ -92,7 +79,8 @@ export default function HeroSection() {
               repeatType: "reverse",
               ease: "easeInOut",
             }}
-            className={`absolute hidden md:block z-20 ${item.className}`}
+            // Added transform-gpu to offload the animation handling from CPU to GPU
+            className={`absolute hidden md:block z-20 transform-gpu ${item.className}`}
           >
             {/* OUTER GLOW */}
             <div className="absolute inset-0 scale-125 rounded-full blur-2xl bg-white/[0.02]" />
@@ -108,10 +96,7 @@ export default function HeroSection() {
                 ${item.outer}
               `}
             >
-              {/* INNER RING */}
               <div className="absolute inset-2 lg:inset-3 rounded-full border border-white/[0.05]" />
-
-              {/* ICON */}
               <Icon
                 className={`w-8 h-8 lg:w-12 lg:h-12 xl:w-14 xl:h-14 ${item.inner}`}
                 strokeWidth={1.8}
@@ -127,9 +112,9 @@ export default function HeroSection() {
         {/* TITLE WITH ACCENT UNDERLINE */}
         <div className="relative mb-4 sm:mb-6 w-full">
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }} // Reduced from 20 to prevent excessive layout micro-shifts
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
+            transition={{ duration: 0.5, delay: 0.05 }} // Snappier execution timings
             className="
               text-4xl sm:text-5xl md:text-5xl lg:text-6xl
               font-extrabold tracking-tight
@@ -138,15 +123,15 @@ export default function HeroSection() {
               bg-gradient-to-b from-white via-slate-200 to-slate-500
             "
           >
-            Build Future-Ready Skills with Microsoft 365 & Cambridge
+            Build Future-Ready Skills with <span className="bg-gradient-to-r from-blue-500 via-amber-400 to-blue-600 bg-clip-text text-transparent">Microsoft 365 & Cambridge</span>
           </motion.h1>
 
           {/* YELLOW UNDERLINE */}
           <motion.svg
             initial={{ opacity: 0, scaleX: 0 }}
             animate={{ opacity: 1, scaleX: 1 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="mx-auto mt-4 w-[260px] sm:w-[380px] md:w-[460px] lg:w-[520px]"
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mx-auto mt-4 w-[260px] sm:w-[380px] md:w-[460px] lg:w-[520px] origin-center"
             viewBox="0 0 420 30"
             fill="none"
           >
@@ -161,9 +146,9 @@ export default function HeroSection() {
 
         {/* DESCRIPTION */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
           className="
             text-base sm:text-lg md:text-xl
             max-w-2xl mx-auto
@@ -177,9 +162,9 @@ export default function HeroSection() {
 
         {/* BUTTONS */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.3 }}
+          transition={{ duration: 0.5, delay: 0.15 }}
           className="
             flex flex-col sm:flex-row
             items-center justify-center
